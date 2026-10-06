@@ -145,7 +145,11 @@ export default function ComponentShowcase({ initialGroup = 'atoms' }) {
     return group?.items?.[0]?.[0] || 'avatar';
   };
 
-  const [activeDoc, setActiveDoc] = useState(() => resolveInitialDoc(initialGroup));
+  const [activeDoc, setActiveDoc] = useState(() => {
+    const saved = localStorage.getItem('forge-ui-active-doc');
+    if (saved && groups.some((group) => group.items.some(([id]) => id === saved))) return saved;
+    return resolveInitialDoc(initialGroup);
+  });
   const [toggleVal, setToggleVal] = useState(true);
   const [checkVal, setCheckVal] = useState(true);
   const [radioVal, setRadioVal] = useState('opcao1');
@@ -191,8 +195,14 @@ export default function ComponentShowcase({ initialGroup = 'atoms' }) {
   const [floatingBlur, setFloatingBlur] = useState(10);
 
   useEffect(() => {
-    setActiveDoc(resolveInitialDoc(initialGroup));
+    const group = groups.find((item) => item.title.toLowerCase() === String(initialGroup || 'atoms').toLowerCase());
+    const belongsToGroup = group?.items?.some(([id]) => id === activeDoc);
+    if (!belongsToGroup) setActiveDoc(resolveInitialDoc(initialGroup));
   }, [initialGroup]);
+
+  useEffect(() => {
+    localStorage.setItem('forge-ui-active-doc', activeDoc);
+  }, [activeDoc]);
 
   useEffect(() => {
     document.querySelector('.showcase-content')?.scrollTo({ top: 0, behavior: 'smooth' });
