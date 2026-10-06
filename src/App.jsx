@@ -4,6 +4,7 @@ import ComponentShowcase from './views/ComponentShowcase';
 import About from './views/About';
 import ForgeLegacy from './views/ForgeLegacy';
 import XtPrisonDocs from './views/XtPrisonDocs';
+import PrElevatorDocs from './views/PrElevatorDocs';
 import forgeLogo from './assets/forge_legacy_logo.png';
 import { AutoTranslate, LanguageProvider, LANGUAGES, useI18n } from './i18n';
 import './docs.css';
@@ -73,7 +74,7 @@ function ForgeDocs() {
   }, [activeUiGroup]);
 
   const isUiMenuOpen = currentSection === 'uikit' || uiMenuOpen;
-  const isLegacyMenuOpen = currentSection === 'legacy' || currentSection === 'xt-prison' || legacyMenuOpen;
+  const isLegacyMenuOpen = currentSection === 'legacy' || currentSection === 'xt-prison' || currentSection === 'pr-elevator' || legacyMenuOpen;
 
   const groups = [
     { id: 'atoms', label: 'Atoms', description: t('fundamentals') },
@@ -125,9 +126,9 @@ function ForgeDocs() {
               <li>
                 <button
                   type="button"
-                  className={`showcase-menu-item docs-menu-button ${currentSection === 'legacy' || currentSection === 'xt-prison' ? 'active' : ''}`}
+                  className={`showcase-menu-item docs-menu-button ${currentSection === 'legacy' || currentSection === 'xt-prison' || currentSection === 'pr-elevator' ? 'active' : ''}`}
                   onClick={() => {
-                    if (currentSection === 'legacy' || currentSection === 'xt-prison') return;
+                    if (currentSection === 'legacy' || currentSection === 'xt-prison' || currentSection === 'pr-elevator') return;
                     setLegacyMenuOpen((value) => !value);
                   }}
                   aria-expanded={isLegacyMenuOpen}
@@ -154,6 +155,14 @@ function ForgeDocs() {
                     >
                       <span>xt-prison</span>
                       <small>{t('xtNavDescription')}</small>
+                    </button>
+                    <button
+                      type="button"
+                      className={`docs-submenu-item ${currentSection === 'pr-elevator' ? 'active' : ''}`}
+                      onClick={() => setCurrentSection('pr-elevator')}
+                    >
+                      <span>pr_elevator</span>
+                      <small>{t('elevatorNavDescription')}</small>
                     </button>
                   </div>
                 )}
@@ -212,8 +221,9 @@ function ForgeDocs() {
 
         <main className="showcase-content docs-content">
           {currentSection === 'home' && <About onOpenUIKit={() => openUIKit('atoms')} />}
-          {currentSection === 'legacy' && <ForgeLegacy onOpenXtPrison={() => setCurrentSection('xt-prison')} />}
+          {currentSection === 'legacy' && <ForgeLegacy onOpenXtPrison={() => setCurrentSection('xt-prison')} onOpenPrElevator={() => setCurrentSection('pr-elevator')} />}
           {currentSection === 'xt-prison' && <XtPrisonDocs />}
+          {currentSection === 'pr-elevator' && <PrElevatorDocs />}
           {currentSection === 'uikit' && (
             <>
               <div className="docs-uikit-context">
