@@ -138,8 +138,14 @@ function Swatch({ color }) {
   return <div style={{ width: 34, height: 34, borderRadius: 8, background: color, border: '1px solid var(--space-border-color)' }} />;
 }
 
-export default function ComponentShowcase() {
-  const [activeDoc, setActiveDoc] = useState('avatar');
+export default function ComponentShowcase({ initialGroup = 'atoms' }) {
+  const resolveInitialDoc = (groupId) => {
+    const normalized = String(groupId || 'atoms').toLowerCase();
+    const group = groups.find((item) => item.title.toLowerCase() === normalized);
+    return group?.items?.[0]?.[0] || 'avatar';
+  };
+
+  const [activeDoc, setActiveDoc] = useState(() => resolveInitialDoc(initialGroup));
   const [toggleVal, setToggleVal] = useState(true);
   const [checkVal, setCheckVal] = useState(true);
   const [radioVal, setRadioVal] = useState('opcao1');
@@ -183,6 +189,10 @@ export default function ComponentShowcase() {
   const [contextAccent, setContextAccent] = useState('#FF7A1A');
   const [floatingOpacity, setFloatingOpacity] = useState(0.86);
   const [floatingBlur, setFloatingBlur] = useState(10);
+
+  useEffect(() => {
+    setActiveDoc(resolveInitialDoc(initialGroup));
+  }, [initialGroup]);
 
   useEffect(() => {
     document.querySelector('.showcase-content')?.scrollTo({ top: 0, behavior: 'smooth' });
