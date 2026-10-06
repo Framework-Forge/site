@@ -558,9 +558,28 @@ const runtimePatterns = [
 
 const langIndex = { en: 0, 'pt-BR': 1, es: 2, fr: 3 };
 
+const translationReverseLookup = new Map();
+
+function registerReverseTranslations(source) {
+  Object.entries(source).forEach(([key, values]) => {
+    translationReverseLookup.set(key, key);
+    values.forEach((value) => {
+      if (typeof value === 'string' && value) translationReverseLookup.set(value, key);
+    });
+  });
+}
+
+registerReverseTranslations(uiText);
+registerReverseTranslations(uiTextRuntime);
+
+function getCanonicalTranslationKey(value) {
+  return translationReverseLookup.get(value) || value;
+}
+
 function translateLegacyText(value, locale) {
   const index = langIndex[locale] ?? 0;
-  const row = uiText[value] || uiTextRuntime[value];
+  const canonicalValue = getCanonicalTranslationKey(value);
+  const row = uiText[canonicalValue] || uiTextRuntime[canonicalValue];
   if (row) return row[index];
 
   for (const pattern of runtimePatterns) {
@@ -572,16 +591,12 @@ function translateLegacyText(value, locale) {
       return renderer(match);
     }
 
-    // Calendar header: translate the month while preserving the year.
     const translatedMonth = (uiTextRuntime[match[1]] || uiText[match[1]])?.[index] || match[1];
     return `${translatedMonth} ${match[2]}`;
   }
 
   return value;
 }
-
-const originalTexts = new WeakMap();
-const originalAttrs = new WeakMap();
 
 function shouldSkip(node) {
   const el = node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement;
@@ -590,27 +605,24 @@ function shouldSkip(node) {
 
 function translateTextNode(node, locale) {
   if (shouldSkip(node)) return;
-  if (!originalTexts.has(node)) originalTexts.set(node, node.nodeValue);
-  const original = originalTexts.get(node);
-  const trimmed = original.trim();
+  const current = node.nodeValue;
+  const trimmed = current.trim();
   if (!trimmed) return;
   const translated = translateLegacyText(trimmed, locale);
-  const leading = original.match(/^\s*/)?.[0] || '';
-  const trailing = original.match(/\s*$/)?.[0] || '';
+  const leading = current.match(/^\s*/)?.[0] || '';
+  const trailing = current.match(/\s*$/)?.[0] || '';
   const nextValue = leading + translated + trailing;
-  if (node.nodeValue !== nextValue) node.nodeValue = nextValue;
+  if (current !== nextValue) node.nodeValue = nextValue;
 }
 
 function translateElementAttrs(el, locale) {
   if (shouldSkip(el)) return;
   const attrs = ['placeholder', 'title', 'aria-label'];
-  if (!originalAttrs.has(el)) originalAttrs.set(el, {});
-  const stored = originalAttrs.get(el);
   attrs.forEach((name) => {
     if (!el.hasAttribute(name)) return;
-    if (!(name in stored)) stored[name] = el.getAttribute(name);
-    const translated = translateLegacyText(stored[name], locale);
-    if (el.getAttribute(name) !== translated) el.setAttribute(name, translated);
+    const current = el.getAttribute(name);
+    const translated = translateLegacyText(current, locale);
+    if (current !== translated) el.setAttribute(name, translated);
   });
 }
 
