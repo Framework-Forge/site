@@ -1,0 +1,306 @@
+import { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
+
+const LanguageContext = createContext(null);
+
+export const LANGUAGES = [
+  { code: 'en', label: 'EN', name: 'English' },
+  { code: 'pt-BR', label: 'PT', name: 'Português (BR)' },
+  { code: 'es', label: 'ES', name: 'Español' },
+  { code: 'fr', label: 'FR', name: 'Français' },
+];
+
+const copy = {
+  en: {
+    intro: 'Introduction', about: 'About the project', reference: 'Reference',
+    fundamentals: 'Fundamental elements', reusable: 'Reusable compositions',
+    gameplay: 'Gameplay interfaces', complete: 'Complete interface blocks',
+    openSource: 'Open Source', brazilWorld: 'Built in Brazil for the world',
+    footer: 'Forge Project • Open ecosystem', reusableKit: 'Reusable Forge ecosystem components, organized by category.',
+    heroEyebrow: 'Open source • Built in Brazil', heroTitleA: 'Forge', heroTitleB: 'Project',
+    heroLead: 'An open-source framework team building a modern, scalable and well-documented ecosystem for the Rockstar modding community — from today’s platforms to the next generation.',
+    explore: 'Explore the UI Kit', github: 'Forge on GitHub', heroCaption: 'Brazilian engineering. Global ambition.',
+    whoLabel: 'Who we are', whoTitle: 'A Brazilian team building in public.',
+    whoP1: 'Forge is an independent open-source engineering team focused on raising the technical standard of the FiveM ecosystem through clear architecture, reusable tooling and long-term maintainability.',
+    whoP2: 'Our goal is to build technology that starts in Brazil and can be adopted, audited and improved by developers anywhere in the world.',
+    visionLabel: 'Our vision', visionTitle: 'One ecosystem, multiple generations.',
+    legacyTitle: 'Legacy', legacyDesc: 'A stable and mature foundation for today’s FiveM servers and resources.',
+    enhancedTitle: 'Enhanced', enhancedDesc: 'A forward-looking architecture prepared for GTA V Enhanced and its evolving ecosystem.',
+    sixmTitle: 'SixM', sixmDesc: 'A long-term path for the next generation, when the platform and community are ready.',
+    objectiveLabel: 'Our objective', objectiveTitle: 'Become a Brazilian open-source reference at global scale.',
+    clarity: 'Clarity', clarityD: 'Predictable APIs, direct documentation and a structure developers can understand quickly.',
+    performance: 'Performance', performanceD: 'Low overhead, deliberate networking and systems designed for real server workloads.',
+    modularity: 'Modularity', modularityD: 'Use only what your project needs and replace parts without breaking the whole stack.',
+    extensibility: 'Extensibility', extensibilityD: 'Build new systems on top of the framework without constantly modifying the core.',
+    compatibility: 'Compatibility', compatibilityD: 'Integrate with the tools and resources already used across the wider ecosystem.',
+    community: 'Community', communityD: 'Open development, review, contribution and shared technical knowledge.',
+    nextLabel: 'Forge ecosystem', nextTitle: 'Made to evolve with the community.',
+    nextDesc: 'The documentation will grow with installation guides, architecture, modules, APIs, events, exports, developer tooling, migration paths and platform-specific references.',
+    legal: 'Forge is an independent community project and is not affiliated with Rockstar Games or Cfx.re.',
+  },
+  'pt-BR': {
+    intro: 'Introdução', about: 'Sobre o projeto', reference: 'Referência',
+    fundamentals: 'Elementos fundamentais', reusable: 'Composições reutilizáveis',
+    gameplay: 'Interfaces para gameplay', complete: 'Blocos completos de interface',
+    openSource: 'Open Source', brazilWorld: 'Feito no Brasil para o mundo',
+    footer: 'Forge Project • Ecossistema aberto', reusableKit: 'Componentes reutilizáveis do ecossistema Forge, organizados por categoria.',
+    heroEyebrow: 'Open source • Feito no Brasil', heroTitleA: 'Forge', heroTitleB: 'Project',
+    heroLead: 'Uma equipe open source construindo um ecossistema moderno, escalável e bem documentado para a comunidade de modding da Rockstar — das plataformas atuais à próxima geração.',
+    explore: 'Explorar o UI Kit', github: 'Forge no GitHub', heroCaption: 'Engenharia brasileira. Ambição global.',
+    whoLabel: 'Quem somos', whoTitle: 'Uma equipe brasileira construindo em público.',
+    whoP1: 'A Forge é uma equipe independente de engenharia open source focada em elevar o padrão técnico do ecossistema FiveM com arquitetura clara, ferramentas reutilizáveis e manutenção de longo prazo.',
+    whoP2: 'Nosso objetivo é construir tecnologia que nasce no Brasil e pode ser adotada, auditada e aprimorada por desenvolvedores de qualquer lugar do mundo.',
+    visionLabel: 'Nossa visão', visionTitle: 'Um ecossistema, múltiplas gerações.',
+    legacyTitle: 'Legacy', legacyDesc: 'Uma base estável e madura para os servidores e recursos FiveM de hoje.',
+    enhancedTitle: 'Enhanced', enhancedDesc: 'Uma arquitetura preparada para GTA V Enhanced e para a evolução do seu ecossistema.',
+    sixmTitle: 'SixM', sixmDesc: 'Um caminho de longo prazo para a próxima geração, quando a plataforma e a comunidade estiverem prontas.',
+    objectiveLabel: 'Nosso objetivo', objectiveTitle: 'Ser uma referência brasileira open source em escala global.',
+    clarity: 'Clareza', clarityD: 'APIs previsíveis, documentação direta e uma estrutura que o desenvolvedor entende rapidamente.',
+    performance: 'Performance', performanceD: 'Baixo overhead, rede planejada e sistemas desenhados para cargas reais de servidor.',
+    modularity: 'Modularidade', modularityD: 'Use apenas o que seu projeto precisa e substitua partes sem quebrar todo o ecossistema.',
+    extensibility: 'Extensibilidade', extensibilityD: 'Crie novos sistemas sobre a framework sem precisar modificar o core o tempo todo.',
+    compatibility: 'Compatibilidade', compatibilityD: 'Integre com as ferramentas e recursos já usados pelo ecossistema.',
+    community: 'Comunidade', communityD: 'Desenvolvimento aberto, revisão, contribuição e conhecimento técnico compartilhado.',
+    nextLabel: 'Ecossistema Forge', nextTitle: 'Feito para evoluir com a comunidade.',
+    nextDesc: 'A documentação crescerá com guias de instalação, arquitetura, módulos, APIs, eventos, exports, ferramentas de desenvolvimento, migração e referências específicas por plataforma.',
+    legal: 'Forge é um projeto comunitário independente e não possui afiliação com Rockstar Games ou Cfx.re.',
+  },
+  es: {
+    intro: 'Introducción', about: 'Sobre el proyecto', reference: 'Referencia',
+    fundamentals: 'Elementos fundamentales', reusable: 'Composiciones reutilizables',
+    gameplay: 'Interfaces de gameplay', complete: 'Bloques completos de interfaz',
+    openSource: 'Open Source', brazilWorld: 'Hecho en Brasil para el mundo',
+    footer: 'Forge Project • Ecosistema abierto', reusableKit: 'Componentes reutilizables del ecosistema Forge, organizados por categoría.',
+    heroEyebrow: 'Open source • Hecho en Brasil', heroTitleA: 'Forge', heroTitleB: 'Project',
+    heroLead: 'Un equipo open source que construye un ecosistema moderno, escalable y bien documentado para la comunidad de modding de Rockstar, desde las plataformas actuales hasta la próxima generación.',
+    explore: 'Explorar el UI Kit', github: 'Forge en GitHub', heroCaption: 'Ingeniería brasileña. Ambición global.',
+    whoLabel: 'Quiénes somos', whoTitle: 'Un equipo brasileño construyendo en público.',
+    whoP1: 'Forge es un equipo independiente de ingeniería open source enfocado en elevar el nivel técnico del ecosistema FiveM mediante arquitectura clara, herramientas reutilizables y mantenimiento a largo plazo.',
+    whoP2: 'Nuestro objetivo es crear tecnología que nace en Brasil y puede ser adoptada, auditada y mejorada por desarrolladores de todo el mundo.',
+    visionLabel: 'Nuestra visión', visionTitle: 'Un ecosistema, múltiples generaciones.',
+    legacyTitle: 'Legacy', legacyDesc: 'Una base estable y madura para los servidores y recursos FiveM actuales.',
+    enhancedTitle: 'Enhanced', enhancedDesc: 'Una arquitectura preparada para GTA V Enhanced y la evolución de su ecosistema.',
+    sixmTitle: 'SixM', sixmDesc: 'Un camino a largo plazo para la próxima generación cuando la plataforma y la comunidad estén listas.',
+    objectiveLabel: 'Nuestro objetivo', objectiveTitle: 'Ser una referencia brasileña open source a escala global.',
+    clarity: 'Claridad', clarityD: 'APIs previsibles, documentación directa y una estructura fácil de comprender.',
+    performance: 'Rendimiento', performanceD: 'Bajo overhead, red planificada y sistemas diseñados para cargas reales.',
+    modularity: 'Modularidad', modularityD: 'Usa solo lo que tu proyecto necesita y sustituye partes sin romper todo el ecosistema.',
+    extensibility: 'Extensibilidad', extensibilityD: 'Construye nuevos sistemas sobre la framework sin modificar constantemente el core.',
+    compatibility: 'Compatibilidad', compatibilityD: 'Integra herramientas y recursos que ya se usan en el ecosistema.',
+    community: 'Comunidad', communityD: 'Desarrollo abierto, revisión, contribución y conocimiento técnico compartido.',
+    nextLabel: 'Ecosistema Forge', nextTitle: 'Hecho para evolucionar con la comunidad.',
+    nextDesc: 'La documentación crecerá con instalación, arquitectura, módulos, APIs, eventos, exports, herramientas de desarrollo, migración y referencias específicas por plataforma.',
+    legal: 'Forge es un proyecto comunitario independiente y no está afiliado con Rockstar Games ni Cfx.re.',
+  },
+  fr: {
+    intro: 'Introduction', about: 'À propos du projet', reference: 'Référence',
+    fundamentals: 'Éléments fondamentaux', reusable: 'Compositions réutilisables',
+    gameplay: 'Interfaces de gameplay', complete: 'Blocs d’interface complets',
+    openSource: 'Open Source', brazilWorld: 'Conçu au Brésil pour le monde',
+    footer: 'Forge Project • Écosystème ouvert', reusableKit: 'Composants réutilisables de l’écosystème Forge, organisés par catégorie.',
+    heroEyebrow: 'Open source • Conçu au Brésil', heroTitleA: 'Forge', heroTitleB: 'Project',
+    heroLead: 'Une équipe open source qui construit un écosystème moderne, évolutif et bien documenté pour la communauté de modding Rockstar, des plateformes actuelles à la prochaine génération.',
+    explore: 'Explorer le UI Kit', github: 'Forge sur GitHub', heroCaption: 'Ingénierie brésilienne. Ambition mondiale.',
+    whoLabel: 'Qui sommes-nous', whoTitle: 'Une équipe brésilienne qui construit publiquement.',
+    whoP1: 'Forge est une équipe indépendante d’ingénierie open source qui vise à élever le niveau technique de l’écosystème FiveM grâce à une architecture claire, des outils réutilisables et une maintenance durable.',
+    whoP2: 'Notre objectif est de créer une technologie née au Brésil, adoptable, auditable et améliorable par des développeurs du monde entier.',
+    visionLabel: 'Notre vision', visionTitle: 'Un écosystème, plusieurs générations.',
+    legacyTitle: 'Legacy', legacyDesc: 'Une base stable et mature pour les serveurs et ressources FiveM actuels.',
+    enhancedTitle: 'Enhanced', enhancedDesc: 'Une architecture tournée vers GTA V Enhanced et l’évolution de son écosystème.',
+    sixmTitle: 'SixM', sixmDesc: 'Une trajectoire à long terme pour la prochaine génération lorsque la plateforme et la communauté seront prêtes.',
+    objectiveLabel: 'Notre objectif', objectiveTitle: 'Devenir une référence open source brésilienne à l’échelle mondiale.',
+    clarity: 'Clarté', clarityD: 'Des API prévisibles, une documentation directe et une structure facile à comprendre.',
+    performance: 'Performance', performanceD: 'Peu de surcharge, un réseau maîtrisé et des systèmes conçus pour des charges réelles.',
+    modularity: 'Modularité', modularityD: 'N’utilisez que ce dont votre projet a besoin et remplacez des parties sans casser l’ensemble.',
+    extensibility: 'Extensibilité', extensibilityD: 'Construisez de nouveaux systèmes sans modifier constamment le core.',
+    compatibility: 'Compatibilité', compatibilityD: 'Intégrez les outils et ressources déjà utilisés dans l’écosystème.',
+    community: 'Communauté', communityD: 'Développement ouvert, revue, contribution et partage des connaissances techniques.',
+    nextLabel: 'Écosystème Forge', nextTitle: 'Conçu pour évoluer avec la communauté.',
+    nextDesc: 'La documentation s’enrichira avec l’installation, l’architecture, les modules, API, événements, exports, outils de développement, migrations et références propres à chaque plateforme.',
+    legal: 'Forge est un projet communautaire indépendant et n’est affilié ni à Rockstar Games ni à Cfx.re.',
+  },
+};
+
+const uiText = {
+  'Icones': ['Icons','Ícones','Iconos','Icônes'],
+  'Novos Forms': ['Advanced Forms','Novos Forms','Formularios avanzados','Formulaires avancés'],
+  'Novos Feedback': ['Advanced Feedback','Novos Feedback','Feedback avanzado','Feedback avancé'],
+  'Acoes': ['Actions','Ações','Acciones','Actions'],
+  'Imagem de usuario, fallback por iniciais, status e grupos sobrepostos para listas de equipe.': ['User image, initials fallback, status and overlapping groups for team lists.','Imagem de usuário, fallback por iniciais, status e grupos sobrepostos para listas de equipe.','Imagen de usuario, iniciales de respaldo, estado y grupos superpuestos para listas de equipo.','Image utilisateur, initiales de secours, statut et groupes superposés pour les listes d’équipe.'],
+  'Com imagem': ['With image','Com imagem','Con imagen','Avec image'],
+  'Foto, glow, status e cantos alternativos.': ['Photo, glow, status and alternate corners.','Foto, glow, status e cantos alternativos.','Foto, brillo, estado y esquinas alternativas.','Photo, lueur, statut et coins alternatifs.'],
+  'Fallback por iniciais': ['Initials fallback','Fallback por iniciais','Respaldo por iniciales','Initiales de secours'],
+  'Biblioteca visual para botoes, menus, HUDs e paineis administrativos.': ['Visual library for buttons, menus, HUDs and admin panels.','Biblioteca visual para botões, menus, HUDs e painéis administrativos.','Biblioteca visual para botones, menús, HUDs y paneles administrativos.','Bibliothèque visuelle pour boutons, menus, HUD et panneaux administratifs.'],
+  'Grid principal': ['Main grid','Grid principal','Cuadrícula principal','Grille principale'],
+  'Uso em acoes': ['Use in actions','Uso em ações','Uso en acciones','Utilisation dans les actions'],
+  'Botoes de comando com variantes, tamanhos, loading e icones.': ['Command buttons with variants, sizes, loading states and icons.','Botões de comando com variantes, tamanhos, loading e ícones.','Botones de comando con variantes, tamaños, carga e iconos.','Boutons de commande avec variantes, tailles, chargement et icônes.'],
+  'Variantes': ['Variants','Variantes','Variantes','Variantes'],
+  'Tamanhos e icones': ['Sizes and icons','Tamanhos e ícones','Tamaños e iconos','Tailles et icônes'],
+  'Etiquetas curtas para estados, avisos e metadados.': ['Short labels for states, notices and metadata.','Etiquetas curtas para estados, avisos e metadados.','Etiquetas cortas para estados, avisos y metadatos.','Étiquettes courtes pour états, alertes et métadonnées.'],
+  'Campos de formulario e controles binarios/numericos.': ['Form fields and binary/numeric controls.','Campos de formulário e controles binários/numéricos.','Campos de formulario y controles binarios/numéricos.','Champs de formulaire et contrôles binaires/numériques.'],
+  'Nome': ['Name','Nome','Nombre','Nom'], 'Descricao': ['Description','Descrição','Descripción','Description'],
+  'Ativo': ['Active','Ativo','Activo','Actif'], 'Modulo ativo': ['Module active','Módulo ativo','Módulo activo','Module actif'],
+  'Opcao 1': ['Option 1','Opção 1','Opción 1','Option 1'], 'Opcao 2': ['Option 2','Opção 2','Opción 2','Option 2'],
+  'Intensidade': ['Intensity','Intensidade','Intensidad','Intensité'],
+  'Inputs especializados para formularios de painel, cadastros e fluxos de seguranca.': ['Specialized inputs for dashboards, registration and security flows.','Inputs especializados para formulários de painel, cadastros e fluxos de segurança.','Inputs especializados para paneles, registros y flujos de seguridad.','Champs spécialisés pour tableaux de bord, inscriptions et flux de sécurité.'],
+  'Prioridade': ['Priority','Prioridade','Prioridad','Priorité'], 'Faixa de ping': ['Ping range','Faixa de ping','Rango de ping','Plage de ping'],
+  'Cor do modulo': ['Module color','Cor do módulo','Color del módulo','Couleur du module'],
+  'Enviar imagem do recurso': ['Upload resource image','Enviar imagem do recurso','Subir imagen del recurso','Téléverser l’image de la ressource'],
+  'Codigo de acesso': ['Access code','Código de acesso','Código de acceso','Code d’accès'], 'Telefone': ['Phone','Telefone','Teléfono','Téléphone'],
+  'Loading, progresso, skeleton e texto de interface.': ['Loading, progress, skeleton and interface text.','Loading, progresso, skeleton e texto de interface.','Carga, progreso, skeleton y texto de interfaz.','Chargement, progression, skeleton et texte d’interface.'],
+  'Avisos persistentes, toasts e confirmacoes para fluxos administrativos.': ['Persistent alerts, toasts and confirmations for admin flows.','Avisos persistentes, toasts e confirmações para fluxos administrativos.','Alertas persistentes, toasts y confirmaciones para flujos administrativos.','Alertes persistantes, toasts et confirmations pour les flux administratifs.'],
+  'Salvo': ['Saved','Salvo','Guardado','Enregistré'], 'Configuracao aplicada': ['Configuration applied','Configuração aplicada','Configuración aplicada','Configuration appliquée'],
+  'Fila alta': ['High queue','Fila alta','Cola alta','File d’attente élevée'],
+  'As alteracoes foram aplicadas.': ['Changes were applied.','As alterações foram aplicadas.','Los cambios fueron aplicados.','Les modifications ont été appliquées.'],
+  'Atualizacao disponivel': ['Update available','Atualização disponível','Actualización disponible','Mise à jour disponible'],
+  'Revise os recursos antes de reiniciar o servidor.': ['Review resources before restarting the server.','Revise os recursos antes de reiniciar o servidor.','Revisa los recursos antes de reiniciar el servidor.','Vérifiez les ressources avant de redémarrer le serveur.'],
+  'Jogadores aguardando entrada no servidor.': ['Players waiting to join the server.','Jogadores aguardando entrada no servidor.','Jugadores esperando para entrar al servidor.','Joueurs en attente de connexion au serveur.'],
+  'Instalando': ['Installing','Instalando','Instalando','Installation'], 'Instalando pacote': ['Installing package','Instalando pacote','Instalando paquete','Installation du paquet'],
+  'Reiniciar recurso?': ['Restart resource?','Reiniciar recurso?','¿Reiniciar recurso?','Redémarrer la ressource ?'],
+  'Isso vai recarregar o recurso selecionado para todos os jogadores.': ['This will reload the selected resource for all players.','Isso vai recarregar o recurso selecionado para todos os jogadores.','Esto recargará el recurso seleccionado para todos los jugadores.','Cela rechargera la ressource sélectionnée pour tous les joueurs.'],
+  'Controles compostos para dashboards e NUIs.': ['Composite controls for dashboards and NUIs.','Controles compostos para dashboards e NUIs.','Controles compuestos para dashboards y NUI.','Contrôles composites pour tableaux de bord et NUI.'],
+  'Jogadores': ['Players','Jogadores','Jugadores','Joueurs'], 'Modulos': ['Modules','Módulos','Módulos','Modules'], 'Config': ['Settings','Config','Config','Paramètres'],
+  'Gerencie veiculos': ['Manage vehicles','Gerencie veículos','Gestionar vehículos','Gérer les véhicules'],
+  'Escolha uma acao para o veiculo selecionado.': ['Choose an action for the selected vehicle.','Escolha uma ação para o veículo selecionado.','Elige una acción para el vehículo seleccionado.','Choisissez une action pour le véhicule sélectionné.'],
+  'Customizacao': ['Customization','Customização','Personalización','Personnalisation'],
+  'Transparencia, blur e cor em tempo real.': ['Transparency, blur and color in real time.','Transparência, blur e cor em tempo real.','Transparencia, desenfoque y color en tiempo real.','Transparence, flou et couleur en temps réel.'],
+  'Compacto': ['Compact','Compacto','Compacto','Compact'], 'Mesmo componente em densidade menor.': ['Same component at a lower density.','Mesmo componente em densidade menor.','Mismo componente con menor densidad.','Même composant avec une densité réduite.'],
+  'Menu flutuante compacto inspirado no print, separado do RegisterContext e com subitens dentro.': ['Compact floating menu, separate from RegisterContext, with nested items.','Menu flutuante compacto, separado do RegisterContext, com subitens internos.','Menú flotante compacto, separado de RegisterContext, con subelementos.','Menu flottant compact, séparé de RegisterContext, avec sous-éléments.'],
+  'Lista flutuante com submenus': ['Floating list with submenus','Lista flutuante com submenus','Lista flotante con submenús','Liste flottante avec sous-menus'],
+  'Edicao rapida': ['Quick edit','Edição rápida','Edición rápida','Édition rapide'],
+  'Criar personagem': ['Create character','Criar personagem','Crear personaje','Créer un personnage'],
+  'Criar ficha do personagem': ['Create character profile','Criar ficha do personagem','Crear ficha del personaje','Créer la fiche du personnage'],
+  'Preencha os dados principais antes de salvar no painel.': ['Fill in the main data before saving to the panel.','Preencha os dados principais antes de salvar no painel.','Completa los datos principales antes de guardar en el panel.','Renseignez les données principales avant d’enregistrer dans le panneau.'],
+  'Buscar': ['Search','Buscar','Buscar','Rechercher'], 'Buscar jogador': ['Search player','Buscar jogador','Buscar jugador','Rechercher un joueur'],
+  'Seletores de cor, blip, marcador, data e horario.': ['Color, blip, marker, date and time pickers.','Seletores de cor, blip, marcador, data e horário.','Selectores de color, blip, marcador, fecha y hora.','Sélecteurs de couleur, blip, marqueur, date et heure.'],
+  'Dialog, drawer, modal e popover com exemplos isolados.': ['Dialog, drawer, modal and popover with isolated examples.','Dialog, drawer, modal e popover com exemplos isolados.','Dialog, drawer, modal y popover con ejemplos aislados.','Dialog, drawer, modal et popover avec exemples isolés.'],
+  'Confirmar ação': ['Confirm action','Confirmar ação','Confirmar acción','Confirmer l’action'],
+  'Deseja aplicar esta configuração?': ['Apply this configuration?','Deseja aplicar esta configuração?','¿Aplicar esta configuración?','Appliquer cette configuration ?'],
+  'Salvar Alterações': ['Save Changes','Salvar Alterações','Guardar cambios','Enregistrer les modifications'],
+  'Excluir Jogador': ['Delete Player','Excluir Jogador','Eliminar jugador','Supprimer le joueur'],
+  'Configuracoes': ['Settings','Configurações','Configuraciones','Paramètres'],
+  'Blocos de conteudo e navegacao local.': ['Content blocks and local navigation.','Blocos de conteúdo e navegação local.','Bloques de contenido y navegación local.','Blocs de contenu et navigation locale.'],
+  'Resumo operacional': ['Operational summary','Resumo operacional','Resumen operativo','Résumé opérationnel'],
+  'Status dos recursos ativos.': ['Status of active resources.','Status dos recursos ativos.','Estado de los recursos activos.','État des ressources actives.'],
+  'Conteudo com altura natural, sem espaco vazio forcado.': ['Content with natural height, without forced empty space.','Conteúdo com altura natural, sem espaço vazio forçado.','Contenido con altura natural, sin espacio vacío forzado.','Contenu à hauteur naturelle, sans espace vide forcé.'],
+  'HUD de vitais em formatos compactos, mini, completo e estado crítico/dead. Clique nos ícones para ajustar o valor individualmente via VitalAdjustModal.': ['Vitals HUD in compact, mini, full and critical/dead states. Click icons to adjust each value through VitalAdjustModal.','HUD de vitais em formatos compacto, mini, completo e crítico/dead. Clique nos ícones para ajustar individualmente via VitalAdjustModal.','HUD de vitales en formatos compacto, mini, completo y crítico/dead. Haz clic en los iconos para ajustar cada valor.','HUD de constantes en formats compact, mini, complet et critique/dead. Cliquez sur les icônes pour ajuster chaque valeur.'],
+  'Demonstração interativa. Clique em qualquer ícone de vital para abrir o modal de ajuste individual.': ['Interactive demo. Click any vital icon to open the individual adjustment modal.','Demonstração interativa. Clique em qualquer ícone de vital para abrir o modal de ajuste individual.','Demostración interactiva. Haz clic en cualquier icono vital para abrir el ajuste individual.','Démo interactive. Cliquez sur une icône vitale pour ouvrir le réglage individuel.'],
+  'Visual alternativo estilo barra de carregamento com glows gradientes de alto padrão.': ['Alternative loading-bar visual with high-end gradient glows.','Visual alternativo estilo barra de carregamento com glows gradientes de alto padrão.','Visual alternativo tipo barra de carga con brillos degradados.','Visuel alternatif type barre de chargement avec lueurs dégradées.'],
+  'Estados Críticos e Simulação de Morte': ['Critical States and Death Simulation','Estados Críticos e Simulação de Morte','Estados críticos y simulación de muerte','États critiques et simulation de mort'],
+  'Instrumentos analógicos e digitais de HUD para velocidade, rotação (RPM), náutica, aviação e off-road.': ['Analog and digital HUD instruments for speed, RPM, nautical, aviation and off-road use.','Instrumentos analógicos e digitais de HUD para velocidade, rotação (RPM), náutica, aviação e off-road.','Instrumentos HUD analógicos y digitales para velocidad, RPM, náutica, aviación y off-road.','Instruments HUD analogiques et numériques pour vitesse, RPM, nautisme, aviation et tout-terrain.'],
+  'Simular Entrada de Dados': ['Simulate Data Input','Simular Entrada de Dados','Simular entrada de datos','Simuler l’entrée de données'],
+  'Componentes interativos para cenas FiveM/NUI.': ['Interactive components for FiveM/NUI scenes.','Componentes interativos para cenas FiveM/NUI.','Componentes interactivos para escenas FiveM/NUI.','Composants interactifs pour scènes FiveM/NUI.'],
+  'Fechar Radial': ['Close Radial','Fechar Radial','Cerrar radial','Fermer le radial'], 'Abrir Radial': ['Open Radial','Abrir Radial','Abrir radial','Ouvrir le radial'],
+  'Abrir': ['Open','Abrir','Abrir','Ouvrir'], 'Fechar': ['Close','Fechar','Cerrar','Fermer'],
+  'Barra superior com marca, acoes e usuario.': ['Top bar with brand, actions and user.','Barra superior com marca, ações e usuário.','Barra superior con marca, acciones y usuario.','Barre supérieure avec marque, actions et utilisateur.'],
+  'Navegacao lateral e layout de painel sem cortes no preview.': ['Side navigation and panel layout without preview clipping.','Navegação lateral e layout de painel sem cortes no preview.','Navegación lateral y layout de panel sin cortes en la vista previa.','Navigation latérale et mise en page sans coupure dans l’aperçu.'],
+  'Navegacao e Layout': ['Navigation and Layout','Navegação e Layout','Navegación y layout','Navigation et mise en page'],
+  'Data e Visualizacao': ['Data and Visualization','Dados e Visualização','Datos y visualización','Données et visualisation'],
+  'Online': ['Online','Online','En línea','En ligne'], 'ultima hora': ['last hour','última hora','última hora','dernière heure'],
+  'Recursos': ['Resources','Recursos','Recursos','Ressources'], 'sem erros': ['no errors','sem erros','sin errores','sans erreur'],
+  'Calendario com navegacao por mes, ano e decada.': ['Calendar with month, year and decade navigation.','Calendário com navegação por mês, ano e década.','Calendario con navegación por mes, año y década.','Calendrier avec navigation par mois, année et décennie.'],
+  'Dias': ['Days','Dias','Días','Jours'], 'Mes, ano e decada': ['Month, year and decade','Mês, ano e década','Mes, año y década','Mois, année et décennie'],
+  'Tabela paginada com componentes nas celulas.': ['Paginated table with components inside cells.','Tabela paginada com componentes nas células.','Tabla paginada con componentes en las celdas.','Tableau paginé avec composants dans les cellules.'],
+  'Tabela padrao': ['Default table','Tabela padrão','Tabla predeterminada','Tableau par défaut'],
+  'Molduras e displays imersivos para NUI.': ['Immersive frames and displays for NUI.','Molduras e displays imersivos para NUI.','Marcos y pantallas inmersivas para NUI.','Cadres et affichages immersifs pour NUI.'],
+  'Central de notificacoes e demos de chamadas.': ['Notification center and call demos.','Central de notificações e demos de chamadas.','Centro de notificaciones y demos de llamadas.','Centre de notifications et démos d’appels.'],
+};
+
+const langIndex = { en: 0, 'pt-BR': 1, es: 2, fr: 3 };
+
+function translateLegacyText(value, locale) {
+  const row = uiText[value];
+  if (row) return row[langIndex[locale] ?? 0];
+  return value;
+}
+
+const originalTexts = new WeakMap();
+const originalAttrs = new WeakMap();
+
+function shouldSkip(node) {
+  const el = node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement;
+  return !!el?.closest('pre, code, script, style, [data-no-translate="true"]');
+}
+
+function translateTextNode(node, locale) {
+  if (shouldSkip(node)) return;
+  if (!originalTexts.has(node)) originalTexts.set(node, node.nodeValue);
+  const original = originalTexts.get(node);
+  const trimmed = original.trim();
+  if (!trimmed) return;
+  const translated = translateLegacyText(trimmed, locale);
+  const leading = original.match(/^\s*/)?.[0] || '';
+  const trailing = original.match(/\s*$/)?.[0] || '';
+  node.nodeValue = leading + translated + trailing;
+}
+
+function translateElementAttrs(el, locale) {
+  if (shouldSkip(el)) return;
+  const attrs = ['placeholder', 'title', 'aria-label'];
+  if (!originalAttrs.has(el)) originalAttrs.set(el, {});
+  const stored = originalAttrs.get(el);
+  attrs.forEach((name) => {
+    if (!el.hasAttribute(name)) return;
+    if (!(name in stored)) stored[name] = el.getAttribute(name);
+    el.setAttribute(name, translateLegacyText(stored[name], locale));
+  });
+}
+
+function walk(root, locale) {
+  if (!root) return;
+  if (root.nodeType === Node.TEXT_NODE) {
+    translateTextNode(root, locale);
+    return;
+  }
+  if (root.nodeType !== Node.ELEMENT_NODE) return;
+  translateElementAttrs(root, locale);
+  root.childNodes.forEach((child) => walk(child, locale));
+}
+
+export function LanguageProvider({ children }) {
+  const [locale, setLocale] = useState(() => {
+    const saved = localStorage.getItem('forge-language');
+    if (LANGUAGES.some((lang) => lang.code === saved)) return saved;
+    const browser = navigator.language?.toLowerCase() || '';
+    if (browser.startsWith('pt')) return 'pt-BR';
+    if (browser.startsWith('es')) return 'es';
+    if (browser.startsWith('fr')) return 'fr';
+    return 'en';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('forge-language', locale);
+    document.documentElement.lang = locale;
+  }, [locale]);
+
+  const value = useMemo(() => ({
+    locale,
+    setLocale,
+    t: (key) => copy[locale]?.[key] ?? copy.en[key] ?? key,
+  }), [locale]);
+
+  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
+}
+
+export function useI18n() {
+  return useContext(LanguageContext);
+}
+
+export function AutoTranslate({ children }) {
+  const { locale } = useI18n();
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const root = ref.current;
+    if (!root) return;
+    walk(root, locale);
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => walk(node, locale));
+      });
+    });
+    observer.observe(root, { childList: true, subtree: true });
+    return () => observer.disconnect();
+  }, [locale]);
+
+  return <div ref={ref} className="forge-translation-root">{children}</div>;
+}
