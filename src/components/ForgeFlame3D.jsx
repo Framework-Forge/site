@@ -1,8 +1,5 @@
 import { useEffect, useRef } from 'react';
 
-// Silhouette sampled directly from the Forge flame mark.
-// The 3D mesh is generated as a closed rounded volume: the exact silhouette
-// sits at the widest cross-section and smoothly curves toward front/back poles.
 const SHAPE = [
   [0.06169,-1.00108],[-0.02692,-1.00108],[-0.11315,-0.99676],[-0.19688,-0.98789],
   [-0.27719,-0.97282],[-0.35497,-0.95317],[-0.43024,-0.92894],[-0.50298,-0.90013],
@@ -32,20 +29,18 @@ const SHAPE = [
 
 function buildRoundedFlame() {
   const count = SHAPE.length;
-  const rings = 36;
+  const rings = 34;
   const depth = 0.72;
-
   const cx = SHAPE.reduce((sum, p) => sum + p[0], 0) / count;
   const cy = SHAPE.reduce((sum, p) => sum + p[1], 0) / count;
 
   const positions = [];
-  const indices = [];
+  const triangleIndices = [];
+  const lineIndices = [];
 
-  // Back pole.
   positions.push(cx * 1.08, cy * 1.38, -depth);
   const backPole = 0;
 
-  // Rounded nested silhouette rings.
   for (let r = 1; r < rings; r += 1) {
     const theta = -Math.PI / 2 + (Math.PI * r) / rings;
     const scale = Math.pow(Math.max(0, Math.cos(theta)), 0.56);
@@ -67,24 +62,38 @@ function buildRoundedFlame() {
   const firstRing = 1;
   for (let i = 0; i < count; i += 1) {
     const next = (i + 1) % count;
-    indices.push(backPole, firstRing + next, firstRing + i);
+    triangleIndices.push(backPole, firstRing + next, firstRing + i);
+    lineIndices.push(backPole, firstRing + i);
   }
 
   const interiorRingCount = rings - 1;
+
+  for (let r = 0; r < interiorRingCount; r += 1) {
+    const ringStart = 1 + r * count;
+    for (let i = 0; i < count; i += 1) {
+      const next = (i + 1) % count;
+      lineIndices.push(ringStart + i, ringStart + next);
+    }
+  }
+
   for (let r = 0; r < interiorRingCount - 1; r += 1) {
     const a = 1 + r * count;
     const b = a + count;
     for (let i = 0; i < count; i += 1) {
       const next = (i + 1) % count;
-      indices.push(a + i, b + next, b + i);
-      indices.push(a + i, a + next, b + next);
+      triangleIndices.push(a + i, b + next, b + i);
+      triangleIndices.push(a + i, a + next, b + next);
+
+      // Keep only every fourth longitudinal segment so the mesh looks clean.
+      if (i % 4 === 0) lineIndices.push(a + i, b + i);
     }
   }
 
   const lastRing = 1 + (interiorRingCount - 1) * count;
   for (let i = 0; i < count; i += 1) {
     const next = (i + 1) % count;
-    indices.push(lastRing + i, lastRing + next, frontPole);
+    triangleIndices.push(lastRing + i, lastRing + next, frontPole);
+    lineIndices.push(lastRing + i, frontPole);
   }
 
   const normals = new Float32Array(positions.length);
@@ -108,8 +117,8 @@ function buildRoundedFlame() {
     }
   };
 
-  for (let i = 0; i < indices.length; i += 3) {
-    addFaceNormal(indices[i], indices[i + 1], indices[i + 2]);
+  for (let i = 0; i < triangleIndices.length; i += 3) {
+    addFaceNormal(triangleIndices[i], triangleIndices[i + 1], triangleIndices[i + 2]);
   }
 
   for (let i = 0; i < normals.length; i += 3) {
@@ -122,7 +131,8 @@ function buildRoundedFlame() {
   return {
     positions: new Float32Array(positions),
     normals,
-    indices: new Uint16Array(indices),
+    triangleIndices: new Uint16Array(triangleIndices),
+    lineIndices: new Uint16Array(lineIndices),
   };
 }
 
@@ -138,93 +148,59 @@ function compile(gl, type, source) {
   return shader;
 }
 
-function createProgram(gl) {
-  const vertex = compile(gl, gl.VERTEX_SHADER, `
-    attribute vec3 aPosition;
-    attribute vec3 aNormal;
+const VERTEX_SHADER = `
+  attribute vec3 aPosition;
+  attribute vec3 aNormal;
 
-    uniform float uAspect;
-    uniform vec3 uRotation;
+  uniform float uAspect;
+  uniform vec3 uRotation;
 
-    varying vec3 vNormal;
-    varying vec3 vPosition;
+  varying vec3 vNormal;
+  varying vec3 vPosition;
 
-    mat3 rotateX(float a) {
-      float c = cos(a), s = sin(a);
-      return mat3(1.0,0.0,0.0, 0.0,c,s, 0.0,-s,c);
-    }
+  mat3 rotateX(float a) {
+    float c = cos(a), s = sin(a);
+    return mat3(1.0,0.0,0.0, 0.0,c,s, 0.0,-s,c);
+  }
 
-    mat3 rotateY(float a) {
-      float c = cos(a), s = sin(a);
-      return mat3(c,0.0,-s, 0.0,1.0,0.0, s,0.0,c);
-    }
+  mat3 rotateY(float a) {
+    float c = cos(a), s = sin(a);
+    return mat3(c,0.0,-s, 0.0,1.0,0.0, s,0.0,c);
+  }
 
-    mat3 rotateZ(float a) {
-      float c = cos(a), s = sin(a);
-      return mat3(c,s,0.0, -s,c,0.0, 0.0,0.0,1.0);
-    }
+  mat3 rotateZ(float a) {
+    float c = cos(a), s = sin(a);
+    return mat3(c,s,0.0, -s,c,0.0, 0.0,0.0,1.0);
+  }
 
-    void main() {
-      mat3 rotation = rotateZ(uRotation.z) * rotateY(uRotation.y) * rotateX(uRotation.x);
-      vec3 position = rotation * aPosition;
-      vec3 normal = normalize(rotation * aNormal);
+  void main() {
+    mat3 rotation = rotateZ(uRotation.z) * rotateY(uRotation.y) * rotateX(uRotation.x);
+    vec3 position = rotation * aPosition;
+    vec3 normal = normalize(rotation * aNormal);
 
-      vPosition = position;
-      vNormal = normal;
+    vPosition = position;
+    vNormal = normal;
 
-      float cameraDistance = 4.65;
-      float distanceToCamera = cameraDistance - position.z;
-      float perspective = 2.05 / distanceToCamera;
+    float cameraDistance = 4.65;
+    float distanceToCamera = cameraDistance - position.z;
+    float perspective = 2.05 / distanceToCamera;
 
-      gl_Position = vec4(
-        position.x * perspective / uAspect,
-        position.y * perspective,
-        (distanceToCamera - 2.0) / 4.0,
-        1.0
-      );
-    }
-  `);
+    gl_Position = vec4(
+      position.x * perspective / uAspect,
+      position.y * perspective,
+      (distanceToCamera - 2.0) / 4.0,
+      1.0
+    );
+  }
+`;
 
-  const fragment = compile(gl, gl.FRAGMENT_SHADER, `
-    precision highp float;
-
-    varying vec3 vNormal;
-    varying vec3 vPosition;
-
-    void main() {
-      vec3 normal = normalize(vNormal);
-      vec3 cameraPosition = vec3(0.0, 0.0, 4.65);
-      vec3 viewDirection = normalize(cameraPosition - vPosition);
-
-      vec3 keyLight = normalize(vec3(-0.55, 0.75, 1.0));
-      vec3 fillLight = normalize(vec3(0.85, -0.25, 0.55));
-
-      float key = max(dot(normal, keyLight), 0.0);
-      float fill = max(dot(normal, fillLight), 0.0) * 0.30;
-
-      vec3 halfVector = normalize(keyLight + viewDirection);
-      float specular = pow(max(dot(normal, halfVector), 0.0), 46.0);
-
-      float rim = pow(1.0 - max(dot(normal, viewDirection), 0.0), 2.35);
-
-      vec3 darkOrange = vec3(0.72, 0.145, 0.015);
-      vec3 forgeOrange = vec3(1.0, 0.478, 0.102);
-      vec3 warmHighlight = vec3(1.0, 0.80, 0.52);
-
-      vec3 color = mix(darkOrange, forgeOrange, 0.30 + key * 0.70);
-      color += forgeOrange * fill;
-      color += warmHighlight * specular * 0.78;
-      color += forgeOrange * rim * 0.22;
-
-      gl_FragColor = vec4(color, 1.0);
-    }
-  `);
-
+function createProgram(gl, fragmentSource) {
+  const vertex = compile(gl, gl.VERTEX_SHADER, VERTEX_SHADER);
+  const fragment = compile(gl, gl.FRAGMENT_SHADER, fragmentSource);
   const program = gl.createProgram();
   gl.attachShader(program, vertex);
   gl.attachShader(program, fragment);
   gl.linkProgram(program);
-
   gl.deleteShader(vertex);
   gl.deleteShader(fragment);
 
@@ -233,7 +209,6 @@ function createProgram(gl) {
     gl.deleteProgram(program);
     throw new Error(error || 'Program link failed');
   }
-
   return program;
 }
 
@@ -251,12 +226,42 @@ export default function ForgeFlame3D() {
       alpha: true,
       premultipliedAlpha: false,
     });
-
     if (!gl) return undefined;
 
-    let program;
+    let surfaceProgram;
+    let gridProgram;
+
     try {
-      program = createProgram(gl);
+      surfaceProgram = createProgram(gl, `
+        precision highp float;
+        varying vec3 vNormal;
+        varying vec3 vPosition;
+
+        void main() {
+          vec3 normal = normalize(vNormal);
+          vec3 viewDirection = normalize(vec3(0.0, 0.0, 4.65) - vPosition);
+          float rim = pow(1.0 - max(dot(normal, viewDirection), 0.0), 2.0);
+          vec3 orange = vec3(1.0, 0.478, 0.102);
+          gl_FragColor = vec4(orange * (0.55 + rim * 0.45), 0.035 + rim * 0.035);
+        }
+      `);
+
+      gridProgram = createProgram(gl, `
+        precision highp float;
+        varying vec3 vNormal;
+        varying vec3 vPosition;
+
+        void main() {
+          vec3 normal = normalize(vNormal);
+          vec3 viewDirection = normalize(vec3(0.0, 0.0, 4.65) - vPosition);
+          float facing = 0.55 + max(dot(normal, viewDirection), 0.0) * 0.45;
+          float rim = pow(1.0 - max(dot(normal, viewDirection), 0.0), 2.2);
+          vec3 orange = vec3(1.0, 0.478, 0.102);
+          vec3 highlight = vec3(1.0, 0.72, 0.38);
+          vec3 color = mix(orange, highlight, rim * 0.45);
+          gl_FragColor = vec4(color * facing, 0.90);
+        }
+      `);
     } catch (error) {
       console.error('[ForgeFlame3D]', error);
       return undefined;
@@ -272,18 +277,27 @@ export default function ForgeFlame3D() {
     gl.bindBuffer(gl.ARRAY_BUFFER, normalBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, geometry.normals, gl.STATIC_DRAW);
 
-    const indexBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
-    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, geometry.indices, gl.STATIC_DRAW);
+    const triangleBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, triangleBuffer);
+    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, geometry.triangleIndices, gl.STATIC_DRAW);
 
-    const aPosition = gl.getAttribLocation(program, 'aPosition');
-    const aNormal = gl.getAttribLocation(program, 'aNormal');
-    const uAspect = gl.getUniformLocation(program, 'uAspect');
-    const uRotation = gl.getUniformLocation(program, 'uRotation');
+    const lineBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, lineBuffer);
+    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, geometry.lineIndices, gl.STATIC_DRAW);
+
+    const locations = (program) => ({
+      aPosition: gl.getAttribLocation(program, 'aPosition'),
+      aNormal: gl.getAttribLocation(program, 'aNormal'),
+      uAspect: gl.getUniformLocation(program, 'uAspect'),
+      uRotation: gl.getUniformLocation(program, 'uRotation'),
+    });
+
+    const surfaceLocations = locations(surfaceProgram);
+    const gridLocations = locations(gridProgram);
 
     gl.enable(gl.DEPTH_TEST);
-    gl.enable(gl.CULL_FACE);
-    gl.cullFace(gl.BACK);
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
     gl.clearColor(0, 0, 0, 0);
 
     const resize = () => {
@@ -291,12 +305,10 @@ export default function ForgeFlame3D() {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       const width = Math.max(1, Math.floor(rect.width * dpr));
       const height = Math.max(1, Math.floor(rect.height * dpr));
-
       if (canvas.width !== width || canvas.height !== height) {
         canvas.width = width;
         canvas.height = height;
       }
-
       gl.viewport(0, 0, width, height);
     };
 
@@ -309,6 +321,21 @@ export default function ForgeFlame3D() {
     const onLeave = () => {
       target.current.x = 0;
       target.current.y = 0;
+    };
+
+    const bindCommon = (program, loc, aspect, rx, ry, rz) => {
+      gl.useProgram(program);
+
+      gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+      gl.enableVertexAttribArray(loc.aPosition);
+      gl.vertexAttribPointer(loc.aPosition, 3, gl.FLOAT, false, 0, 0);
+
+      gl.bindBuffer(gl.ARRAY_BUFFER, normalBuffer);
+      gl.enableVertexAttribArray(loc.aNormal);
+      gl.vertexAttribPointer(loc.aNormal, 3, gl.FLOAT, false, 0, 0);
+
+      gl.uniform1f(loc.uAspect, aspect);
+      gl.uniform3f(loc.uRotation, rx, ry, rz);
     };
 
     resize();
@@ -329,26 +356,25 @@ export default function ForgeFlame3D() {
       const rect = canvas.getBoundingClientRect();
       const aspect = Math.max(0.001, rect.width / rect.height);
 
-      const rotationX = -0.08 + pointer.current.y + Math.sin(t * 0.42) * 0.035;
-      const rotationY = 0.12 + pointer.current.x + Math.sin(t * 0.34) * 0.22;
-      const rotationZ = Math.sin(t * 0.27) * 0.018;
+      const rx = -0.08 + pointer.current.y + Math.sin(t * 0.42) * 0.035;
+      const ry = 0.12 + pointer.current.x + Math.sin(t * 0.34) * 0.22;
+      const rz = Math.sin(t * 0.27) * 0.018;
 
       gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-      gl.useProgram(program);
 
-      gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-      gl.enableVertexAttribArray(aPosition);
-      gl.vertexAttribPointer(aPosition, 3, gl.FLOAT, false, 0, 0);
+      // Very faint transparent body, only to preserve the rounded volume.
+      gl.enable(gl.CULL_FACE);
+      gl.cullFace(gl.BACK);
+      bindCommon(surfaceProgram, surfaceLocations, aspect, rx, ry, rz);
+      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, triangleBuffer);
+      gl.drawElements(gl.TRIANGLES, geometry.triangleIndices.length, gl.UNSIGNED_SHORT, 0);
 
-      gl.bindBuffer(gl.ARRAY_BUFFER, normalBuffer);
-      gl.enableVertexAttribArray(aNormal);
-      gl.vertexAttribPointer(aNormal, 3, gl.FLOAT, false, 0, 0);
-
-      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
-      gl.uniform1f(uAspect, aspect);
-      gl.uniform3f(uRotation, rotationX, rotationY, rotationZ);
-
-      gl.drawElements(gl.TRIANGLES, geometry.indices.length, gl.UNSIGNED_SHORT, 0);
+      // Orange grid wrapped around the full 3D flame.
+      gl.disable(gl.CULL_FACE);
+      gl.depthFunc(gl.LEQUAL);
+      bindCommon(gridProgram, gridLocations, aspect, rx, ry, rz);
+      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, lineBuffer);
+      gl.drawElements(gl.LINES, geometry.lineIndices.length, gl.UNSIGNED_SHORT, 0);
 
       frame = requestAnimationFrame(draw);
     };
@@ -362,13 +388,15 @@ export default function ForgeFlame3D() {
       canvas.removeEventListener('pointerleave', onLeave);
       gl.deleteBuffer(positionBuffer);
       gl.deleteBuffer(normalBuffer);
-      gl.deleteBuffer(indexBuffer);
-      gl.deleteProgram(program);
+      gl.deleteBuffer(triangleBuffer);
+      gl.deleteBuffer(lineBuffer);
+      gl.deleteProgram(surfaceProgram);
+      gl.deleteProgram(gridProgram);
     };
   }, []);
 
   return (
-    <div className="forge-flame-stage forge-flame-stage--volume" aria-label="Interactive 3D Forge flame">
+    <div className="forge-flame-stage forge-flame-stage--volume forge-flame-stage--wire" aria-label="Interactive 3D Forge flame grid">
       <div className="forge-flame-grid" />
       <div className="forge-flame-halo" />
       <canvas ref={canvasRef} className="forge-flame-canvas" />
