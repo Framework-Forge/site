@@ -30,6 +30,33 @@ function GridIcon() {
   );
 }
 
+function SidebarIcon({ close = false }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+      {close ? (
+        <>
+          <path d="M6 6l12 12" />
+          <path d="M18 6 6 18" />
+        </>
+      ) : (
+        <>
+          <path d="M4 6h16" />
+          <path d="M4 12h16" />
+          <path d="M4 18h16" />
+        </>
+      )}
+    </svg>
+  );
+}
+
+function CollapseIcon({ collapsed }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+      <path d={collapsed ? 'm9 6 6 6-6 6' : 'm15 6-6 6 6 6'} />
+    </svg>
+  );
+}
+
 function ChevronIcon({ open }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={`docs-chevron ${open ? 'open' : ''}`}>
@@ -63,6 +90,8 @@ function ForgeDocs() {
   const [currentSection, setCurrentSection] = useState(() => localStorage.getItem('forge-current-section') || 'home');
   const [uiMenuOpen, setUiMenuOpen] = useState(false);
   const [legacyMenuOpen, setLegacyMenuOpen] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(() => localStorage.getItem('forge-sidebar-collapsed') === 'true');
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [activeUiGroup, setActiveUiGroup] = useState(() => localStorage.getItem('forge-ui-group') || 'atoms');
 
   React.useEffect(() => {
@@ -72,6 +101,15 @@ function ForgeDocs() {
   React.useEffect(() => {
     localStorage.setItem('forge-ui-group', activeUiGroup);
   }, [activeUiGroup]);
+
+  React.useEffect(() => {
+    localStorage.setItem('forge-sidebar-collapsed', String(sidebarCollapsed));
+  }, [sidebarCollapsed]);
+
+  React.useEffect(() => {
+    setMobileSidebarOpen(false);
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }, [currentSection]);
 
   const isUiMenuOpen = currentSection === 'uikit' || uiMenuOpen;
   const isLegacyMenuOpen = currentSection === 'legacy' || currentSection === 'xt-prison' || currentSection === 'pr-elevator' || legacyMenuOpen;
@@ -83,23 +121,70 @@ function ForgeDocs() {
     { id: 'organisms', label: 'Organisms', description: t('complete') },
   ];
 
+  const navigateTo = (section) => {
+    setCurrentSection(section);
+    setMobileSidebarOpen(false);
+  };
+
+  const goHome = () => navigateTo('home');
+
   const openUIKit = (group = 'atoms') => {
     setActiveUiGroup(group);
     setUiMenuOpen(true);
     setCurrentSection('uikit');
+    setMobileSidebarOpen(false);
   };
 
   return (
     <NotificationProvider>
-      <div className="showcase-layout docs-layout">
+      <div className={`showcase-layout docs-layout ${sidebarCollapsed ? 'sidebar-collapsed' : ''} ${mobileSidebarOpen ? 'mobile-sidebar-open' : ''}`}>
+        <button
+          type="button"
+          className="docs-mobile-menu-button"
+          onClick={() => setMobileSidebarOpen(true)}
+          aria-label="Open navigation"
+          aria-expanded={mobileSidebarOpen}
+        >
+          <SidebarIcon />
+        </button>
+
+        <button
+          type="button"
+          className={`docs-mobile-overlay ${mobileSidebarOpen ? 'visible' : ''}`}
+          onClick={() => setMobileSidebarOpen(false)}
+          aria-label="Close navigation"
+          tabIndex={mobileSidebarOpen ? 0 : -1}
+        />
+
         <aside className="showcase-sidebar docs-sidebar">
-          <button type="button" className="showcase-logo docs-brand" onClick={() => setCurrentSection('home')}>
+          <div className="docs-sidebar-top">
+            <button type="button" className="showcase-logo docs-brand" onClick={goHome} title="Forge Framework — Home">
             <img src={forgeLogo} className="showcase-logo-icon docs-brand-logo" alt="Forge" />
             <div className="docs-brand-copy">
               <strong>FORGE</strong>
               <span>FRAMEWORK</span>
             </div>
-          </button>
+            </button>
+
+            <button
+              type="button"
+              className="docs-sidebar-collapse"
+              onClick={() => setSidebarCollapsed((value) => !value)}
+              aria-label={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+              title={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+            >
+              <CollapseIcon collapsed={sidebarCollapsed} />
+            </button>
+
+            <button
+              type="button"
+              className="docs-sidebar-mobile-close"
+              onClick={() => setMobileSidebarOpen(false)}
+              aria-label="Close navigation"
+            >
+              <SidebarIcon close />
+            </button>
+          </div>
 
           <LanguageSwitcher />
 
@@ -110,7 +195,8 @@ function ForgeDocs() {
                 <button
                   type="button"
                   className={`showcase-menu-item docs-menu-button ${currentSection === 'home' ? 'active' : ''}`}
-                  onClick={() => setCurrentSection('home')}
+                  onClick={goHome}
+                  title={t('about')}
                 >
                   <HomeIcon />
                   <span className="showcase-menu-item-text">{t('about')}</span>
@@ -132,6 +218,7 @@ function ForgeDocs() {
                     setLegacyMenuOpen((value) => !value);
                   }}
                   aria-expanded={isLegacyMenuOpen}
+                  title="Forge Legacy"
                 >
                   <GridIcon />
                   <span className="showcase-menu-item-text">Forge Legacy</span>
@@ -143,7 +230,7 @@ function ForgeDocs() {
                     <button
                       type="button"
                       className={`docs-submenu-item ${currentSection === 'legacy' ? 'active' : ''}`}
-                      onClick={() => setCurrentSection('legacy')}
+                      onClick={() => navigateTo('legacy')}
                     >
                       <span>{t('forgeLegacyOverviewNav')}</span>
                       <small>{t('forgeLegacyNavDesc')}</small>
@@ -151,7 +238,7 @@ function ForgeDocs() {
                     <button
                       type="button"
                       className={`docs-submenu-item ${currentSection === 'xt-prison' ? 'active' : ''}`}
-                      onClick={() => setCurrentSection('xt-prison')}
+                      onClick={() => navigateTo('xt-prison')}
                     >
                       <span>xt-prison</span>
                       <small>{t('xtNavDescription')}</small>
@@ -159,7 +246,7 @@ function ForgeDocs() {
                     <button
                       type="button"
                       className={`docs-submenu-item ${currentSection === 'pr-elevator' ? 'active' : ''}`}
-                      onClick={() => setCurrentSection('pr-elevator')}
+                      onClick={() => navigateTo('pr-elevator')}
                     >
                       <span>pr_elevator</span>
                       <small>{t('elevatorNavDescription')}</small>
@@ -182,6 +269,7 @@ function ForgeDocs() {
                     setUiMenuOpen((value) => !value);
                   }}
                   aria-expanded={isUiMenuOpen}
+                  title="Forge UI Kit"
                 >
                   <GridIcon />
                   <span className="showcase-menu-item-text">Forge UI Kit</span>
@@ -221,7 +309,7 @@ function ForgeDocs() {
 
         <main className="showcase-content docs-content">
           {currentSection === 'home' && <About onOpenUIKit={() => openUIKit('atoms')} />}
-          {currentSection === 'legacy' && <ForgeLegacy onOpenXtPrison={() => setCurrentSection('xt-prison')} onOpenPrElevator={() => setCurrentSection('pr-elevator')} />}
+          {currentSection === 'legacy' && <ForgeLegacy onOpenXtPrison={() => navigateTo('xt-prison')} onOpenPrElevator={() => navigateTo('pr-elevator')} />}
           {currentSection === 'xt-prison' && <XtPrisonDocs />}
           {currentSection === 'pr-elevator' && <PrElevatorDocs />}
           {currentSection === 'uikit' && (
