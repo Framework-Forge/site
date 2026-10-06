@@ -58,7 +58,7 @@ function LanguageSwitcher() {
 function ForgeDocs() {
   const { t } = useI18n();
   const [currentSection, setCurrentSection] = useState(() => localStorage.getItem('forge-current-section') || 'home');
-  const [uiMenuOpen, setUiMenuOpen] = useState(() => localStorage.getItem('forge-ui-menu-open') !== 'false');
+  const [uiMenuOpen, setUiMenuOpen] = useState(false);
   const [activeUiGroup, setActiveUiGroup] = useState(() => localStorage.getItem('forge-ui-group') || 'atoms');
 
   React.useEffect(() => {
@@ -66,12 +66,10 @@ function ForgeDocs() {
   }, [currentSection]);
 
   React.useEffect(() => {
-    localStorage.setItem('forge-ui-menu-open', String(uiMenuOpen));
-  }, [uiMenuOpen]);
-
-  React.useEffect(() => {
     localStorage.setItem('forge-ui-group', activeUiGroup);
   }, [activeUiGroup]);
+
+  const isUiMenuOpen = currentSection === 'uikit' || uiMenuOpen;
 
   const groups = [
     { id: 'atoms', label: 'Atoms', description: t('fundamentals') },
@@ -124,17 +122,17 @@ function ForgeDocs() {
                   type="button"
                   className={`showcase-menu-item docs-menu-button ${currentSection === 'uikit' ? 'active' : ''}`}
                   onClick={() => {
+                    if (currentSection === 'uikit') return;
                     setUiMenuOpen((value) => !value);
-                    if (currentSection !== 'uikit') openUIKit(activeUiGroup);
                   }}
-                  aria-expanded={uiMenuOpen}
+                  aria-expanded={isUiMenuOpen}
                 >
                   <GridIcon />
                   <span className="showcase-menu-item-text">Forge UI Kit</span>
-                  <ChevronIcon open={uiMenuOpen} />
+                  <ChevronIcon open={isUiMenuOpen} />
                 </button>
 
-                {uiMenuOpen && (
+                {isUiMenuOpen && (
                   <div className="docs-submenu">
                     {groups.map((group) => (
                       <button
