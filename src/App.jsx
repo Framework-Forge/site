@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { NotificationProvider } from './components/NotificationCenter';
 import ComponentShowcase from './views/ComponentShowcase';
 import About from './views/About';
@@ -57,9 +57,21 @@ function LanguageSwitcher() {
 
 function ForgeDocs() {
   const { t } = useI18n();
-  const [currentSection, setCurrentSection] = useState('home');
-  const [uiMenuOpen, setUiMenuOpen] = useState(true);
-  const [activeUiGroup, setActiveUiGroup] = useState('atoms');
+  const [currentSection, setCurrentSection] = useState(() => localStorage.getItem('forge-current-section') || 'home');
+  const [uiMenuOpen, setUiMenuOpen] = useState(() => localStorage.getItem('forge-ui-menu-open') !== 'false');
+  const [activeUiGroup, setActiveUiGroup] = useState(() => localStorage.getItem('forge-ui-group') || 'atoms');
+
+  React.useEffect(() => {
+    localStorage.setItem('forge-current-section', currentSection);
+  }, [currentSection]);
+
+  React.useEffect(() => {
+    localStorage.setItem('forge-ui-menu-open', String(uiMenuOpen));
+  }, [uiMenuOpen]);
+
+  React.useEffect(() => {
+    localStorage.setItem('forge-ui-group', activeUiGroup);
+  }, [activeUiGroup]);
 
   const groups = [
     { id: 'atoms', label: 'Atoms', description: t('fundamentals') },
