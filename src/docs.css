@@ -531,3 +531,24 @@
 .forge-flame-stage--volume .forge-flame-canvas {
   filter: drop-shadow(0 18px 30px rgba(255,94,12,.18));
 }
+
+
+/* 3D wire-grid flame */
+.forge-flame-stage--wire {
+  background:
+    radial-gradient(circle at 50% 48%, rgba(255,122,26,.075), transparent 31%),
+    linear-gradient(180deg, rgba(255,255,255,.01), rgba(255,255,255,.002)),
+    #08080a;
+}
+
+.forge-flame-stage--wire .forge-flame-halo {
+  width: 52%;
+  background: rgba(255,122,26,.08);
+  filter: blur(52px);
+}
+
+.forge-flame-stage--wire .forge-flame-canvas {
+  filter:
+    drop-shadow(0 0 10px rgba(255,122,26,.18))
+    drop-shadow(0 0 30px rgba(255,122,26,.10));
+}
