@@ -597,7 +597,8 @@ function translateTextNode(node, locale) {
   const translated = translateLegacyText(trimmed, locale);
   const leading = original.match(/^\s*/)?.[0] || '';
   const trailing = original.match(/\s*$/)?.[0] || '';
-  node.nodeValue = leading + translated + trailing;
+  const nextValue = leading + translated + trailing;
+  if (node.nodeValue !== nextValue) node.nodeValue = nextValue;
 }
 
 function translateElementAttrs(el, locale) {
@@ -608,7 +609,8 @@ function translateElementAttrs(el, locale) {
   attrs.forEach((name) => {
     if (!el.hasAttribute(name)) return;
     if (!(name in stored)) stored[name] = el.getAttribute(name);
-    el.setAttribute(name, translateLegacyText(stored[name], locale));
+    const translated = translateLegacyText(stored[name], locale);
+    if (el.getAttribute(name) !== translated) el.setAttribute(name, translated);
   });
 }
 
@@ -659,15 +661,42 @@ export function AutoTranslate({ children }) {
   useEffect(() => {
     const root = ref.current;
     if (!root) return;
-    walk(root, locale);
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        mutation.addedNodes.forEach((node) => walk(node, locale));
+
+    let observer;
+    let queued = false;
+
+    const applyTranslations = () => {
+      queued = false;
+      if (!root) return;
+
+      // Disconnect while mutating text/attributes so our own translations
+      // do not recursively trigger the observer.
+      observer?.disconnect();
+      walk(root, locale);
+      observer?.observe(root, {
+        childList: true,
+        subtree: true,
+        characterData: true,
+        attributes: true,
+        attributeFilter: ['placeholder', 'title', 'aria-label'],
       });
-    });
-    observer.observe(root, { childList: true, subtree: true });
-    return () => observer.disconnect();
+    };
+
+    const scheduleTranslations = () => {
+      if (queued) return;
+      queued = true;
+      queueMicrotask(applyTranslations);
+    };
+
+    observer = new MutationObserver(scheduleTranslations);
+    applyTranslations();
+
+    return () => {
+      queued = false;
+      observer?.disconnect();
+    };
   }, [locale]);
 
   return <div ref={ref} className="forge-translation-root">{children}</div>;
 }
+
