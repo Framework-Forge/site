@@ -2,15 +2,9 @@ import { useState } from 'react';
 import { NotificationProvider } from './components/NotificationCenter';
 import ComponentShowcase from './views/ComponentShowcase';
 import About from './views/About';
-import forgeLegacyLogo from './assets/forge_legacy_logo.png';
+import forgeLogo from './assets/forge_legacy_logo.png';
+import { AutoTranslate, LanguageProvider, LANGUAGES, useI18n } from './i18n';
 import './docs.css';
-
-const UI_GROUPS = [
-  { id: 'atoms', label: 'Atoms', description: 'Elementos fundamentais' },
-  { id: 'molecules', label: 'Molecules', description: 'Composições reutilizáveis' },
-  { id: 'hud', label: 'HUD', description: 'Interfaces para gameplay' },
-  { id: 'organisms', label: 'Organisms', description: 'Blocos completos de interface' },
-];
 
 function HomeIcon() {
   return (
@@ -41,10 +35,38 @@ function ChevronIcon({ open }) {
   );
 }
 
-export default function App() {
+function LanguageSwitcher() {
+  const { locale, setLocale } = useI18n();
+  return (
+    <div className="docs-language-switcher" aria-label="Language selector">
+      {LANGUAGES.map((language) => (
+        <button
+          type="button"
+          key={language.code}
+          className={locale === language.code ? 'active' : ''}
+          onClick={() => setLocale(language.code)}
+          title={language.name}
+          aria-label={language.name}
+        >
+          {language.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function ForgeDocs() {
+  const { t } = useI18n();
   const [currentSection, setCurrentSection] = useState('home');
   const [uiMenuOpen, setUiMenuOpen] = useState(true);
   const [activeUiGroup, setActiveUiGroup] = useState('atoms');
+
+  const groups = [
+    { id: 'atoms', label: 'Atoms', description: t('fundamentals') },
+    { id: 'molecules', label: 'Molecules', description: t('reusable') },
+    { id: 'hud', label: 'HUD', description: t('gameplay') },
+    { id: 'organisms', label: 'Organisms', description: t('complete') },
+  ];
 
   const openUIKit = (group = 'atoms') => {
     setActiveUiGroup(group);
@@ -57,15 +79,17 @@ export default function App() {
       <div className="showcase-layout docs-layout">
         <aside className="showcase-sidebar docs-sidebar">
           <button type="button" className="showcase-logo docs-brand" onClick={() => setCurrentSection('home')}>
-            <img src={forgeLegacyLogo} className="showcase-logo-icon docs-brand-logo" alt="Forge Legacy" />
+            <img src={forgeLogo} className="showcase-logo-icon docs-brand-logo" alt="Forge" />
             <div className="docs-brand-copy">
               <strong>FORGE</strong>
-              <span>LEGACY</span>
+              <span>FRAMEWORK</span>
             </div>
           </button>
 
+          <LanguageSwitcher />
+
           <div className="showcase-menu-group">
-            <h3 className="showcase-menu-title">Introdução</h3>
+            <h3 className="showcase-menu-title">{t('intro')}</h3>
             <ul className="showcase-menu-list">
               <li>
                 <button
@@ -74,14 +98,14 @@ export default function App() {
                   onClick={() => setCurrentSection('home')}
                 >
                   <HomeIcon />
-                  <span className="showcase-menu-item-text">Sobre o projeto</span>
+                  <span className="showcase-menu-item-text">{t('about')}</span>
                 </button>
               </li>
             </ul>
           </div>
 
           <div className="showcase-menu-group">
-            <h3 className="showcase-menu-title">Referência</h3>
+            <h3 className="showcase-menu-title">{t('reference')}</h3>
             <ul className="showcase-menu-list">
               <li>
                 <button
@@ -100,7 +124,7 @@ export default function App() {
 
                 {uiMenuOpen && (
                   <div className="docs-submenu">
-                    {UI_GROUPS.map((group) => (
+                    {groups.map((group) => (
                       <button
                         type="button"
                         key={group.id}
@@ -121,11 +145,11 @@ export default function App() {
             <div className="docs-project-status">
               <span className="docs-status-dot" />
               <div>
-                <strong>Open Source</strong>
-                <small>Feito no Brasil para o mundo</small>
+                <strong>{t('openSource')}</strong>
+                <small>{t('brazilWorld')}</small>
               </div>
             </div>
-            <p>Forge Legacy • GTA V Legacy</p>
+            <p>{t('footer')}</p>
           </div>
         </aside>
 
@@ -135,14 +159,24 @@ export default function App() {
             <>
               <div className="docs-uikit-context">
                 <span>Forge UI Kit</span>
-                <strong>{UI_GROUPS.find((group) => group.id === activeUiGroup)?.label}</strong>
-                <p>Componentes reutilizáveis do ecossistema Forge, organizados por categoria.</p>
+                <strong>{groups.find((group) => group.id === activeUiGroup)?.label}</strong>
+                <p>{t('reusableKit')}</p>
               </div>
-              <ComponentShowcase initialGroup={activeUiGroup} />
+              <AutoTranslate>
+                <ComponentShowcase initialGroup={activeUiGroup} />
+              </AutoTranslate>
             </>
           )}
         </main>
       </div>
     </NotificationProvider>
+  );
+}
+
+export default function App() {
+  return (
+    <LanguageProvider>
+      <ForgeDocs />
+    </LanguageProvider>
   );
 }
