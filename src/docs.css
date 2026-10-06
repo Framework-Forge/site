@@ -495,3 +495,39 @@
     pointer-events: none;
   }
 }
+
+
+/* Fully rounded Forge flame volume */
+.forge-flame-stage--volume {
+  background:
+    radial-gradient(circle at 50% 46%, rgba(255,122,26,.105), transparent 30%),
+    linear-gradient(180deg, rgba(255,255,255,.012), rgba(255,255,255,.002)),
+    #08080a;
+}
+
+.forge-flame-stage--volume::after {
+  content: '';
+  position: absolute;
+  inset: 10%;
+  border-radius: 50%;
+  border: 1px solid rgba(255,122,26,.045);
+  transform: rotateX(72deg);
+  pointer-events: none;
+}
+
+.forge-flame-halo {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  width: 58%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: rgba(255,122,26,.12);
+  filter: blur(44px);
+  pointer-events: none;
+}
+
+.forge-flame-stage--volume .forge-flame-canvas {
+  filter: drop-shadow(0 18px 30px rgba(255,94,12,.18));
+}
