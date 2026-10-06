@@ -141,6 +141,7 @@ const projectCopy = {
     legacyStackCore: 'Provides the shared runtime, conventions and services used across the project.', legacyStackResources: 'Gameplay and server resources consume the core through stable interfaces.',
     legacyStackUi: 'Provides a common visual system and reusable NUI components.', legacyStackCommunityTitle: 'Community extensions', legacyStackCommunity: 'Projects can add their own resources while following the same documented contracts.',
     legacyOpenLabel: 'Open source', legacyOpenTitle: 'Built in public and designed to be extended.', legacyOpenDesc: 'Forge Legacy is intended to be inspected, learned from, contributed to and adapted by the community.',
+    legacyCatalogLabel: 'Resources', legacyCatalogTitle: 'Forge Legacy projects and scripts.', legacyXtPrisonDesc: 'A complete prison resource with sentencing, inventory confiscation, roster, prison services, dynamic editor and configurable prison-break environments.', legacyOpenDocs: 'Open docs',
 
     xtLead: 'A complete prison system for FiveM, integrated through PR Bridge, with sentencing, confiscated inventory, prisoner roster, prison jobs integration, dynamic configuration and a multi-environment prison-break system.',
     xtGithub: 'Repository', xtInstallButton: 'Installation', xtVersion: 'Version', xtDependency: 'Dependency', xtPlatforms: 'Frameworks', xtStorage: 'Storage',
@@ -226,6 +227,7 @@ const projectCopy = {
     legacyStackCore: 'Fornece o runtime compartilhado, convenções e serviços usados em todo o projeto.', legacyStackResources: 'Recursos de gameplay e servidor consomem o core por interfaces estáveis.',
     legacyStackUi: 'Fornece um sistema visual comum e componentes NUI reutilizáveis.', legacyStackCommunityTitle: 'Extensões da comunidade', legacyStackCommunity: 'Projetos podem adicionar seus próprios recursos seguindo os mesmos contratos documentados.',
     legacyOpenLabel: 'Open source', legacyOpenTitle: 'Desenvolvido em público e criado para ser estendido.', legacyOpenDesc: 'Forge Legacy foi pensado para ser estudado, auditado, aprimorado e adaptado pela comunidade.',
+    legacyCatalogLabel: 'Recursos', legacyCatalogTitle: 'Projetos e scripts do Forge Legacy.', legacyXtPrisonDesc: 'Um sistema prisional completo com sentenças, apreensão de inventário, roster, serviços da prisão, editor dinâmico e ambientes configuráveis de fuga.', legacyOpenDocs: 'Abrir documentação',
 
     xtLead: 'Um sistema prisional completo para FiveM, integrado pelo PR Bridge, com sentenças, inventário apreendido, roster de presos, integração com jobs, configuração dinâmica e sistema de fuga com múltiplos ambientes.',
     xtGithub: 'Repositório', xtInstallButton: 'Instalação', xtVersion: 'Versão', xtDependency: 'Dependência', xtPlatforms: 'Frameworks', xtStorage: 'Persistência',
