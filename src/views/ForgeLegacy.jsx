@@ -15,7 +15,7 @@ function FeatureIcon({ type }) {
   );
 }
 
-export default function ForgeLegacy() {
+export default function ForgeLegacy({ onOpenXtPrison }) {
   const { t } = useI18n();
 
   return (
@@ -145,6 +145,31 @@ export default function ForgeLegacy() {
       <section className="docs-section">
         <div className="docs-section-heading">
           <span>03</span>
+          <div>
+            <p>{t('legacyCatalogLabel')}</p>
+            <h2>{t('legacyCatalogTitle')}</h2>
+          </div>
+        </div>
+
+        <div className="legacy-project-catalog">
+          <article className="legacy-project-item">
+            <div className="legacy-project-badge">XT</div>
+            <div className="legacy-project-copy">
+              <span>Forge Legacy Resource</span>
+              <h3>xt-prison</h3>
+              <p>{t('legacyXtPrisonDesc')}</p>
+              <div className="legacy-project-tags">
+                <span>FiveM</span><span>PR Bridge</span><span>QB/QBX</span><span>ESX</span><span>OX</span><span>ND</span>
+              </div>
+            </div>
+            <button type="button" className="docs-primary-button" onClick={onOpenXtPrison}>{t('legacyOpenDocs')}</button>
+          </article>
+        </div>
+      </section>
+
+      <section className="docs-section">
+        <div className="docs-section-heading">
+          <span>04</span>
           <div>
             <p>{t('legacyArchitectureLabel')}</p>
             <h2>{t('legacyArchitectureTitle')}</h2>
