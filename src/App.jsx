@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { NotificationProvider } from './components/NotificationCenter';
 import ComponentShowcase from './views/ComponentShowcase';
 import About from './views/About';
+import ForgeLegacy from './views/ForgeLegacy';
+import XtPrisonDocs from './views/XtPrisonDocs';
 import forgeLogo from './assets/forge_legacy_logo.png';
 import { AutoTranslate, LanguageProvider, LANGUAGES, useI18n } from './i18n';
 import './docs.css';
@@ -59,6 +61,7 @@ function ForgeDocs() {
   const { t } = useI18n();
   const [currentSection, setCurrentSection] = useState(() => localStorage.getItem('forge-current-section') || 'home');
   const [uiMenuOpen, setUiMenuOpen] = useState(false);
+  const [legacyMenuOpen, setLegacyMenuOpen] = useState(false);
   const [activeUiGroup, setActiveUiGroup] = useState(() => localStorage.getItem('forge-ui-group') || 'atoms');
 
   React.useEffect(() => {
@@ -70,6 +73,7 @@ function ForgeDocs() {
   }, [activeUiGroup]);
 
   const isUiMenuOpen = currentSection === 'uikit' || uiMenuOpen;
+  const isLegacyMenuOpen = currentSection === 'legacy' || currentSection === 'xt-prison' || legacyMenuOpen;
 
   const groups = [
     { id: 'atoms', label: 'Atoms', description: t('fundamentals') },
@@ -110,6 +114,49 @@ function ForgeDocs() {
                   <HomeIcon />
                   <span className="showcase-menu-item-text">{t('about')}</span>
                 </button>
+              </li>
+            </ul>
+          </div>
+
+
+          <div className="showcase-menu-group">
+            <h3 className="showcase-menu-title">{t('projects')}</h3>
+            <ul className="showcase-menu-list">
+              <li>
+                <button
+                  type="button"
+                  className={`showcase-menu-item docs-menu-button ${currentSection === 'legacy' || currentSection === 'xt-prison' ? 'active' : ''}`}
+                  onClick={() => {
+                    if (currentSection === 'legacy' || currentSection === 'xt-prison') return;
+                    setLegacyMenuOpen((value) => !value);
+                  }}
+                  aria-expanded={isLegacyMenuOpen}
+                >
+                  <GridIcon />
+                  <span className="showcase-menu-item-text">Forge Legacy</span>
+                  <ChevronIcon open={isLegacyMenuOpen} />
+                </button>
+
+                {isLegacyMenuOpen && (
+                  <div className="docs-submenu">
+                    <button
+                      type="button"
+                      className={`docs-submenu-item ${currentSection === 'legacy' ? 'active' : ''}`}
+                      onClick={() => setCurrentSection('legacy')}
+                    >
+                      <span>{t('forgeLegacyOverviewNav')}</span>
+                      <small>{t('forgeLegacyNavDesc')}</small>
+                    </button>
+                    <button
+                      type="button"
+                      className={`docs-submenu-item ${currentSection === 'xt-prison' ? 'active' : ''}`}
+                      onClick={() => setCurrentSection('xt-prison')}
+                    >
+                      <span>xt-prison</span>
+                      <small>{t('xtNavDescription')}</small>
+                    </button>
+                  </div>
+                )}
               </li>
             </ul>
           </div>
@@ -165,6 +212,8 @@ function ForgeDocs() {
 
         <main className="showcase-content docs-content">
           {currentSection === 'home' && <About onOpenUIKit={() => openUIKit('atoms')} />}
+          {currentSection === 'legacy' && <ForgeLegacy />}
+          {currentSection === 'xt-prison' && <XtPrisonDocs />}
           {currentSection === 'uikit' && (
             <>
               <div className="docs-uikit-context">
