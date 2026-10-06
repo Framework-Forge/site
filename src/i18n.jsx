@@ -365,11 +365,218 @@ const uiText = {
   'Central de notificacoes e demos de chamadas.': ['Notification center and call demos.','Central de notificações e demos de chamadas.','Centro de notificaciones y demos de llamadas.','Centre de notifications et démos d’appels.'],
 };
 
+
+const uiTextRuntime = {
+  'Falha ao copiar o codigo:': ['Failed to copy code:','Falha ao copiar o código:','Error al copiar el código:','Échec de la copie du code :'],
+  'Copiado!': ['Copied!','Copiado!','¡Copiado!','Copié !'],
+  'Copiar': ['Copy','Copiar','Copiar','Copier'],
+  'Sucesso!': ['Success!','Sucesso!','¡Éxito!','Succès !'],
+  'O recurso foi inicializado corretamente.': ['The resource started successfully.','O recurso foi inicializado corretamente.','El recurso se inició correctamente.','La ressource a démarré correctement.'],
+  'Informação!': ['Information!','Informação!','¡Información!','Information !'],
+  'Carregando atualizações do servidor...': ['Loading server updates...','Carregando atualizações do servidor...','Cargando actualizaciones del servidor...','Chargement des mises à jour du serveur...'],
+  'Erro!': ['Error!','Erro!','¡Error!','Erreur !'],
+  'Banco de dados offline. Tentando reconectar...': ['Database offline. Trying to reconnect...','Banco de dados offline. Tentando reconectar...','Base de datos sin conexión. Intentando reconectar...','Base de données hors ligne. Tentative de reconnexion...'],
+  'Fechar': ['Close','Fechar','Cerrar','Fermer'],
+  'Polícia': ['Police','Polícia','Policía','Police'],
+  'Veículo': ['Vehicle','Veículo','Vehículo','Véhicule'],
+  'Mecânico': ['Mechanic','Mecânico','Mecánico','Mécanicien'],
+  'Voltar 10 anos': ['Back 10 years','Voltar 10 anos','Retroceder 10 años','Reculer de 10 ans'],
+  'Voltar': ['Back','Voltar','Volver','Retour'],
+  'Avancar': ['Next','Avançar','Avanzar','Suivant'],
+  'Avancar 10 anos': ['Forward 10 years','Avançar 10 anos','Avanzar 10 años','Avancer de 10 ans'],
+  'Conta Bancária': ['Bank Account','Conta Bancária','Cuenta bancaria','Compte bancaire'],
+  'Digite um comando (ex: help, status)...': ['Type a command (e.g. help, status)...','Digite um comando (ex: help, status)...','Escribe un comando (ej. help, status)...','Saisissez une commande (ex. help, status)...'],
+  'Buscar...': ['Search...','Buscar...','Buscar...','Rechercher...'],
+  'Pesquisar...': ['Search...','Pesquisar...','Buscar...','Rechercher...'],
+  'Aviso do Sistema': ['System Warning','Aviso do Sistema','Aviso del sistema','Avertissement système'],
+  'Soltar arquivo aqui ou clicar para selecionar': ['Drop a file here or click to select','Soltar arquivo aqui ou clicar para selecionar','Suelta un archivo aquí o haz clic para seleccionar','Déposez un fichier ici ou cliquez pour sélectionner'],
+  'Carregando mais itens...': ['Loading more items...','Carregando mais itens...','Cargando más elementos...','Chargement de plus d’éléments...'],
+  'Input Dialog': ['Input Dialog','Input Dialog','Input Dialog','Input Dialog'],
+  'Círculo Planal': ['Flat Circle','Círculo Planal','Círculo plano','Cercle plat'],
+  'Anel Rotativo': ['Rotating Ring','Anel Rotativo','Anillo giratorio','Anneau rotatif'],
+  'Hexágono': ['Hexagon','Hexágono','Hexágono','Hexagone'],
+  'México': ['Mexico','México','México','Mexique'],
+  'França': ['France','França','Francia','France'],
+  'Japão': ['Japan','Japão','Japón','Japon'],
+  'Índia': ['India','Índia','India','Inde'],
+  'Brasil': ['Brazil','Brasil','Brasil','Brésil'],
+  'EUA': ['USA','EUA','EE. UU.','États-Unis'],
+  'Portugal': ['Portugal','Portugal','Portugal','Portugal'],
+  'Argentina': ['Argentina','Argentina','Argentina','Argentine'],
+  'Alemanha': ['Germany','Alemanha','Alemania','Allemagne'],
+  'Reino Unido': ['United Kingdom','Reino Unido','Reino Unido','Royaume-Uni'],
+  'Espanha': ['Spain','Espanha','España','Espagne'],
+  'China': ['China','China','China','Chine'],
+  'Buscar país...': ['Search country...','Buscar país...','Buscar país...','Rechercher un pays...'],
+  'Fome': ['Hunger','Fome','Hambre','Faim'],
+  'Sede': ['Thirst','Sede','Sed','Soif'],
+  'Estresse': ['Stress','Estresse','Estrés','Stress'],
+  'Fôlego': ['Breath','Fôlego','Aliento','Souffle'],
+  'Carregando...': ['Loading...','Carregando...','Cargando...','Chargement...'],
+  'Fácil': ['Easy','Fácil','Fácil','Facile'],
+  'Médio': ['Medium','Médio','Medio','Moyen'],
+  'Difícil': ['Hard','Difícil','Difícil','Difficile'],
+  'Pressione ESPAÇO agora!': ['Press SPACE now!','Pressione ESPAÇO agora!','¡Pulsa ESPACIO ahora!','Appuyez sur ESPACE maintenant !'],
+  'Online': ['Online','Online','En línea','En ligne'],
+  'Offline': ['Offline','Offline','Fuera de línea','Hors ligne'],
+  'Sucesso': ['Success','Sucesso','Éxito','Succès'],
+  'Aviso': ['Warning','Aviso','Aviso','Avertissement'],
+  'Erro': ['Error','Erro','Error','Erreur'],
+  'Adicionar tag...': ['Add tag...','Adicionar tag...','Añadir etiqueta...','Ajouter une étiquette...'],
+  'Jogador': ['Player','Jogador','Jugador','Joueur'],
+  'Aplicar': ['Apply','Aplicar','Aplicar','Appliquer'],
+  'Saúde (Vida)': ['Health','Saúde (Vida)','Salud','Santé'],
+  'Colete (Armadura)': ['Armor','Colete (Armadura)','Armadura','Armure'],
+  'Fome (Alimentação)': ['Hunger','Fome (Alimentação)','Hambre','Faim'],
+  'Sede (Hidratação)': ['Thirst','Sede (Hidratação)','Sed','Soif'],
+  'Estresse (Menta)': ['Stress','Estresse (Menta)','Estrés','Stress'],
+  'Fome (Hunger)': ['Hunger','Fome','Hambre','Faim'],
+  'Sede (Thirst)': ['Thirst','Sede','Sed','Soif'],
+  'Estresse (Stress)': ['Stress','Estresse','Estrés','Stress'],
+  'Fôlego (Breath)': ['Breath','Fôlego','Aliento','Souffle'],
+  'Status Selecionado': ['Selected Status','Status Selecionado','Estado seleccionado','Statut sélectionné'],
+  'Valor Atual': ['Current Value','Valor Atual','Valor actual','Valeur actuelle'],
+  'Ajustador de Vitais (NUI Dev)': ['Vitals Adjuster (NUI Dev)','Ajustador de Vitais (NUI Dev)','Ajustador de vitales (NUI Dev)','Réglage des constantes (NUI Dev)'],
+  'Anterior': ['Previous','Anterior','Anterior','Précédent'],
+  'Próximo': ['Next','Próximo','Siguiente','Suivant'],
+  'Passos': ['Steps','Passos','Pasos','Étapes'],
+  'Texto demonstrativo': ['Demo text','Texto demonstrativo','Texto de demostración','Texte de démonstration'],
+  'Descricao do personagem...': ['Character description...','Descrição do personagem...','Descripción del personaje...','Description du personnage...'],
+  'Aviso Importante': ['Important Warning','Aviso Importante','Aviso importante','Avertissement important'],
+  'Servidor iniciado': ['Server started','Servidor iniciado','Servidor iniciado','Serveur démarré'],
+  'Todos os recursos principais carregaram.': ['All main resources loaded.','Todos os recursos principais carregaram.','Todos los recursos principales cargados.','Toutes les ressources principales sont chargées.'],
+  'Snapshot automatico salvo no painel.': ['Automatic snapshot saved to the panel.','Snapshot automático salvo no painel.','Snapshot automático guardado en el panel.','Snapshot automatique enregistré dans le panneau.'],
+  'Pico de jogadores': ['Player peak','Pico de jogadores','Pico de jugadores','Pic de joueurs'],
+  'Fila ativa e 94 jogadores online.': ['Active queue and 94 players online.','Fila ativa e 94 jogadores online.','Cola activa y 94 jugadores en línea.','File active et 94 joueurs en ligne.'],
+  'Abre configuracoes': ['Opens settings','Abre configurações','Abre configuraciones','Ouvre les paramètres'],
+  'Reiniciar': ['Restart','Reiniciar','Reiniciar','Redémarrer'],
+  'ESC fecha o menu - Enter confirma a opcao ativa': ['ESC closes the menu - Enter confirms the active option','ESC fecha o menu - Enter confirma a opção ativa','ESC cierra el menú - Enter confirma la opción activa','Échap ferme le menu - Entrée confirme l’option active'],
+  'Guardar na garagem': ['Store in garage','Guardar na garagem','Guardar en el garaje','Ranger au garage'],
+  'Sincroniza estado, dano e combustivel.': ['Synchronizes state, damage and fuel.','Sincroniza estado, dano e combustível.','Sincroniza estado, daño y combustible.','Synchronise l’état, les dégâts et le carburant.'],
+  'Abre submenu de jogadores proximos.': ['Opens nearby players submenu.','Abre submenu de jogadores próximos.','Abre el submenú de jugadores cercanos.','Ouvre le sous-menu des joueurs proches.'],
+  'Salvar ficha': ['Save profile','Salvar ficha','Guardar ficha','Enregistrer la fiche'],
+  'Ativar personagem apos criar': ['Activate character after creation','Ativar personagem após criar','Activar personaje después de crearlo','Activer le personnage après création'],
+  'Observacoes': ['Notes','Observações','Observaciones','Notes'],
+  'Abrir dashboard': ['Open dashboard','Abrir dashboard','Abrir dashboard','Ouvrir le tableau de bord'],
+  'Reiniciar modulo': ['Restart module','Reiniciar módulo','Reiniciar módulo','Redémarrer le module'],
+  'Confirmar Atualização': ['Confirm Update','Confirmar Atualização','Confirmar actualización','Confirmer la mise à jour'],
+  'Exclusão Permanente': ['Permanent Deletion','Exclusão Permanente','Eliminación permanente','Suppression définitive'],
+  'Confirmar Ação': ['Confirm Action','Confirmar Ação','Confirmar acción','Confirmer l’action'],
+  'Pode abrir para cima tambem': ['Can also open upward','Pode abrir para cima também','También puede abrir hacia arriba','Peut aussi s’ouvrir vers le haut'],
+  'Historico de alteracoes.': ['Change history.','Histórico de alterações.','Historial de cambios.','Historique des modifications.'],
+  'Defina um novo valor para este vital do jogador Forgie.': ['Set a new value for this Forgie player vital.','Defina um novo valor para este vital do jogador Forgie.','Define un nuevo valor para este vital del jugador Forgie.','Définissez une nouvelle valeur pour cette constante du joueur Forgie.'],
+  'Painel administrativo': ['Admin panel','Painel administrativo','Panel administrativo','Panneau d’administration'],
+  'Configurar': ['Configure','Configurar','Configurar','Configurer'],
+  'Clique no titulo para escolher o mes.': ['Click the title to choose the month.','Clique no título para escolher o mês.','Haz clic en el título para elegir el mes.','Cliquez sur le titre pour choisir le mois.'],
+  'Clique no ano para abrir a grade da decada.': ['Click the year to open the decade grid.','Clique no ano para abrir a grade da década.','Haz clic en el año para abrir la cuadrícula de la década.','Cliquez sur l’année pour ouvrir la grille de la décennie.'],
+  'Use os botoes duplos para navegar por decadas.': ['Use the double buttons to navigate by decades.','Use os botões duplos para navegar por décadas.','Usa los botones dobles para navegar por décadas.','Utilisez les doubles boutons pour naviguer par décennies.'],
+  'Aviso Crítico (&lt; 20%):': ['Critical Warning (< 20%):','Aviso Crítico (< 20%):','Aviso crítico (< 20%):','Alerte critique (< 20 %) :'],
+  'Janeiro': ['January','Janeiro','Enero','Janvier'],
+  'Fevereiro': ['February','Fevereiro','Febrero','Février'],
+  'Marco': ['March','Março','Marzo','Mars'],
+  'Abril': ['April','Abril','Abril','Avril'],
+  'Maio': ['May','Maio','Mayo','Mai'],
+  'Junho': ['June','Junho','Junio','Juin'],
+  'Julho': ['July','Julho','Julio','Juillet'],
+  'Agosto': ['August','Agosto','Agosto','Août'],
+  'Setembro': ['September','Setembro','Septiembre','Septembre'],
+  'Outubro': ['October','Outubro','Octubre','Octobre'],
+  'Novembro': ['November','Novembro','Noviembre','Novembre'],
+  'Dezembro': ['December','Dezembro','Diciembre','Décembre'],
+  'Jan': ['Jan','Jan','Ene','Jan'],
+  'Fev': ['Feb','Fev','Feb','Fév'],
+  'Mar': ['Mar','Mar','Mar','Mar'],
+  'Abr': ['Apr','Abr','Abr','Avr'],
+  'Mai': ['May','Mai','May','Mai'],
+  'Jun': ['Jun','Jun','Jun','Juin'],
+  'Jul': ['Jul','Jul','Jul','Juil'],
+  'Ago': ['Aug','Ago','Ago','Aoû'],
+  'Set': ['Sep','Set','Sep','Sep'],
+  'Out': ['Oct','Out','Oct','Oct'],
+  'Nov': ['Nov','Nov','Nov','Nov'],
+  'Dez': ['Dec','Dez','Dic','Déc'],
+  'Dom': ['Sun','Dom','Dom','Dim'],
+  'Seg': ['Mon','Seg','Lun','Lun'],
+  'Ter': ['Tue','Ter','Mar','Mar'],
+  'Qua': ['Wed','Qua','Mié','Mer'],
+  'Qui': ['Thu','Qui','Jue','Jeu'],
+  'Sex': ['Fri','Sex','Vie','Ven'],
+  'Sab': ['Sat','Sáb','Sáb','Sam'],
+};
+
+const runtimePatterns = [
+  {
+    match: /^Mostrando (\d+) - (\d+) de (\d+)$/,
+    render: {
+      en: (m) => `Showing ${m[1]} - ${m[2]} of ${m[3]}`,
+      'pt-BR': (m) => `Mostrando ${m[1]} - ${m[2]} de ${m[3]}`,
+      es: (m) => `Mostrando ${m[1]} - ${m[2]} de ${m[3]}`,
+      fr: (m) => `Affichage de ${m[1]} à ${m[2]} sur ${m[3]}`,
+    },
+  },
+  {
+    match: /^Tamanho máximo: (.+)$/,
+    render: {
+      en: (m) => `Maximum size: ${m[1]}`,
+      'pt-BR': (m) => `Tamanho máximo: ${m[1]}`,
+      es: (m) => `Tamaño máximo: ${m[1]}`,
+      fr: (m) => `Taille maximale : ${m[1]}`,
+    },
+  },
+  {
+    match: /^"(.+)" excede (.+)$/,
+    render: {
+      en: (m) => `"${m[1]}" exceeds ${m[2]}`,
+      'pt-BR': (m) => `"${m[1]}" excede ${m[2]}`,
+      es: (m) => `"${m[1]}" supera ${m[2]}`,
+      fr: (m) => `"${m[1]}" dépasse ${m[2]}`,
+    },
+  },
+  {
+    match: /^Ajustar Status de (.+)$/,
+    render: {
+      en: (m) => `Adjust ${m[1]}'s Status`,
+      'pt-BR': (m) => `Ajustar Status de ${m[1]}`,
+      es: (m) => `Ajustar estado de ${m[1]}`,
+      fr: (m) => `Ajuster le statut de ${m[1]}`,
+    },
+  },
+  {
+    match: /^Novo valor para (.+)$/,
+    render: {
+      en: (m) => `New value for ${m[1]}`,
+      'pt-BR': (m) => `Novo valor para ${m[1]}`,
+      es: (m) => `Nuevo valor para ${m[1]}`,
+      fr: (m) => `Nouvelle valeur pour ${m[1]}`,
+    },
+  },
+  {
+    match: /^(Janeiro|Fevereiro|Marco|Abril|Maio|Junho|Julho|Agosto|Setembro|Outubro|Novembro|Dezembro) (\d{4})$/,
+    render: null,
+  },
+];
+
 const langIndex = { en: 0, 'pt-BR': 1, es: 2, fr: 3 };
 
 function translateLegacyText(value, locale) {
-  const row = uiText[value];
-  if (row) return row[langIndex[locale] ?? 0];
+  const index = langIndex[locale] ?? 0;
+  const row = uiText[value] || uiTextRuntime[value];
+  if (row) return row[index];
+
+  for (const pattern of runtimePatterns) {
+    const match = value.match(pattern.match);
+    if (!match) continue;
+
+    if (pattern.render) {
+      const renderer = pattern.render[locale] || pattern.render.en;
+      return renderer(match);
+    }
+
+    // Calendar header: translate the month while preserving the year.
+    const translatedMonth = (uiTextRuntime[match[1]] || uiText[match[1]])?.[index] || match[1];
+    return `${translatedMonth} ${match[2]}`;
+  }
+
   return value;
 }
 
