@@ -212,7 +212,7 @@ function ForgeDocs() {
 
         <main className="showcase-content docs-content">
           {currentSection === 'home' && <About onOpenUIKit={() => openUIKit('atoms')} />}
-          {currentSection === 'legacy' && <ForgeLegacy />}
+          {currentSection === 'legacy' && <ForgeLegacy onOpenXtPrison={() => setCurrentSection('xt-prison')} />}
           {currentSection === 'xt-prison' && <XtPrisonDocs />}
           {currentSection === 'uikit' && (
             <>
