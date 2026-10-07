@@ -1,5 +1,7 @@
 import { useMemo, useState } from 'react';
 import { PR_BRIDGE_API } from '../data/prBridgeApi.generated';
+import { PR_BRIDGE_REAL_EXAMPLES } from '../data/prBridgeExamples.generated';
+import { LuaCode } from './LuaCodeBlock';
 import { PR_BRIDGE_SOURCE_AUDIT_BATCH_0 } from '../data/prBridgeSourceAudit.batch0';
 import { PR_BRIDGE_SOURCE_AUDIT_BATCH_1 } from '../data/prBridgeSourceAudit.batch1';
 import { PR_BRIDGE_SOURCE_AUDIT_BATCH_2 } from '../data/prBridgeSourceAudit.batch2';
@@ -56,8 +58,41 @@ const NORMALIZED_AUDIT = AUDIT.map((file) => ({ ...file, records: dedupeRecords(
 const ALL_RECORDS = NORMALIZED_AUDIT.flatMap((file) => file.records.map((record) => ({ ...record, file: file.path, context: file.context, module: file.module })));
 const FUNCTION_RECORDS = ALL_RECORDS.filter((record) => FUNCTION_KINDS.has(record.kind));
 const REGISTRATION_RECORDS = ALL_RECORDS.filter((record) => REGISTRATION_KINDS.has(record.kind));
-const PUBLIC_PR_LIB_API = PR_BRIDGE_API.filter((entry) => /^pr_lib\./.test(entry.signature));
+const PUBLIC_PR_LIB_API = (() => {
+  const seen = new Set();
+  return PR_BRIDGE_API.filter((entry) => {
+    if (!/^pr_lib\./.test(entry.signature)) return false;
+    const key = entry.context + '|' + entry.signature;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+})();
 const PUBLIC_PR_LIB_MODULES = [...new Set(PUBLIC_PR_LIB_API.map((entry) => entry.module))].sort();
+function getPublicFunctionPath(signature) {
+  const index = signature.indexOf('(');
+  return (index === -1 ? signature : signature.slice(0, index)).trim();
+}
+
+function getUsageExample(entry) {
+  const path = getPublicFunctionPath(entry.signature);
+  const real = PR_BRIDGE_REAL_EXAMPLES[path]?.[0];
+
+  if (real) {
+    return {
+      code: real.code,
+      source: 'pr_scriptTest/' + real.file + ':' + real.line,
+      real: true,
+    };
+  }
+
+  return {
+    code: entry.example || (entry.signature + '\n-- consulte os parâmetros acima'),
+    source: null,
+    real: false,
+  };
+}
+
 const PUBLIC_PR_LIB_BY_MODULE = PUBLIC_PR_LIB_MODULES
   .map((module) => ({
     module,
@@ -214,15 +249,43 @@ export default function PrBridgeSourceAudit({ locale = 'en' }) {
               <span>{isPt ? 'Funções públicas encontradas' : 'Public functions found'}</span>
               <strong>{visiblePublicApi.length}</strong>
             </div>
-            {visiblePublicApi.map((entry) => (
-              <article key={entry.context + ':' + entry.signature}>
-                <div>
-                  <code>{entry.signature}</code>
-                  <span>{entry.module} · {entry.context}</span>
-                </div>
-                {entry.detail && <p>{entry.detail}</p>}
-              </article>
-            ))}
+            {visiblePublicApi.map((entry) => {
+              const usage = getUsageExample(entry);
+
+              return (
+                <article className="bridge-public-api-function" key={entry.context + ':' + entry.signature}>
+                  <div className="bridge-public-api-function-main">
+                    <div>
+                      <code className="bridge-public-api-signature">{entry.signature}</code>
+                      <span>{entry.module} · {entry.context}</span>
+                    </div>
+                    {entry.detail && <p>{entry.detail}</p>}
+                  </div>
+
+                  <div className="bridge-public-api-example">
+                    <div className="bridge-public-api-example-head">
+                      <span>{isPt ? 'EXEMPLO DE USO' : 'USAGE EXAMPLE'}</span>
+                      {usage.real ? (
+                        <strong>{isPt ? 'Exemplo real · pr_scriptTest' : 'Real example · pr_scriptTest'}</strong>
+                      ) : (
+                        <strong>{isPt ? 'Exemplo da API' : 'API example'}</strong>
+                      )}
+                    </div>
+
+                    <pre>
+                      <LuaCode code={usage.code} />
+                    </pre>
+
+                    {usage.source && (
+                      <div className="bridge-public-api-example-source">
+                        <span>{isPt ? 'Fonte' : 'Source'}</span>
+                        <code>{usage.source}</code>
+                      </div>
+                    )}
+                  </div>
+                </article>
+              );
+            })}
           </div>
         )}
       </section>
