@@ -113,7 +113,7 @@ export default function RenewedBankingDocs() {
           <article><strong>progressbar</strong><p>{isPt ? 'Seleciona o estilo de progresso fornecido pela interface do PR Bridge.' : 'Selects the progress presentation provided by the PR Bridge interface.'}</p></article>
           <article><strong>atms</strong><p>{isPt ? 'Lista de modelos GTA usados para abrir a interface em modo ATM.' : 'List of GTA ATM models.'}</p></article>
           <article><strong>peds</strong><p>{isPt ? 'Define NPCs bancários, coordenadas e quais locais permitem criar/gerenciar contas.' : 'Defines bank NPCs, locations and account-management availability.'}</p></article>
-          <article><strong>renewedMultiJob</strong><p>{isPt ? 'Integração opcional QB com multi-job do qb-phone.' : 'Optional QB multi-job integration.'}</p></article>
+          <article><strong>renewedMultiJob</strong><p>{isPt ? 'Integração opcional de multi-job resolvida através do PR Bridge.' : 'Optional multi-job integration resolved through PR Bridge.'}</p></article>
         </div>
 
         <div className="xt-note"><strong>{isPt ? 'Banco de dados' : 'Database'}</strong><p>{isPt ? 'O resource também cria as tabelas principais no startup através de MySQL.transaction, mas o arquivo Renewed-Banking.sql continua disponível para instalação manual/controlada.' : 'The resource creates its main tables on startup, while Renewed-Banking.sql remains available for manual installation.'}</p></div>
