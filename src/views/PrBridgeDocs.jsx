@@ -1,7 +1,8 @@
 import { useI18n } from '../i18n';
 import PrBridgeFunctionCatalog from '../components/PrBridgeFunctionCatalog';
+import PrBridgeSourceAudit, { PR_BRIDGE_SOURCE_AUDIT_STATS } from '../components/PrBridgeSourceAudit';
 import LuaCodeBlock from '../components/LuaCodeBlock';
-import { PR_BRIDGE_API_COUNT, PR_BRIDGE_MODULES, PR_BRIDGE_SOURCE_VERSION } from '../data/prBridgeApi.generated';
+import { PR_BRIDGE_API, PR_BRIDGE_API_COUNT, PR_BRIDGE_MODULES, PR_BRIDGE_SOURCE_VERSION } from '../data/prBridgeApi.generated';
 
 const PROVIDERS = {
   Frameworks: ['TMC / core','ND Core','ox_core','ESX','QBX','QBCore','Custom'],
@@ -87,7 +88,7 @@ const Card=({k,title,children})=><article className="bridge-card"><span>{k}</spa
 const TOPICS = [
   'bridge-overview','bridge-install','bridge-architecture','bridge-adapters','bridge-framework','bridge-inventory',
   'bridge-database','bridge-ui','bridge-target','bridge-cache','bridge-callbacks','bridge-security',
-  'bridge-dev','bridge-fivem','bridge-dui','bridge-expand','bridge-api'
+  'bridge-dev','bridge-fivem','bridge-dui','bridge-expand','bridge-api','bridge-source-audit'
 ];
 
 const TOPIC_MODULES = {
@@ -110,7 +111,7 @@ const TOPIC_NAMES = {
   'bridge-framework':'Framework API','bridge-inventory':'Inventory API','bridge-database':'Database API','bridge-ui':'UI & menus',
   'bridge-target':'Target & interaction','bridge-cache':'Cache','bridge-callbacks':'Callbacks & events',
   'bridge-security':'Commands & permissions','bridge-dev':'Developer tools','bridge-fivem':'FiveM utilities',
-  'bridge-dui':'DUI','bridge-expand':'Extending PR Bridge','bridge-api':'API catalog'
+  'bridge-dui':'DUI','bridge-expand':'Extending PR Bridge','bridge-api':'API catalog','bridge-source-audit':'Source audit'
 };
 
 function ReferenceBlock({ locale, modules, searchable = false, extraSignatures = [] }) {
@@ -380,12 +381,52 @@ export default function PrBridgeDocs({ topic = 'bridge-overview', onNavigateTopi
     {commonFooter}
   </div>;
 
-  if (topic === 'bridge-callbacks') return <div className="bridge-docs bridge-docs-page">
-    <TopicHeader number="11" eyebrow="pr_lib.callback / events" title={d.callbacksTitle} text={d.callbacksP} />
-    <Code>{"-- server.lua\npr_lib.callback.register('garage:getVehicle', function(source, plate)\n    return pr_lib.db.single('SELECT * FROM vehicles WHERE plate = ?', { plate })\nend)\n\n-- client.lua\nlocal vehicle = pr_lib.callback.await('garage:getVehicle', 5000, plate)\n\n-- server -> client\nlocal state = pr_lib.callback.awaitClient(source, 'garage:getLocalState', 3000)"}</Code>
-    <ReferenceBlock locale={locale} modules={TOPIC_MODULES[topic]} />
-    {commonFooter}
-  </div>;
+  if (topic === 'bridge-callbacks') {
+    const callbackEntries = PR_BRIDGE_API.filter((entry) => entry.module === 'callback');
+    return <div className="bridge-docs bridge-docs-page">
+      <TopicHeader
+        number="11"
+        eyebrow="pr_lib.callback / legacy + secure"
+        title={d.callbacksTitle}
+        text={locale === 'pt-BR'
+          ? 'O PR Bridge mantém dois runtimes de callback: legacy e secure. O modo secure adiciona register, call/callOx, awaitOx, estatísticas, cancelamento com motivo, limites de concorrência e validação da origem da resposta.'
+          : d.callbacksP}
+      />
+
+      <div className="bridge-stat-grid">
+        <article><strong>{callbackEntries.length}</strong><p>{locale === 'pt-BR' ? 'entradas públicas de callback catalogadas' : 'cataloged public callback entries'}</p></article>
+        <article><strong>{PR_BRIDGE_SOURCE_AUDIT_STATS.callbackDefinitions}</strong><p>{locale === 'pt-BR' ? 'definições callback.* nos 4 runtimes' : 'callback.* definitions across 4 runtimes'}</p></article>
+        <article><strong>4</strong><p>{locale === 'pt-BR' ? 'arquivos de runtime de callback' : 'callback runtime files'}</p></article>
+        <article><strong>2</strong><p>legacy / secure</p></article>
+      </div>
+
+      <div className="bridge-card-grid two">
+        <Card k="CLIENT" title="Client → Server">trigger/await enviam a requisição ao servidor. No modo secure também existem call, awaitOx, register, getStats e cancel com reason.</Card>
+        <Card k="SERVER" title="Server → Client">triggerClient/awaitClient direcionam a chamada a um source. O secure valida expectedSource e limita pendências por jogador.</Card>
+        <Card k="REGISTER" title="Bidirectional registration">No modo secure, callback.register existe em client e server. O handler server recebe source como primeiro argumento.</Card>
+        <Card k="SECURE" title="Limits & forged-response protection">O runtime secure controla maxPending, maxPendingPerPlayer, maxInboundPerPlayer, timeout, rejeições, respostas forjadas e erros.</Card>
+      </div>
+
+      <h3 className="bridge-subtitle">Server callback registration</h3>
+      <Code>{"pr_lib.callback.register('garage:getVehicle', function(source, plate)\n    return pr_lib.db.single(\n        'SELECT * FROM vehicles WHERE plate = ?',\n        { plate }\n    )\nend)\n\n-- client.lua\nlocal vehicle, err = pr_lib.callback.await(\n    'garage:getVehicle',\n    5000,\n    plate\n)"}</Code>
+
+      <h3 className="bridge-subtitle">Server → client</h3>
+      <Code>{"-- client.lua, secure mode\npr_lib.callback.register('garage:getLocalState', function(vehicleNetId)\n    local vehicle = NetToVeh(vehicleNetId)\n    if vehicle == 0 then return nil, 'vehicle_not_found' end\n    return {\n        engine = GetIsVehicleEngineRunning(vehicle),\n        body = GetVehicleBodyHealth(vehicle),\n    }\nend)\n\n-- server.lua\nlocal state, err = pr_lib.callback.awaitClient(\n    source,\n    'garage:getLocalState',\n    3000,\n    netId\n)"}</Code>
+
+      <h3 className="bridge-subtitle">OX-compatible secure helpers</h3>
+      <Code>{"-- client\nlocal result = pr_lib.callback.awaitOx('garage:list', 500, garageId)\n\n-- client async\npr_lib.callback.call('garage:list', 500, function(result)\n    print(json.encode(result))\nend, garageId)\n\n-- server\nlocal result = pr_lib.callback.awaitOx('garage:clientState', source, netId)\n\npr_lib.callback.callOx('garage:clientState', source, function(result)\n    print(json.encode(result))\nend, netId)"}</Code>
+
+      <div className="bridge-note">
+        <strong>{locale === 'pt-BR' ? 'A quantidade não diminuiu' : 'The callback surface did not shrink'}</strong>
+        <p>{locale === 'pt-BR'
+          ? 'A contagem anterior do site estava incompleta porque misturava a documentação antiga com o runtime atual. A auditoria do código atual encontrou os métodos legacy e os métodos adicionais do secure_client/secure_server; todos passam a aparecer no catálogo.'
+          : 'The previous site count was incomplete because it mixed the older documentation with the current runtime. The current audit includes both legacy methods and the additional secure-client/server surface.'}</p>
+      </div>
+
+      <ReferenceBlock locale={locale} modules={TOPIC_MODULES[topic]} />
+      {commonFooter}
+    </div>;
+  }
 
   if (topic === 'bridge-security') return <div className="bridge-docs bridge-docs-page">
     <TopicHeader number="12" eyebrow="Commands / ACE / Keybinds" title={d.securityTitle} text={d.securityP} />
@@ -432,13 +473,13 @@ export default function PrBridgeDocs({ topic = 'bridge-overview', onNavigateTopi
     {commonFooter}
   </div>;
 
-  return <div className="bridge-docs bridge-docs-page">
-    <TopicHeader number="17" eyebrow="Complete reference" title={d.apiTitle} text={d.apiP} />
+  if (topic === 'bridge-api') return <div className="bridge-docs bridge-docs-page">
+    <TopicHeader number="17" eyebrow="Complete public reference" title={d.apiTitle} text={d.apiP} />
     <div className="bridge-stat-grid">
       <article><strong>{PR_BRIDGE_API_COUNT}</strong><p>Callable entries</p></article>
       <article><strong>{PR_BRIDGE_MODULES.length}</strong><p>Published module headings</p></article>
       <article><strong>3</strong><p>Runtime contexts</p></article>
-      <article><strong>100%</strong><p>Functions displayed with an individual example</p></article>
+      <article><strong>{PR_BRIDGE_API.filter((entry) => entry.module === 'callback').length}</strong><p>Callback API entries</p></article>
     </div>
     <ReferenceBlock locale={locale} searchable />
     <div className="bridge-production">
@@ -446,8 +487,28 @@ export default function PrBridgeDocs({ topic = 'bridge-overview', onNavigateTopi
       <div><span>01</span><p>Keep provider detection inside PR Bridge instead of branching on resource names inside business logic.</p></div>
       <div><span>02</span><p>Validate money, inventory, permissions and protected state on the server; use client helpers for presentation and local FiveM behavior.</p></div>
       <div><span>03</span><p>Invalidate cached authorization data when authoritative metadata changes.</p></div>
-      <div><span>04</span><p>Implement the smallest reliable normalized adapter contract first and let normalizers provide aliases where possible.</p></div>
+      <div><span>04</span><p>Use the Source audit page when you need the exact file, line and internal/runtime function instead of only the public pr_lib contract.</p></div>
     </div>
     {commonFooter}
   </div>;
+
+  return <div className="bridge-docs bridge-docs-page">
+    <TopicHeader
+      number="18"
+      eyebrow="File-by-file / function-by-function"
+      title={locale === 'pt-BR' ? 'Auditoria completa do código-fonte' : 'Complete source-code audit'}
+      text={locale === 'pt-BR'
+        ? 'Índice gerado diretamente de todos os arquivos Lua do repositório de desenvolvimento. Ele lista arquivo por arquivo, função por função, além de callbacks NUI, callbacks registrados, net events, event handlers e exports.'
+        : 'Index generated directly from every Lua file in the development repository. It lists each file and function plus NUI callbacks, registered callbacks, net events, event handlers and exports.'}
+    />
+    <div className="bridge-note">
+      <strong>{locale === 'pt-BR' ? 'Escopo da auditoria' : 'Audit scope'}</strong>
+      <p>{locale === 'pt-BR'
+        ? 'Esta página inclui APIs públicas, adapters de providers, helpers locais e handlers internos. Por isso a contagem de definições do source audit é maior que a contagem da API pública pr_lib.'
+        : 'This page includes public APIs, provider adapters, local helpers and internal handlers, so the source-definition count is larger than the public pr_lib API count.'}</p>
+    </div>
+    <PrBridgeSourceAudit locale={locale} />
+    {commonFooter}
+  </div>;
+
 }
