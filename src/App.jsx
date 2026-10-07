@@ -410,6 +410,7 @@ function ForgeDocs() {
             <About
               onOpenUIKit={() => openUIKit('atoms')}
               onOpenPrBridge={() => openBridgeTopic('bridge-overview')}
+              onOpenLegacy={() => navigateTo('legacy')}
             />
           )}
           {currentSection === 'legacy' && <ForgeLegacy onOpenXtPrison={() => navigateTo('xt-prison')} onOpenPrElevator={() => navigateTo('pr-elevator')} onOpenRenewedBanking={() => navigateTo('renewed-banking')} onOpenPsDispatch={() => navigateTo('ps-dispatch')} />}

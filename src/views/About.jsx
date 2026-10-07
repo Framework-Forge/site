@@ -1,7 +1,7 @@
 import ForgeFlame3D from '../components/ForgeFlame3D';
 import { useI18n } from '../i18n';
 
-export default function About({ onOpenUIKit, onOpenPrBridge }) {
+export default function About({ onOpenUIKit, onOpenPrBridge, onOpenLegacy }) {
   const { t } = useI18n();
 
   return (
@@ -97,23 +97,81 @@ export default function About({ onOpenUIKit, onOpenPrBridge }) {
           </div>
         </div>
 
-        <div className="docs-mission-grid docs-platform-grid">
-          <article className="docs-info-card docs-platform-card">
-            <span>GTA V</span>
-            <h3>{t('legacyTitle')}</h3>
-            <p>{t('legacyDesc')}</p>
+        <div className="docs-platform-showcase">
+          <article className="docs-home-announcement docs-platform-feature-card">
+            <div className="docs-home-announcement-glow" aria-hidden="true" />
+            <div className="docs-home-announcement-copy">
+              <div className="docs-home-announcement-eyebrow">
+                <span>GTA V</span>
+                {t('legacyPlatformEyebrow')}
+              </div>
+              <h2>{t('legacyTitle')}</h2>
+              <p>{t('legacyDesc')}</p>
+              <div className="docs-home-announcement-tags">
+                <span>Forge Legacy</span>
+                <span>PR Bridge</span>
+                <span>FiveM</span>
+              </div>
+            </div>
+            <div className="docs-home-announcement-action">
+              <div className="docs-home-announcement-mark docs-platform-mark" aria-hidden="true">
+                <strong>FL</strong>
+                <span>LEGACY</span>
+              </div>
+              <button type="button" className="docs-primary-button" onClick={onOpenLegacy}>
+                {t('legacyPlatformButton')}
+              </button>
+            </div>
           </article>
 
-          <article className="docs-info-card docs-platform-card">
-            <span>GTA V</span>
-            <h3>{t('enhancedTitle')}</h3>
-            <p>{t('enhancedDesc')}</p>
+          <article className="docs-home-announcement docs-platform-feature-card docs-platform-feature-card--soon" aria-disabled="true">
+            <div className="docs-home-announcement-glow" aria-hidden="true" />
+            <div className="docs-home-announcement-copy">
+              <div className="docs-home-announcement-eyebrow">
+                <span>GTA V</span>
+                {t('comingSoon')}
+              </div>
+              <h2>{t('enhancedTitle')}</h2>
+              <p>{t('enhancedDesc')}</p>
+              <div className="docs-home-announcement-tags">
+                <span>Enhanced</span>
+                <span>{t('comingSoon')}</span>
+              </div>
+            </div>
+            <div className="docs-home-announcement-action">
+              <div className="docs-home-announcement-mark docs-platform-mark" aria-hidden="true">
+                <strong>EN</strong>
+                <span>ENHANCED</span>
+              </div>
+              <button type="button" className="docs-primary-button docs-primary-button--disabled" disabled>
+                {t('comingSoon')}
+              </button>
+            </div>
           </article>
 
-          <article className="docs-info-card docs-platform-card docs-platform-card--future">
-            <span>Future</span>
-            <h3>{t('sixmTitle')}</h3>
-            <p>{t('sixmDesc')}</p>
+          <article className="docs-home-announcement docs-platform-feature-card docs-platform-feature-card--soon" aria-disabled="true">
+            <div className="docs-home-announcement-glow" aria-hidden="true" />
+            <div className="docs-home-announcement-copy">
+              <div className="docs-home-announcement-eyebrow">
+                <span>FUTURE</span>
+                {t('comingSoon')}
+              </div>
+              <h2>{t('sixmTitle')}</h2>
+              <p>{t('sixmDesc')}</p>
+              <div className="docs-home-announcement-tags">
+                <span>SixM</span>
+                <span>{t('comingSoon')}</span>
+              </div>
+            </div>
+            <div className="docs-home-announcement-action">
+              <div className="docs-home-announcement-mark docs-platform-mark" aria-hidden="true">
+                <strong>6M</strong>
+                <span>FUTURE</span>
+              </div>
+              <button type="button" className="docs-primary-button docs-primary-button--disabled" disabled>
+                {t('comingSoon')}
+              </button>
+            </div>
           </article>
         </div>
       </section>
