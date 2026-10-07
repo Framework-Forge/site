@@ -47,7 +47,7 @@ function returnsValue(signature) {
   return /^(get|fetch|find|search|read|load|resolve|list|has|can|is|await|request|query|single|scalar|insert|remember|call|create)/.test(fn);
 }
 
-export default function PrBridgeFunctionCatalog({ locale = 'en', modules = null, searchable = false }) {
+export default function PrBridgeFunctionCatalog({ locale = 'en', modules = null, searchable = false, extraSignatures = [] }) {
   const l = LABELS[locale] || LABELS.en;
   const allowedModules = modules && modules.length ? modules : PR_BRIDGE_MODULES;
   const [query, setQuery] = useState('');
@@ -56,12 +56,14 @@ export default function PrBridgeFunctionCatalog({ locale = 'en', modules = null,
   const rows = useMemo(() => {
     const q = query.trim().toLowerCase();
     return PR_BRIDGE_API.filter((entry) => {
-      if (!allowedModules.includes(entry.module)) return false;
+      const allowedByModule = allowedModules.includes(entry.module);
+      const allowedAsExtra = extraSignatures.includes(entry.signature);
+      if (!allowedByModule && !allowedAsExtra) return false;
       if (searchable && moduleFilter !== 'all' && entry.module !== moduleFilter) return false;
       if (!q) return true;
       return (entry.module + ' ' + entry.context + ' ' + entry.signature).toLowerCase().includes(q);
     });
-  }, [allowedModules.join('|'), moduleFilter, query, searchable]);
+  }, [allowedModules.join('|'), extraSignatures.join('|'), moduleFilter, query, searchable]);
 
   const grouped = useMemo(() => {
     const map = new Map();
