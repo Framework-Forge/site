@@ -198,11 +198,11 @@ function ForgeDocs() {
 
         <aside className="showcase-sidebar docs-sidebar">
           <div className="docs-sidebar-top">
-            <button type="button" className="showcase-logo docs-brand" onClick={goHome} title="Forge Framework — Home">
+            <button type="button" className="showcase-logo docs-brand" onClick={goHome} title="Forge Project — Home">
             <img src={forgeLogo} className="showcase-logo-icon docs-brand-logo" alt="Forge" />
             <div className="docs-brand-copy">
               <strong>FORGE</strong>
-              <span>FRAMEWORK</span>
+              <span>PROJECT</span>
             </div>
             </button>
 
@@ -388,7 +388,12 @@ function ForgeDocs() {
         </aside>
 
         <main className="showcase-content docs-content">
-          {currentSection === 'home' && <About onOpenUIKit={() => openUIKit('atoms')} />}
+          {currentSection === 'home' && (
+            <About
+              onOpenUIKit={() => openUIKit('atoms')}
+              onOpenPrBridge={() => openBridgeTopic('bridge-overview')}
+            />
+          )}
           {currentSection === 'legacy' && <ForgeLegacy onOpenXtPrison={() => navigateTo('xt-prison')} onOpenPrElevator={() => navigateTo('pr-elevator')} />}
           {currentSection === 'xt-prison' && <XtPrisonDocs />}
           {currentSection === 'pr-elevator' && <PrElevatorDocs />}
