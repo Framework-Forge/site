@@ -74,6 +74,99 @@ function getPublicFunctionPath(signature) {
   return (index === -1 ? signature : signature.slice(0, index)).trim();
 }
 
+function splitSignatureArgs(signature) {
+  const start = signature.indexOf('(');
+  const end = signature.lastIndexOf(')');
+  if (start === -1 || end <= start) return [];
+  const raw = signature.slice(start + 1, end).trim();
+  if (!raw) return [];
+
+  const args = [];
+  let current = '';
+  let depth = 0;
+
+  for (const char of raw) {
+    if (char === ',' && depth === 0) {
+      args.push(current.trim());
+      current = '';
+      continue;
+    }
+
+    if ('([{'.includes(char)) depth += 1;
+    if (')]}'.includes(char)) depth = Math.max(0, depth - 1);
+    current += char;
+  }
+
+  if (current.trim()) args.push(current.trim());
+  return args;
+}
+
+function exampleValueForArg(arg) {
+  const name = String(arg || '').replace(/\?$/, '').toLowerCase();
+
+  if (!name) return "'value'";
+  if (name === 'source' || name === 'src' || name.includes('playerid') || name === 'target') return 'source';
+  if (name.includes('registry')) return 'registry';
+  if (name.includes('length')) return '16';
+  if (name.includes('pattern')) return "'ALPHANUMERIC'";
+  if (name.includes('count') || name.includes('amount') || name.includes('grade') || name.includes('slot')) return '1';
+  if (name.includes('timeout') || name.includes('duration') || name.includes('delay')) return '5000';
+  if (name.includes('distance') || name.includes('radius')) return '2.0';
+  if (name.includes('enabled') || name.includes('state') || name.includes('allow')) return 'true';
+  if (name.includes('coords') || name.includes('position')) return 'vec3(0.0, 0.0, 0.0)';
+  if (name.includes('heading') || name.includes('rotation')) return '0.0';
+  if (name.includes('entity') || name.includes('vehicle') || name.includes('ped')) return 'entity';
+  if (name.includes('netid')) return 'NetworkGetNetworkIdFromEntity(entity)';
+  if (name.includes('model')) return "'prop_tool_bench02'";
+  if (name.includes('plate')) return "'FORGE'";
+  if (name.includes('item')) return "'repairkit'";
+  if (name.includes('account')) return "'bank'";
+  if (name.includes('job')) return "'police'";
+  if (name.includes('event')) return "'example:event'";
+  if (name.includes('name') || name.includes('id') || name.includes('key')) return "'example'";
+  if (name.includes('metadata') || name.includes('options') || name.includes('data') || name.includes('payload') || name.includes('properties')) return '{}';
+  if (name.includes('callback') || name === 'cb' || name.includes('handler')) {
+    return "function(result)\n        print(result)\n    end";
+  }
+
+  return "'value'";
+}
+
+function shouldAssignResult(entry) {
+  const fn = getPublicFunctionPath(entry.signature).split(/[.:]/).pop().toLowerCase();
+  return /^(get|has|can|is|find|search|read|load|fetch|query|single|scalar|insert|create|await|remember|call|resolve|list|inspect)/.test(fn);
+}
+
+function buildFallbackExample(entry) {
+  const path = getPublicFunctionPath(entry.signature);
+  const args = splitSignatureArgs(entry.signature);
+  const values = args.map(exampleValueForArg);
+  const prefix = shouldAssignResult(entry) ? 'local result = ' : '';
+
+  if (!values.length) {
+    return prefix + path + '()';
+  }
+
+  const inline = prefix + path + '(' + values.join(', ') + ')';
+  if (inline.length <= 84 && !values.some((value) => value.includes('\n'))) {
+    return inline;
+  }
+
+  const formattedValues = values.map((value) => {
+    if (!value.includes('\n')) return '    ' + value + ',';
+    return value
+      .split('\n')
+      .map((line, index) => (index === 0 ? '    ' : '    ') + line)
+      .join('\n') + ',';
+  });
+
+  return [
+    prefix + path + '(',
+    ...formattedValues,
+    ')',
+  ].join('\n');
+}
+
 function getUsageExample(entry) {
   const path = getPublicFunctionPath(entry.signature);
   const real = PR_BRIDGE_REAL_EXAMPLES[path]?.[0];
@@ -87,7 +180,7 @@ function getUsageExample(entry) {
   }
 
   return {
-    code: entry.example || (entry.signature + '\n-- consulte os parâmetros acima'),
+    code: buildFallbackExample(entry),
     source: null,
     real: false,
   };
