@@ -159,7 +159,7 @@ export default function ForgeLegacy({ onOpenXtPrison, onOpenPrElevator, onOpenRe
               <h3>xt-prison</h3>
               <p>{t('legacyXtPrisonDesc')}</p>
               <div className="legacy-project-tags">
-                <span>FiveM</span><span>PR Bridge</span><span>Config in-game</span><span>Persistência</span>
+                <span>FiveM</span><span>PR Bridge</span><span>QB/QBX</span><span>ESX</span><span>OX</span><span>ND</span>
               </div>
             </div>
             <button type="button" className="docs-primary-button" onClick={onOpenXtPrison}>{t('legacyOpenDocs')}</button>

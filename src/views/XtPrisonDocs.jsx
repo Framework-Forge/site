@@ -40,7 +40,7 @@ export default function XtPrisonDocs() {
           <div className="xt-summary-top"><span>XT</span><strong>PRISON</strong></div>
           <Info label={t('xtVersion')}>1.4.8</Info>
           <Info label={t('xtDependency')}>pr_bridge</Info>
-          <Info label={t('xtPlatforms')}>PR Bridge</Info>
+          <Info label={t('xtPlatforms')}>QB / QBX • ESX • OX • ND</Info>
           <Info label={t('xtStorage')}>MariaDB + PR Bridge</Info>
         </div>
       </header>
@@ -74,7 +74,7 @@ export default function XtPrisonDocs() {
           </div>
           <div>
             <h3>{t('xtFrameworksTitle')}</h3>
-            <div className="xt-pill-row"><span>PR Bridge</span></div>
+            <div className="xt-pill-row"><span>QB</span><span>QBX</span><span>ESX</span><span>OX</span><span>ND</span></div>
             <p>{t('xtFrameworksP')}</p>
             <h3>{t('xtDatabaseAutoTitle')}</h3><p>{t('xtDatabaseAutoP')}</p>
           </div>
