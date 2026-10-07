@@ -35,8 +35,8 @@ export default function RenewedBankingDocs() {
           <h1>Renewed-<span>Banking</span></h1>
           <p className="banking-lead">
             {isPt
-              ? 'Sistema bancário completo para FiveM com contas pessoais, empresariais, gangs e contas compartilhadas, transferências, histórico de transações, gerenciamento de membros, compatibilidade com QB/QBX/ESX e uma camada administrativa da edição Forge.'
-              : 'A complete FiveM banking system with personal, business, gang and shared accounts, transfers, transaction history, member management, QB/QBX/ESX support and an administrative layer in the Forge edition.'}
+              ? 'Sistema bancário completo para FiveM com contas pessoais, empresariais, gangs e contas compartilhadas, transferências, histórico de transações, gerenciamento de membros e uma camada administrativa integrada ao ecossistema Forge.'
+              : 'A complete FiveM banking system with personal, business, gang and shared accounts, transfers, transaction history, member management and an administrative layer integrated with the Forge ecosystem.'}
           </p>
           <div className="banking-hero-actions">
             <a className="docs-primary-button" href={FORGE_REPO} target="_blank" rel="noreferrer">Forge repository</a>
@@ -44,16 +44,16 @@ export default function RenewedBankingDocs() {
             <a className="docs-secondary-button" href="#banking-install">{isPt ? 'Instalação' : 'Installation'}</a>
           </div>
           <div className="legacy-meta">
-            <span>v2.1.4</span><span>FiveM</span><span>QB / QBX / ESX</span><span>Open Source</span>
+            <span>v2.1.4</span><span>FiveM</span><span>PR Bridge</span><span>Open Source</span>
           </div>
         </div>
 
         <div className="xt-summary-card banking-summary-card">
           <div className="xt-summary-top"><span>RB</span><strong>BANKING</strong></div>
           <Info label={isPt ? 'Versão' : 'Version'}>2.1.4</Info>
-          <Info label={isPt ? 'Frameworks' : 'Frameworks'}>QB / QBX / ESX</Info>
-          <Info label={isPt ? 'Dependências' : 'Dependencies'}>ox_lib • oxmysql • ox_target</Info>
-          <Info label={isPt ? 'Interface' : 'Interface'}>Svelte NUI</Info>
+          <Info label={isPt ? 'Integração' : 'Integration'}>PR Bridge</Info>
+          <Info label={isPt ? 'Dependência' : 'Dependency'}>pr_bridge</Info>
+          <Info label={isPt ? 'Interface' : 'Interface'}>Forge NUI</Info>
           <Info label={isPt ? 'Persistência' : 'Storage'}>MariaDB</Info>
         </div>
       </header>
@@ -74,43 +74,43 @@ export default function RenewedBankingDocs() {
         <div className="docs-prose">
           <p>
             {isPt
-              ? 'Renewed-Banking mantém uma camada central de contas em cache no servidor e apresenta ao jogador somente as contas às quais ele possui acesso: conta pessoal, contas de job, gang e contas compartilhadas. O saldo das contas organizacionais fica persistido em MariaDB enquanto o saldo pessoal continua sendo controlado pela framework.'
-              : 'Renewed-Banking keeps a server-side account cache and exposes only the accounts available to the player: personal, job, gang and shared accounts. Organization balances are persisted in MariaDB while personal balances remain owned by the framework.'}
+              ? 'Renewed-Banking mantém uma camada central de contas em cache no servidor e apresenta ao jogador somente as contas às quais ele possui acesso: conta pessoal, contas de job, gang e contas compartilhadas. O saldo das contas organizacionais fica persistido em MariaDB enquanto os dados do jogador são resolvidos exclusivamente pelo PR Bridge.'
+              : 'Renewed-Banking keeps a server-side account cache and exposes only the accounts available to the player: personal, job, gang and shared accounts. Organization balances are persisted in MariaDB while player data is resolved exclusively through PR Bridge.'}
           </p>
           <p>
             {isPt
-              ? 'A interface bancária usa NUI em Svelte, com ações de depósito, saque e transferência. Operações de saldo e histórico são processadas no servidor, e o resource mantém integrações de compatibilidade para qb-management e esx_society.'
-              : 'The banking UI uses a Svelte NUI with deposit, withdraw and transfer actions. Balances and transaction history are handled on the server, with compatibility layers for qb-management and esx_society.'}
+              ? 'A interface bancária usa a NUI Forge com ações de depósito, saque e transferência. Operações de saldo, histórico, callbacks, permissões e integrações do resource passam pela camada do PR Bridge.'
+              : 'The Forge banking NUI provides deposit, withdraw and transfer actions. Balance, history, callbacks, permissions and resource integrations are handled through PR Bridge.'}
           </p>
         </div>
         <div className="banking-feature-grid">
           <Card eyebrow="PERSONAL" title={isPt ? 'Conta pessoal' : 'Personal account'}>{isPt ? 'Usa o banco/cash do personagem da framework e mantém o histórico em player_transactions.' : 'Uses framework bank/cash balances and stores transaction history in player_transactions.'}</Card>
           <Card eyebrow="SOCIETY" title={isPt ? 'Jobs e empresas' : 'Jobs & businesses'}>{isPt ? 'Contas organizacionais são carregadas em cache, possuem saldo próprio e respeitam bankAuth/grade conforme a framework.' : 'Organization accounts are cached, own their balance and respect framework job authorization.'}</Card>
-          <Card eyebrow="GANG" title="Gang accounts">{isPt ? 'QB/QBX podem expor contas de gang com autorização por grade.' : 'QB/QBX can expose gang accounts with grade authorization.'}</Card>
+          <Card eyebrow="GANG" title="Gang accounts">{isPt ? 'Contas de gang podem ser expostas com autorização por grupo e grade resolvida pelo PR Bridge.' : 'Gang accounts can be exposed with group and grade authorization resolved by PR Bridge.'}</Card>
           <Card eyebrow="SHARED" title={isPt ? 'Contas compartilhadas' : 'Shared accounts'}>{isPt ? 'Players podem criar contas, adicionar/remover membros, renomear e excluir contas que administram.' : 'Players can create accounts, manage members, rename and delete accounts they own.'}</Card>
           <Card eyebrow="LEDGER" title={isPt ? 'Histórico de transações' : 'Transaction ledger'}>{isPt ? 'Cada transação possui ID, título, valor, tipo, emissor, recebedor, mensagem e timestamp.' : 'Each transaction stores an ID, title, amount, type, issuer, receiver, message and timestamp.'}</Card>
-          <Card eyebrow="UI" title="Svelte NUI">{isPt ? 'A UI recebe accounts, currency, traduções e estado ATM via mensagens NUI.' : 'The UI receives accounts, currency, translations and ATM state through NUI messages.'}</Card>
+          <Card eyebrow="UI" title="Forge NUI">{isPt ? 'A UI recebe accounts, currency, traduções e estado ATM via mensagens NUI.' : 'The UI receives accounts, currency, translations and ATM state through NUI messages.'}</Card>
         </div>
       </section>
 
       <section className="docs-section" id="banking-install">
-        <SectionTitle number="02" label={isPt ? 'Instalação' : 'Installation'} title={isPt ? 'Dependências OX e detecção automática de framework.' : 'OX dependencies with automatic framework detection.'} />
+        <SectionTitle number="02" label={isPt ? 'Instalação' : 'Installation'} title={isPt ? 'PR Bridge como única camada de integração obrigatória.' : 'PR Bridge as the single required integration layer.'} />
         <div className="xt-two-col banking-spaced-grid">
           <div>
-            <h3>{isPt ? 'Dependências obrigatórias' : 'Required dependencies'}</h3>
-            <div className="xt-pill-row"><span>ox_lib</span><span>oxmysql</span><span>ox_target</span></div>
-            <LuaCodeBlock>{"ensure ox_lib\nensure oxmysql\nensure ox_target\nensure Renewed-Banking"}</LuaCodeBlock>
+            <h3>{isPt ? 'Dependência obrigatória' : 'Required dependency'}</h3>
+            <div className="xt-pill-row"><span>pr_bridge</span></div>
+            <LuaCodeBlock>{"ensure pr_bridge\nensure Renewed-Banking"}</LuaCodeBlock>
           </div>
           <div>
-            <h3>{isPt ? 'Frameworks detectadas' : 'Detected frameworks'}</h3>
-            <div className="xt-pill-row"><span>qb-core</span><span>qbx_core</span><span>es_extended</span></div>
-            <p>{isPt ? 'client/framework.lua e server/framework.lua detectam automaticamente a framework iniciada. O resource é interrompido no servidor se nenhuma implementação suportada for encontrada.' : 'The framework layer detects the active supported framework automatically and stops server-side on unsupported stacks.'}</p>
+            <h3>{isPt ? 'Camada de integração' : 'Integration layer'}</h3>
+            <div className="xt-pill-row"><span>PR Bridge</span></div>
+            <p>{isPt ? 'Framework, banco, permissões, callbacks, menus, notificações, interações e serviços compartilhados são resolvidos exclusivamente pelo PR Bridge.' : 'Framework, database, permissions, callbacks, menus, notifications, interactions and shared services are resolved exclusively through PR Bridge.'}</p>
           </div>
         </div>
 
         <div className="banking-config-grid">
           <article><strong>currency</strong><p>{isPt ? 'Código de moeda exibido pela interface, por exemplo USD, EUR ou GBP.' : 'Currency code used by the interface.'}</p></article>
-          <article><strong>progressbar</strong><p>{isPt ? 'Seleciona progressCircle ou progressBar do ox_lib.' : 'Selects ox_lib progressCircle or progressBar.'}</p></article>
+          <article><strong>progressbar</strong><p>{isPt ? 'Seleciona o estilo de progresso fornecido pela interface do PR Bridge.' : 'Selects the progress presentation provided by the PR Bridge interface.'}</p></article>
           <article><strong>atms</strong><p>{isPt ? 'Lista de modelos GTA usados para abrir a interface em modo ATM.' : 'List of GTA ATM models.'}</p></article>
           <article><strong>peds</strong><p>{isPt ? 'Define NPCs bancários, coordenadas e quais locais permitem criar/gerenciar contas.' : 'Defines bank NPCs, locations and account-management availability.'}</p></article>
           <article><strong>renewedMultiJob</strong><p>{isPt ? 'Integração opcional QB com multi-job do qb-phone.' : 'Optional QB multi-job integration.'}</p></article>
@@ -196,17 +196,15 @@ export default function RenewedBankingDocs() {
       </section>
 
       <section className="docs-section" id="banking-compat">
-        <SectionTitle number="07" label={isPt ? 'Compatibilidade' : 'Compatibility'} title={isPt ? 'Drop-in parcial para ecossistemas QB e ESX existentes.' : 'Compatibility bridges for existing QB and ESX ecosystems.'} />
+        <SectionTitle number="07" label={isPt ? 'Integração' : 'Integration'} title={isPt ? 'Uma única superfície de integração através do PR Bridge.' : 'A single integration surface through PR Bridge.'} />
         <div className="xt-two-col banking-spaced-grid">
           <div>
-            <h3>qb-management</h3>
-            <p>{isPt ? 'O fxmanifest declara provide qb-management e o server registra exports compatíveis para GetAccount, GetGangAccount, AddMoney, AddGangMoney, RemoveMoney e RemoveGangMoney.' : 'The manifest provides qb-management and registers compatibility exports for account balance mutations.'}</p>
-            <LuaCodeBlock>{"exports['qb-management']:GetAccount('mechanic')\nexports['qb-management']:AddMoney('mechanic', 500)\nexports['qb-management']:RemoveMoney('mechanic', 250)"}</LuaCodeBlock>
+            <h3>PR Bridge</h3>
+            <p>{isPt ? 'Toda comunicação com framework, contas, grupos, permissões e serviços compartilhados passa pelo PR Bridge, mantendo o resource desacoplado de implementações externas.' : 'All framework, account, group, permission and shared-service communication goes through PR Bridge, keeping the resource decoupled from external implementations.'}</p>
           </div>
           <div>
-            <h3>esx_society</h3>
-            <p>{isPt ? 'O resource também declara provide esx_society e registra eventos de compatibilidade para sociedade, depósito e retirada.' : 'The resource also provides esx_society compatibility events.'}</p>
-            <LuaCodeBlock>{"TriggerServerEvent('esx_society:depositMoney', 'mechanic', 500)\nTriggerServerEvent('esx_society:withdrawMoney', 'mechanic', 250)"}</LuaCodeBlock>
+            <h3>{isPt ? 'API estável' : 'Stable API'}</h3>
+            <p>{isPt ? 'Scripts externos integram com o Renewed-Banking pelos exports documentados do próprio resource e deixam a resolução de infraestrutura para o PR Bridge.' : 'External scripts integrate through Renewed-Banking exports while infrastructure resolution remains the responsibility of PR Bridge.'}</p>
           </div>
         </div>
       </section>
@@ -221,9 +219,9 @@ export default function RenewedBankingDocs() {
       </section>
 
       <section className="docs-section">
-        <SectionTitle number="09" label={isPt ? 'Interface e localização' : 'UI & localization'} title={isPt ? 'NUI Svelte e 22 arquivos de idioma.' : 'Svelte NUI and 22 locale files.'} />
+        <SectionTitle number="09" label={isPt ? 'Interface e localização' : 'UI & localization'} title={isPt ? 'NUI Forge e arquivos de localização.' : 'Forge NUI and localization files.'} />
         <div className="banking-feature-grid">
-          <Card eyebrow="NUI" title="Svelte">{isPt ? 'web/src contém a interface fonte. Em produção, o fxmanifest espera o build em web/public.' : 'web/src contains source UI; production expects the compiled web/public build.'}</Card>
+          <Card eyebrow="NUI" title="Forge NUI">{isPt ? 'A interface fonte é compilada para o diretório de produção utilizado pelo resource.' : 'The source interface is compiled to the production directory used by the resource.'}</Card>
           <Card eyebrow="LOCALE" title={isPt ? '22 idiomas' : '22 locales'}>{isPt ? 'O diretório locales inclui cs, da, de, el, en, es, et, fi, fr, hr, hu, id, it, lt, nl, pl, pt, ru, sl, sr, sv e tr.' : 'The locale directory includes 22 JSON language packs.'}</Card>
           <Card eyebrow="ATM" title={isPt ? 'Modo ATM' : 'ATM mode'}>{isPt ? 'A mesma NUI recebe atm=true e pode restringir/comportar ações conforme o contexto.' : 'The same NUI receives ATM mode state for contextual behavior.'}</Card>
         </div>

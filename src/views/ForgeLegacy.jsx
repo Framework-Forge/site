@@ -159,7 +159,7 @@ export default function ForgeLegacy({ onOpenXtPrison, onOpenPrElevator, onOpenRe
               <h3>xt-prison</h3>
               <p>{t('legacyXtPrisonDesc')}</p>
               <div className="legacy-project-tags">
-                <span>FiveM</span><span>PR Bridge</span><span>QB/QBX</span><span>ESX</span><span>OX</span><span>ND</span>
+                <span>FiveM</span><span>PR Bridge</span><span>Config in-game</span><span>Persistência</span>
               </div>
             </div>
             <button type="button" className="docs-primary-button" onClick={onOpenXtPrison}>{t('legacyOpenDocs')}</button>
@@ -183,7 +183,7 @@ export default function ForgeLegacy({ onOpenXtPrison, onOpenPrElevator, onOpenRe
               <h3>Renewed-Banking</h3>
               <p>{t('legacyRenewedBankingDesc')}</p>
               <div className="legacy-project-tags">
-                <span>Banking</span><span>QB/QBX</span><span>ESX</span><span>ox_lib</span><span>MariaDB</span><span>Admin</span>
+                <span>Banking</span><span>PR Bridge</span><span>MariaDB</span><span>Admin</span>
               </div>
             </div>
             <button type="button" className="docs-primary-button" onClick={onOpenRenewedBanking}>{t('legacyOpenDocs')}</button>
@@ -195,7 +195,7 @@ export default function ForgeLegacy({ onOpenXtPrison, onOpenPrElevator, onOpenRe
               <h3>ps-dispatch</h3>
               <p>{t('legacyPsDispatchDesc')}</p>
               <div className="legacy-project-tags">
-                <span>Dispatch</span><span>QB/QBX</span><span>Svelte</span><span>ox_lib</span><span>Incidents</span><span>In-game Settings</span>
+                <span>Dispatch</span><span>PR Bridge</span><span>Incidents</span><span>In-game Settings</span>
               </div>
             </div>
             <button type="button" className="docs-primary-button" onClick={onOpenPsDispatch}>{t('legacyOpenDocs')}</button>

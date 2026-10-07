@@ -35,8 +35,8 @@ export default function PsDispatchDocs() {
           <h1>ps-<span>dispatch</span></h1>
           <p className="dispatch-lead">
             {isPt
-              ? 'Fork aprimorado para o ecossistema Forge de um sistema de dispatch para FiveM, com quadro operacional em Svelte, alertas críticos, agrupamento inteligente de chamadas, hotspots, grandes incidentes, histórico privado de consultas de placa e configurações pessoais dentro do jogo.'
-              : 'A Forge-enhanced fork of the FiveM dispatch system with a Svelte operations board, critical alerts, intelligent call merging, hotspots, major incidents, a private plate-check log and per-player in-game settings.'}
+              ? 'Fork aprimorado para o ecossistema Forge de um sistema de dispatch para FiveM, com quadro operacional NUI, alertas críticos, agrupamento inteligente de chamadas, hotspots, grandes incidentes, histórico privado de consultas de placa e configurações pessoais dentro do jogo.'
+              : 'A Forge-enhanced fork of the FiveM dispatch system with an operational NUI board, critical alerts, intelligent call merging, hotspots, major incidents, a private plate-check log and per-player in-game settings.'}
           </p>
           <div className="dispatch-hero-actions">
             <a className="docs-primary-button" href={FORGE_REPO} target="_blank" rel="noreferrer">Forge repository</a>
@@ -44,16 +44,16 @@ export default function PsDispatchDocs() {
             <a className="docs-secondary-button" href="#dispatch-install">{isPt ? 'Instalação' : 'Installation'}</a>
           </div>
           <div className="legacy-meta">
-            <span>v3.0.0</span><span>FiveM</span><span>QB / QBX</span><span>Svelte</span><span>Open Source</span>
+            <span>v3.0.0</span><span>FiveM</span><span>PR Bridge</span><span>Forge NUI</span><span>Open Source</span>
           </div>
         </div>
 
         <div className="xt-summary-card dispatch-summary-card">
           <div className="xt-summary-top"><span>PD</span><strong>DISPATCH</strong></div>
           <Info label={isPt ? 'Versão' : 'Version'}>3.0.0</Info>
-          <Info label={isPt ? 'Frameworks' : 'Frameworks'}>QBCore / QBX</Info>
-          <Info label={isPt ? 'Dependências' : 'Dependencies'}>ox_lib • PolyZone</Info>
-          <Info label={isPt ? 'Interface' : 'Interface'}>Svelte NUI</Info>
+          <Info label={isPt ? 'Integração' : 'Integration'}>PR Bridge</Info>
+          <Info label={isPt ? 'Dependência' : 'Dependency'}>pr_bridge</Info>
+          <Info label={isPt ? 'Interface' : 'Interface'}>Forge NUI</Info>
           <Info label={isPt ? 'Persistência' : 'Storage'}>{isPt ? 'KVP por jogador' : 'Per-player KVP'}</Info>
         </div>
       </header>
@@ -87,27 +87,27 @@ export default function PsDispatchDocs() {
       </section>
 
       <section className="docs-section" id="dispatch-install">
-        <SectionTitle number="02" label={isPt ? 'Instalação' : 'Installation'} title={isPt ? 'QBCore ou QBX, ox_lib e PolyZone como base de runtime.' : 'QBCore or QBX with ox_lib and PolyZone as the runtime base.'} />
+        <SectionTitle number="02" label={isPt ? 'Instalação' : 'Installation'} title={isPt ? 'PR Bridge como única camada obrigatória do runtime Forge.' : 'PR Bridge as the single required integration layer for the Forge runtime.'} />
         <div className="xt-two-col dispatch-spaced-grid">
           <div>
-            <h3>{isPt ? 'Dependências principais' : 'Core dependencies'}</h3>
-            <div className="xt-pill-row"><span>qb-core / qbx_core</span><span>ox_lib</span><span>PolyZone</span></div>
-            <p>{isPt ? 'lsn-radar é recomendado para radar policial. ps-mdt integra consultas de placa e fornece a imagem de mapa usada pelos thumbnails quando configurada.' : 'lsn-radar is recommended for police radar. ps-mdt integrates plate checks and can provide the map image used by thumbnails when configured.'}</p>
+            <h3>{isPt ? 'Dependência obrigatória' : 'Required dependency'}</h3>
+            <div className="xt-pill-row"><span>pr_bridge</span></div>
+            <p>{isPt ? 'Framework, grupos, permissões, callbacks, notificações, interações, estado e demais serviços compartilhados são acessados exclusivamente pelo PR Bridge.' : 'Framework, groups, permissions, callbacks, notifications, interactions, state and other shared services are accessed exclusively through PR Bridge.'}</p>
           </div>
           <div>
-            <h3>{isPt ? 'Build da interface' : 'Frontend build'}</h3>
-            <LuaCodeBlock>{"cd ui\nnpm install\nnpm run build\n\n# server.cfg\nensure ps-dispatch"}</LuaCodeBlock>
+            <h3>{isPt ? 'Ordem de inicialização' : 'Startup order'}</h3>
+            <LuaCodeBlock>{"ensure pr_bridge\nensure ps-dispatch"}</LuaCodeBlock>
           </div>
         </div>
         <div className="xt-note warning"><strong>{isPt ? 'Importante sobre html/' : 'Important: html/'}</strong><p>{isPt ? 'O diretório html é gerado pelo build e é limpo antes de recompilar. Assets permanentes devem ficar em ui/public, como as imagens de placas.' : 'The html directory is generated and cleared before each build. Persistent assets belong in ui/public, including plate artwork.'}</p></div>
       </section>
 
       <section className="docs-section" id="dispatch-architecture">
-        <SectionTitle number="03" label={isPt ? 'Arquitetura' : 'Architecture'} title={isPt ? 'Servidor autoritativo para chamadas, cliente para apresentação e Svelte para operação.' : 'Authoritative server calls, client presentation and a Svelte operations UI.'} />
+        <SectionTitle number="03" label={isPt ? 'Arquitetura' : 'Architecture'} title={isPt ? 'Servidor autoritativo para chamadas, cliente para apresentação e NUI Forge para operação.' : 'Authoritative server calls, client presentation and a Forge NUI for operations.'} />
         <div className="dispatch-feature-grid">
           <Card eyebrow="SERVER" title={isPt ? 'Servidor' : 'Server'}>{isPt ? 'Normaliza prioridade, aplica rate limit, faz merge, calcula hotspots, filtra jobs/on-duty, mantém a lista de chamadas e controla incidentes maiores.' : 'Normalizes priority, rate-limits reports, merges calls, calculates hotspots, filters jobs/on-duty, stores the call list and controls major incidents.'}</Card>
           <Card eyebrow="CLIENT" title="Client runtime">{isPt ? 'Recebe chamadas elegíveis, cria blips, sons e popups, gerencia keybinds, captura placas e sincroniza preferências locais.' : 'Receives eligible calls, creates blips, sounds and popups, manages keybinds, captures plate checks and synchronizes local preferences.'}</Card>
-          <Card eyebrow="NUI" title="Svelte UI">{isPt ? 'Exibe alertas, menu de chamadas, tabs, placas, incidentes, detalhes de veículo/arma/pessoa e modal de configurações.' : 'Renders alerts, call board, tabs, plates, incidents, vehicle/weapon/person details and the settings modal.'}</Card>
+          <Card eyebrow="NUI" title="Forge NUI">{isPt ? 'Exibe alertas, menu de chamadas, tabs, placas, incidentes, detalhes de veículo/arma/pessoa e modal de configurações.' : 'Renders alerts, call board, tabs, plates, incidents, vehicle/weapon/person details and the settings modal.'}</Card>
         </div>
       </section>
 
@@ -142,7 +142,7 @@ export default function PsDispatchDocs() {
       <section className="docs-section" id="dispatch-plates">
         <SectionTitle number="06" label={isPt ? 'Consultas de placa' : 'Plate checks'} title={isPt ? 'Uma segunda aba privada para o histórico operacional de cada policial.' : 'A private second tab for each officer’s operational lookup history.'} />
         <div className="docs-prose">
-          <p>{isPt ? 'Consultas direcionadas, como PlateCheckAlert do ps-mdt, são capturadas pelo cliente que recebeu a resposta. O log não é uma lista global de dispatch e não toca o banco de dados.' : 'Targeted lookups such as ps-mdt PlateCheckAlert are captured by the client receiving the answer. The log is not a global dispatch list and never touches a database.'}</p>
+          <p>{isPt ? 'Consultas direcionadas de placa são capturadas pelo cliente que recebeu a resposta. O log não é uma lista global de dispatch e não toca o banco de dados.' : 'Targeted plate lookups are captured by the client receiving the answer. The log is not a global dispatch list and never touches a database.'}</p>
           <p>{isPt ? 'O sistema tenta identificar a arte real da placa procurando no mundo um veículo com correspondência exata. Se não encontrar, usa um badge neutro em vez de inventar o design. Cada entrada pode ser dispensada, copiada ou escalada para Request Backup.' : 'The system attempts to identify the real plate design from an exact vehicle match in the world. If none is found it shows a neutral badge instead of guessing. Each hit can be dismissed, copied or escalated through Request Backup.'}</p>
         </div>
         <LuaCodeBlock>{"Config.PlateScanner = {\n    Enabled = true,\n    MaxHits = 40,\n    Jobs = { 'leo' },\n    CodeNames = { 'platecheck' },\n    BackupButton = true,\n    BackupCooldownMs = 60000,\n}"}</LuaCodeBlock>
@@ -217,11 +217,11 @@ export default function PsDispatchDocs() {
       </section>
 
       <section className="docs-section">
-        <SectionTitle number="10" label={isPt ? 'Localização e interface' : 'Localization & UI'} title={isPt ? 'Oito locales no Lua e frontend Svelte recompilável.' : 'Eight Lua locales and a rebuildable Svelte frontend.'} />
+        <SectionTitle number="10" label={isPt ? 'Localização e interface' : 'Localization & UI'} title={isPt ? 'Localização integrada e frontend NUI recompilável.' : 'Integrated localization and a rebuildable NUI frontend.'} />
         <div className="dispatch-feature-grid">
           <Card eyebrow="LOCALES" title="8 locales">en · de · es · fr · nl · pt-br · tr · cs</Card>
           <Card eyebrow="PLATES" title={isPt ? 'Placas reais' : 'Real plate artwork'}>{isPt ? 'plateIndex seleciona a arte compatível com o design GTA; sem índice, usa fallback neutro.' : 'plateIndex selects matching GTA plate art; missing indices use a neutral fallback.'}</Card>
-          <Card eyebrow="MAP" title={isPt ? 'Mapa contextual' : 'Context map'}>{isPt ? 'MdtMapImage permite thumbnails do local usando imagem do mapa do MDT ou outra URL NUI configurada.' : 'MdtMapImage enables scene thumbnails using the MDT map or another configured NUI URL.'}</Card>
+          <Card eyebrow="MAP" title={isPt ? 'Mapa contextual' : 'Context map'}>{isPt ? 'A configuração de mapa permite thumbnails do local usando uma imagem NUI definida pelo servidor.' : 'Map configuration enables scene thumbnails using a server-defined NUI image.'}</Card>
         </div>
       </section>
 
