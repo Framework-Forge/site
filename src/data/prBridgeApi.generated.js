@@ -1,5 +1,5 @@
 // AUTO-GENERATED from Framework-Forge/pr_bridge/API_FUNCTIONS.md
-// Do not hand-edit function signatures; regenerate from the source index.
+// Source revision: main. Do not hand-edit signatures.
 export const PR_BRIDGE_API = [
   {
     "module": "core",
@@ -209,7 +209,7 @@ export const PR_BRIDGE_API = [
     "module": "debug",
     "context": "shared",
     "signature": "pr_lib.debug.setEnabled(state)",
-    "example": "pr_lib.debug.setEnabled(true)"
+    "example": "pr_lib.debug.setEnabled({})"
   },
   {
     "module": "debug",
@@ -413,7 +413,7 @@ export const PR_BRIDGE_API = [
     "module": "framework",
     "context": "server",
     "signature": "pr_lib.framework.GetItemCount(source, itemName, metadata, strict)",
-    "example": "local result = pr_lib.framework.GetItemCount(source, 'example', {}, true)"
+    "example": "local result = pr_lib.framework.GetItemCount(source, 'example', {}, 'value')"
   },
   {
     "module": "framework",
@@ -659,7 +659,7 @@ export const PR_BRIDGE_API = [
     "module": "framework",
     "context": "server",
     "signature": "pr_lib.framework.HasItem(source, itemName, count, metadata, strict)",
-    "example": "local result = pr_lib.framework.HasItem(source, 'example', 1, {}, true)"
+    "example": "local result = pr_lib.framework.HasItem(source, 'example', 1, {}, 'value')"
   },
   {
     "module": "framework",
@@ -863,7 +863,7 @@ export const PR_BRIDGE_API = [
     "module": "framework",
     "context": "client",
     "signature": "pr_lib.framework.GetItemCount(itemName, metadata, strict)",
-    "example": "local result = pr_lib.framework.GetItemCount('example', {}, true)"
+    "example": "local result = pr_lib.framework.GetItemCount('example', {}, 'value')"
   },
   {
     "module": "framework",
@@ -965,7 +965,7 @@ export const PR_BRIDGE_API = [
     "module": "framework",
     "context": "client",
     "signature": "pr_lib.framework.HasItem(itemName, count, metadata, strict)",
-    "example": "local result = pr_lib.framework.HasItem('example', 1, {}, true)"
+    "example": "local result = pr_lib.framework.HasItem('example', 1, {}, 'value')"
   },
   {
     "module": "framework",
@@ -1007,7 +1007,7 @@ export const PR_BRIDGE_API = [
     "module": "framework",
     "context": "client",
     "signature": "pr_lib.framework.toggleOutfit(wear, outfits)",
-    "example": "pr_lib.framework.toggleOutfit('value', 'value')"
+    "example": "local result = pr_lib.framework.toggleOutfit('value', 'value')"
   },
   {
     "module": "framework",
@@ -1541,13 +1541,13 @@ export const PR_BRIDGE_API = [
     "module": "inventory",
     "context": "server",
     "signature": "pr_lib.inventory.GetItemCount(inv, itemName, metadata, strict)",
-    "example": "local result = pr_lib.inventory.GetItemCount('value', 'example', {}, true)"
+    "example": "local result = pr_lib.inventory.GetItemCount('value', 'example', {}, 'value')"
   },
   {
     "module": "inventory",
     "context": "server",
     "signature": "pr_lib.inventory.GetItemCount(inv,item,metadata,strict)",
-    "example": "local result = pr_lib.inventory.GetItemCount('value', 'example', {}, true)"
+    "example": "local result = pr_lib.inventory.GetItemCount('value', 'example', {}, 'value')"
   },
   {
     "module": "inventory",
@@ -1607,25 +1607,25 @@ export const PR_BRIDGE_API = [
     "module": "inventory",
     "context": "server",
     "signature": "pr_lib.inventory.GetSlotIdsWithItem(inv, itemName, metadata, strict)",
-    "example": "local result = pr_lib.inventory.GetSlotIdsWithItem('value', 'example', {}, true)"
+    "example": "local result = pr_lib.inventory.GetSlotIdsWithItem('value', 'example', {}, 'value')"
   },
   {
     "module": "inventory",
     "context": "server",
     "signature": "pr_lib.inventory.GetSlotIdWithItem(inv, itemName, metadata, strict)",
-    "example": "local result = pr_lib.inventory.GetSlotIdWithItem('value', 'example', {}, true)"
+    "example": "local result = pr_lib.inventory.GetSlotIdWithItem('value', 'example', {}, 'value')"
   },
   {
     "module": "inventory",
     "context": "server",
     "signature": "pr_lib.inventory.GetSlotsWithItem(inv, itemName, metadata, strict)",
-    "example": "local result = pr_lib.inventory.GetSlotsWithItem('value', 'example', {}, true)"
+    "example": "local result = pr_lib.inventory.GetSlotsWithItem('value', 'example', {}, 'value')"
   },
   {
     "module": "inventory",
     "context": "server",
     "signature": "pr_lib.inventory.GetSlotWithItem(inv, itemName, metadata, strict)",
-    "example": "local result = pr_lib.inventory.GetSlotWithItem('value', 'example', {}, true)"
+    "example": "local result = pr_lib.inventory.GetSlotWithItem('value', 'example', {}, 'value')"
   },
   {
     "module": "inventory",
@@ -1661,7 +1661,7 @@ export const PR_BRIDGE_API = [
     "module": "inventory",
     "context": "server",
     "signature": "pr_lib.inventory.HasItem(inv,item,count,metadata,strict)",
-    "example": "local result = pr_lib.inventory.HasItem('value', 'example', 1, {}, true)"
+    "example": "local result = pr_lib.inventory.HasItem('value', 'example', 1, {}, 'value')"
   },
   {
     "module": "inventory",
@@ -1685,7 +1685,7 @@ export const PR_BRIDGE_API = [
     "module": "inventory",
     "context": "server",
     "signature": "pr_lib.inventory.InspectInventory(target, source)",
-    "example": "pr_lib.inventory.InspectInventory(source, source)"
+    "example": "local result = pr_lib.inventory.InspectInventory(source, source)"
   },
   {
     "module": "inventory",
@@ -1937,13 +1937,13 @@ export const PR_BRIDGE_API = [
     "module": "inventory",
     "context": "client",
     "signature": "pr_lib.inventory.GetItemCount(item,metadata,strict)",
-    "example": "local result = pr_lib.inventory.GetItemCount('example', {}, true)"
+    "example": "local result = pr_lib.inventory.GetItemCount('example', {}, 'value')"
   },
   {
     "module": "inventory",
     "context": "client",
     "signature": "pr_lib.inventory.GetItemCount(itemName, metadata, strict)",
-    "example": "local result = pr_lib.inventory.GetItemCount('example', {}, true)"
+    "example": "local result = pr_lib.inventory.GetItemCount('example', {}, 'value')"
   },
   {
     "module": "inventory",
@@ -2003,25 +2003,25 @@ export const PR_BRIDGE_API = [
     "module": "inventory",
     "context": "client",
     "signature": "pr_lib.inventory.GetSlotIdsWithItem(itemName, metadata, strict)",
-    "example": "local result = pr_lib.inventory.GetSlotIdsWithItem('example', {}, true)"
+    "example": "local result = pr_lib.inventory.GetSlotIdsWithItem('example', {}, 'value')"
   },
   {
     "module": "inventory",
     "context": "client",
     "signature": "pr_lib.inventory.GetSlotIdWithItem(itemName, metadata, strict)",
-    "example": "local result = pr_lib.inventory.GetSlotIdWithItem('example', {}, true)"
+    "example": "local result = pr_lib.inventory.GetSlotIdWithItem('example', {}, 'value')"
   },
   {
     "module": "inventory",
     "context": "client",
     "signature": "pr_lib.inventory.GetSlotsWithItem(itemName, metadata, strict)",
-    "example": "local result = pr_lib.inventory.GetSlotsWithItem('example', {}, true)"
+    "example": "local result = pr_lib.inventory.GetSlotsWithItem('example', {}, 'value')"
   },
   {
     "module": "inventory",
     "context": "client",
     "signature": "pr_lib.inventory.GetSlotWithItem(itemName, metadata, strict)",
-    "example": "local result = pr_lib.inventory.GetSlotWithItem('example', {}, true)"
+    "example": "local result = pr_lib.inventory.GetSlotWithItem('example', {}, 'value')"
   },
   {
     "module": "inventory",
@@ -2057,7 +2057,7 @@ export const PR_BRIDGE_API = [
     "module": "inventory",
     "context": "client",
     "signature": "pr_lib.inventory.HasItem(item,count,metadata,strict)",
-    "example": "local result = pr_lib.inventory.HasItem('example', 1, {}, true)"
+    "example": "local result = pr_lib.inventory.HasItem('example', 1, {}, 'value')"
   },
   {
     "module": "inventory",
@@ -2099,13 +2099,13 @@ export const PR_BRIDGE_API = [
     "module": "inventory",
     "context": "client",
     "signature": "pr_lib.inventory.setInClothing(state)",
-    "example": "pr_lib.inventory.setInClothing(true)"
+    "example": "pr_lib.inventory.setInClothing({})"
   },
   {
     "module": "inventory",
     "context": "client",
     "signature": "pr_lib.inventory.setInventoryDisabled(state)",
-    "example": "pr_lib.inventory.setInventoryDisabled(true)"
+    "example": "pr_lib.inventory.setInventoryDisabled({})"
   },
   {
     "module": "inventory",
@@ -2129,7 +2129,7 @@ export const PR_BRIDGE_API = [
     "module": "inventory",
     "context": "client",
     "signature": "pr_lib.inventory.weaponWheel(state)",
-    "example": "pr_lib.inventory.weaponWheel(true)"
+    "example": "pr_lib.inventory.weaponWheel({})"
   },
   {
     "module": "inventory",
@@ -2213,7 +2213,7 @@ export const PR_BRIDGE_API = [
     "module": "inventory",
     "context": "shared",
     "signature": "pr_lib.inventory.GetItemSlots(inv, item, metadata, strict)",
-    "example": "local result = pr_lib.inventory.GetItemSlots('value', 'example', {}, true)"
+    "example": "local result = pr_lib.inventory.GetItemSlots('value', 'example', {}, 'value')"
   },
   {
     "module": "inventory",
@@ -2243,55 +2243,55 @@ export const PR_BRIDGE_API = [
     "module": "inventory",
     "context": "shared",
     "signature": "pr_lib.inventory.GetSlotForItem(item, metadata, strict)",
-    "example": "local result = pr_lib.inventory.GetSlotForItem('example', {}, true)"
+    "example": "local result = pr_lib.inventory.GetSlotForItem('example', {}, 'value')"
   },
   {
     "module": "inventory",
     "context": "shared",
     "signature": "pr_lib.inventory.GetSlotIdsWithItem(inv, item, metadata, strict)",
-    "example": "local result = pr_lib.inventory.GetSlotIdsWithItem('value', 'example', {}, true)"
+    "example": "local result = pr_lib.inventory.GetSlotIdsWithItem('value', 'example', {}, 'value')"
   },
   {
     "module": "inventory",
     "context": "shared",
     "signature": "pr_lib.inventory.GetSlotIdsWithItem(item, metadata, strict)",
-    "example": "local result = pr_lib.inventory.GetSlotIdsWithItem('example', {}, true)"
+    "example": "local result = pr_lib.inventory.GetSlotIdsWithItem('example', {}, 'value')"
   },
   {
     "module": "inventory",
     "context": "shared",
     "signature": "pr_lib.inventory.GetSlotIdWithItem(inv, item, metadata, strict)",
-    "example": "local result = pr_lib.inventory.GetSlotIdWithItem('value', 'example', {}, true)"
+    "example": "local result = pr_lib.inventory.GetSlotIdWithItem('value', 'example', {}, 'value')"
   },
   {
     "module": "inventory",
     "context": "shared",
     "signature": "pr_lib.inventory.GetSlotIdWithItem(item, metadata, strict)",
-    "example": "local result = pr_lib.inventory.GetSlotIdWithItem('example', {}, true)"
+    "example": "local result = pr_lib.inventory.GetSlotIdWithItem('example', {}, 'value')"
   },
   {
     "module": "inventory",
     "context": "shared",
     "signature": "pr_lib.inventory.GetSlotsWithItem(inv, item, metadata, strict)",
-    "example": "local result = pr_lib.inventory.GetSlotsWithItem('value', 'example', {}, true)"
+    "example": "local result = pr_lib.inventory.GetSlotsWithItem('value', 'example', {}, 'value')"
   },
   {
     "module": "inventory",
     "context": "shared",
     "signature": "pr_lib.inventory.GetSlotsWithItem(item, metadata, strict)",
-    "example": "local result = pr_lib.inventory.GetSlotsWithItem('example', {}, true)"
+    "example": "local result = pr_lib.inventory.GetSlotsWithItem('example', {}, 'value')"
   },
   {
     "module": "inventory",
     "context": "shared",
     "signature": "pr_lib.inventory.GetSlotWithItem(inv, item, metadata, strict)",
-    "example": "local result = pr_lib.inventory.GetSlotWithItem('value', 'example', {}, true)"
+    "example": "local result = pr_lib.inventory.GetSlotWithItem('value', 'example', {}, 'value')"
   },
   {
     "module": "inventory",
     "context": "shared",
     "signature": "pr_lib.inventory.GetSlotWithItem(item, metadata, strict)",
-    "example": "local result = pr_lib.inventory.GetSlotWithItem('example', {}, true)"
+    "example": "local result = pr_lib.inventory.GetSlotWithItem('example', {}, 'value')"
   },
   {
     "module": "inventory",
@@ -2303,13 +2303,13 @@ export const PR_BRIDGE_API = [
     "module": "inventory",
     "context": "shared",
     "signature": "pr_lib.inventory.HasItem(inv, item, amount, metadata, strict)",
-    "example": "local result = pr_lib.inventory.HasItem('value', 'example', 1, {}, true)"
+    "example": "local result = pr_lib.inventory.HasItem('value', 'example', 1, {}, 'value')"
   },
   {
     "module": "inventory",
     "context": "shared",
     "signature": "pr_lib.inventory.HasItem(item, amount, metadata, strict)",
-    "example": "local result = pr_lib.inventory.HasItem('example', 1, {}, true)"
+    "example": "local result = pr_lib.inventory.HasItem('example', 1, {}, 'value')"
   },
   {
     "module": "inventory",
@@ -2405,7 +2405,7 @@ export const PR_BRIDGE_API = [
     "module": "menu",
     "context": "client",
     "signature": "pr_lib.menus.HideContext(onExit)",
-    "example": "pr_lib.menus.HideContext(function(...)\\n    -- handle result\\nend)"
+    "example": "pr_lib.menus.HideContext('value')"
   },
   {
     "module": "menu",
@@ -2417,7 +2417,7 @@ export const PR_BRIDGE_API = [
     "module": "menu",
     "context": "client",
     "signature": "pr_lib.menus.HideMenu(onExit)",
-    "example": "pr_lib.menus.HideMenu(function(...)\\n    -- handle result\\nend)"
+    "example": "pr_lib.menus.HideMenu('value')"
   },
   {
     "module": "menu",
@@ -2585,7 +2585,7 @@ export const PR_BRIDGE_API = [
     "module": "target",
     "context": "client",
     "signature": "pr_lib.target.disableTargeting(state)",
-    "example": "pr_lib.target.disableTargeting(true)"
+    "example": "pr_lib.target.disableTargeting({})"
   },
   {
     "module": "target",
@@ -2849,13 +2849,13 @@ export const PR_BRIDGE_API = [
     "module": "phone",
     "context": "client",
     "signature": "pr_lib.phone.SetCanOpenPhone(bool)",
-    "example": "pr_lib.phone.SetCanOpenPhone(true)"
+    "example": "pr_lib.phone.SetCanOpenPhone('value')"
   },
   {
     "module": "phone",
     "context": "client",
     "signature": "pr_lib.phone.SetSOS(bool)",
-    "example": "pr_lib.phone.SetSOS(true)"
+    "example": "pr_lib.phone.SetSOS('value')"
   },
   {
     "module": "progressbar",
@@ -2891,7 +2891,7 @@ export const PR_BRIDGE_API = [
     "module": "weather",
     "context": "client",
     "signature": "pr_lib.weather.ToggleSync(toggle)",
-    "example": "pr_lib.weather.ToggleSync('value')"
+    "example": "local result = pr_lib.weather.ToggleSync('value')"
   },
   {
     "module": "database",
@@ -3395,7 +3395,7 @@ export const PR_BRIDGE_API = [
     "module": "vehicle_key",
     "context": "client",
     "signature": "pr_lib.vehicle_key.ToggleLock()",
-    "example": "pr_lib.vehicle_key.ToggleLock()"
+    "example": "local result = pr_lib.vehicle_key.ToggleLock()"
   },
   {
     "module": "banking",
@@ -3551,7 +3551,7 @@ export const PR_BRIDGE_API = [
     "module": "ace",
     "context": "server",
     "signature": "pr_lib.ace.addAce(principal, aceName, allow)",
-    "example": "pr_lib.ace.addAce('example', 'example', true)"
+    "example": "pr_lib.ace.addAce('example', 'example', 'value')"
   },
   {
     "module": "ace",
@@ -3641,7 +3641,7 @@ export const PR_BRIDGE_API = [
     "module": "ace",
     "context": "server",
     "signature": "pr_lib.ace.removeAce(principal, aceName, allow)",
-    "example": "pr_lib.ace.removeAce('example', 'example', true)"
+    "example": "pr_lib.ace.removeAce('example', 'example', 'value')"
   },
   {
     "module": "ace",
@@ -3935,13 +3935,13 @@ export const PR_BRIDGE_API = [
     "module": "math",
     "context": "shared",
     "signature": "pr_lib.math.Length3(x, y, z)",
-    "example": "pr_lib.math.Length3(1, 1, 'value')"
+    "example": "pr_lib.math.Length3(1, 1, 1)"
   },
   {
     "module": "math",
     "context": "shared",
     "signature": "pr_lib.math.length3(x, y, z)",
-    "example": "pr_lib.math.length3(1, 1, 'value')"
+    "example": "pr_lib.math.length3(1, 1, 1)"
   },
   {
     "module": "math",
@@ -4415,7 +4415,7 @@ export const PR_BRIDGE_API = [
     "module": "fivem.dui",
     "context": "server",
     "signature": "pr_lib.dui.startSprite(target, id, options)",
-    "example": "pr_lib.dui.startSprite(source, 'example', {})"
+    "example": "local result = pr_lib.dui.startSprite(source, 'example', {})"
   },
   {
     "module": "fivem.dui",
@@ -4607,13 +4607,13 @@ export const PR_BRIDGE_API = [
     "module": "fivem.dui",
     "context": "client",
     "signature": "pr_lib.dui.startPoly(target, options)",
-    "example": "pr_lib.dui.startPoly(source, {})"
+    "example": "local result = pr_lib.dui.startPoly(source, {})"
   },
   {
     "module": "fivem.dui",
     "context": "client",
     "signature": "pr_lib.dui.startSprite(target, options)",
-    "example": "pr_lib.dui.startSprite(source, {})"
+    "example": "local result = pr_lib.dui.startSprite(source, {})"
   },
   {
     "module": "fivem.dui",
@@ -4637,7 +4637,7 @@ export const PR_BRIDGE_API = [
     "module": "fivem.dui",
     "context": "client",
     "signature": "pr_lib.dui.toggleMouse(target, state)",
-    "example": "pr_lib.dui.toggleMouse(source, true)"
+    "example": "local result = pr_lib.dui.toggleMouse(source, {})"
   },
   {
     "module": "fivem.dui",
@@ -4709,7 +4709,7 @@ export const PR_BRIDGE_API = [
     "module": "fivem.tuning",
     "context": "client",
     "signature": "pr_lib.fivem.tuning.setExtra(vehicle, extraId, state)",
-    "example": "pr_lib.fivem.tuning.setExtra(entity, 'example', true)"
+    "example": "pr_lib.fivem.tuning.setExtra(entity, 'example', {})"
   },
   {
     "module": "fivem.tuning",
@@ -4751,19 +4751,19 @@ export const PR_BRIDGE_API = [
     "module": "fivem.tuning",
     "context": "client",
     "signature": "pr_lib.fivem.tuning.toggleMod(vehicle, modType, state)",
-    "example": "pr_lib.fivem.tuning.toggleMod(entity, 'example', true)"
+    "example": "local result = pr_lib.fivem.tuning.toggleMod(entity, 'example', {})"
   },
   {
     "module": "fivem.drawtext",
     "context": "client",
     "signature": "pr_lib.drawtext.change(text, position, options)",
-    "example": "pr_lib.drawtext.change('value', 'value', {})"
+    "example": "pr_lib.drawtext.change('value', vec3(0.0, 0.0, 0.0), {})"
   },
   {
     "module": "fivem.drawtext",
     "context": "client",
     "signature": "pr_lib.drawtext.ChangeText(text, position, options)",
-    "example": "pr_lib.drawtext.ChangeText('value', 'value', {})"
+    "example": "pr_lib.drawtext.ChangeText('value', vec3(0.0, 0.0, 0.0), {})"
   },
   {
     "module": "fivem.drawtext",
@@ -4781,7 +4781,7 @@ export const PR_BRIDGE_API = [
     "module": "fivem.drawtext",
     "context": "client",
     "signature": "pr_lib.drawtext.DrawText(text, position, options)",
-    "example": "pr_lib.drawtext.DrawText('value', 'value', {})"
+    "example": "pr_lib.drawtext.DrawText('value', vec3(0.0, 0.0, 0.0), {})"
   },
   {
     "module": "fivem.drawtext",
@@ -4853,7 +4853,7 @@ export const PR_BRIDGE_API = [
     "module": "fivem.drawtext",
     "context": "client",
     "signature": "pr_lib.drawtext.show(text, position, options)",
-    "example": "pr_lib.drawtext.show('value', 'value', {})"
+    "example": "pr_lib.drawtext.show('value', vec3(0.0, 0.0, 0.0), {})"
   },
   {
     "module": "fivem.vehicleProperties",
@@ -5231,7 +5231,7 @@ export const PR_BRIDGE_API = [
     "module": "fivem.objects",
     "context": "server",
     "signature": "pr_lib.fivem.objects.freezeByModelInRadius(model, coords, radius, state)",
-    "example": "pr_lib.fivem.objects.freezeByModelInRadius('prop_tool_bench02', vec3(0.0, 0.0, 0.0), 1, true)"
+    "example": "pr_lib.fivem.objects.freezeByModelInRadius('prop_tool_bench02', vec3(0.0, 0.0, 0.0), 1, {})"
   },
   {
     "module": "fivem.objects",
@@ -5387,7 +5387,7 @@ export const PR_BRIDGE_API = [
     "module": "fivem.objects",
     "context": "client",
     "signature": "pr_lib.fivem.objects.freezeByModelInRadius(model, coords, radius, state)",
-    "example": "pr_lib.fivem.objects.freezeByModelInRadius('prop_tool_bench02', vec3(0.0, 0.0, 0.0), 1, true)"
+    "example": "pr_lib.fivem.objects.freezeByModelInRadius('prop_tool_bench02', vec3(0.0, 0.0, 0.0), 1, {})"
   },
   {
     "module": "fivem.objects",
@@ -5573,7 +5573,7 @@ export const PR_BRIDGE_API = [
     "module": "fivem.vehicleCache",
     "context": "shared",
     "signature": "pr_lib.fivem.vehicleCache.setState(vehicle, name, value, replicated)",
-    "example": "pr_lib.fivem.vehicleCache.setState(entity, 'example', 'value', 'value')"
+    "example": "pr_lib.fivem.vehicleCache.setState(entity, 'example', 'value', true)"
   },
   {
     "module": "fivem.blips",
@@ -5741,13 +5741,13 @@ export const PR_BRIDGE_API = [
     "module": "fivem.devtools",
     "context": "client",
     "signature": "pr_lib.devtools.startEntityPlacement(placementType, modelName, maxSlots, cb, options)",
-    "example": "pr_lib.devtools.startEntityPlacement('example', 'prop_tool_bench02', 1, function(...)\\n    -- handle result\\nend, {})"
+    "example": "local result = pr_lib.devtools.startEntityPlacement('example', 'prop_tool_bench02', 1, function(...)\\n    -- handle result\\nend, {})"
   },
   {
     "module": "fivem.devtools",
     "context": "client",
     "signature": "pr_lib.devtools.StartEntityPlacement(placementType, modelName, maxSlots, cb, options)",
-    "example": "pr_lib.devtools.StartEntityPlacement('example', 'prop_tool_bench02', 1, function(...)\\n    -- handle result\\nend, {})"
+    "example": "local result = pr_lib.devtools.StartEntityPlacement('example', 'prop_tool_bench02', 1, function(...)\\n    -- handle result\\nend, {})"
   },
   {
     "module": "fivem.devtools",
@@ -5922,6 +5922,684 @@ export const PR_BRIDGE_API = [
     "context": "client",
     "signature": "pr_lib.fivem.vehicles.findClosestByModel(model, coords, radius, options)",
     "example": "local result = pr_lib.fivem.vehicles.findClosestByModel('prop_tool_bench02', vec3(0.0, 0.0, 0.0), 1, {})"
+  },
+  {
+    "module": "fivem.editorCamera",
+    "context": "client",
+    "signature": "pr_lib.editorCamera.getCameraTargetPosition()",
+    "example": "local result = pr_lib.editorCamera.getCameraTargetPosition()"
+  },
+  {
+    "module": "fivem.editorCamera",
+    "context": "client",
+    "signature": "pr_lib.editorCamera.updateCameraPosition()",
+    "example": "pr_lib.editorCamera.updateCameraPosition()"
+  },
+  {
+    "module": "fivem.editorCamera",
+    "context": "client",
+    "signature": "pr_lib.editorCamera.handleCameraControls()",
+    "example": "pr_lib.editorCamera.handleCameraControls()"
+  },
+  {
+    "module": "fivem.editorCamera",
+    "context": "client",
+    "signature": "pr_lib.editorCamera.cursorLock()",
+    "example": "pr_lib.editorCamera.cursorLock()"
+  },
+  {
+    "module": "fivem.editorCamera",
+    "context": "client",
+    "signature": "pr_lib.editorCamera.start(targetEntity)",
+    "example": "local result = pr_lib.editorCamera.start(entity)"
+  },
+  {
+    "module": "fivem.editorCamera",
+    "context": "client",
+    "signature": "pr_lib.editorCamera.stop()",
+    "example": "pr_lib.editorCamera.stop()"
+  },
+  {
+    "module": "fivem.editorCamera",
+    "context": "client",
+    "signature": "pr_lib.editorCamera.startFreecam(options)",
+    "example": "local result = pr_lib.editorCamera.startFreecam({})"
+  },
+  {
+    "module": "fivem.editorCamera",
+    "context": "client",
+    "signature": "pr_lib.editorCamera.updateFreecam(state, moveSpeed)",
+    "example": "pr_lib.editorCamera.updateFreecam({}, 0.0)"
+  },
+  {
+    "module": "fivem.editorCamera",
+    "context": "client",
+    "signature": "pr_lib.editorCamera.getFreecamTargetCoords(state, options)",
+    "example": "local result = pr_lib.editorCamera.getFreecamTargetCoords({}, {})"
+  },
+  {
+    "module": "fivem.editorCamera",
+    "context": "client",
+    "signature": "pr_lib.editorCamera.stopFreecam(state)",
+    "example": "pr_lib.editorCamera.stopFreecam({})"
+  },
+  {
+    "module": "fivem.editorCamera",
+    "context": "client",
+    "signature": "pr_lib.editorCamera.isFreecamActive()",
+    "example": "local result = pr_lib.editorCamera.isFreecamActive()"
+  },
+  {
+    "module": "fivem.editorCamera",
+    "context": "client",
+    "signature": "pr_lib.editorCamera.smoothTransitionToEntity(entity, targetRadius)",
+    "example": "pr_lib.editorCamera.smoothTransitionToEntity(entity, 1)"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.getDisplayBasis()",
+    "example": "local result = pr_lib.gizmo.getDisplayBasis()"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.getGizmoPosition()",
+    "example": "local result = pr_lib.gizmo.getGizmoPosition()"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.setOffset(off)",
+    "example": "pr_lib.gizmo.setOffset('value')"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.getOffset()",
+    "example": "local result = pr_lib.gizmo.getOffset()"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.getGizmoWorldPosition()",
+    "example": "local result = pr_lib.gizmo.getGizmoWorldPosition()"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.focusEditorCamera(silent)",
+    "example": "pr_lib.gizmo.focusEditorCamera(true)"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.releaseEditorCamera(silent)",
+    "example": "pr_lib.gizmo.releaseEditorCamera(true)"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.start(entity, callback, offset, options)",
+    "example": "local result = pr_lib.gizmo.start(entity, function(...)\\n    -- handle result\\nend, 'value', {})"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.stop()",
+    "example": "pr_lib.gizmo.stop()"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.setBeforeTransformCallback(callback)",
+    "example": "pr_lib.gizmo.setBeforeTransformCallback(function(...)\\n    -- handle result\\nend)"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.ResetPrecisionKeys()",
+    "example": "pr_lib.gizmo.ResetPrecisionKeys()"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.HasPrecisionRotationInput()",
+    "example": "local result = pr_lib.gizmo.HasPrecisionRotationInput()"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.isPrecisionMode()",
+    "example": "local result = pr_lib.gizmo.isPrecisionMode()"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.isFreeCameraMode()",
+    "example": "local result = pr_lib.gizmo.isFreeCameraMode()"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.setFreeCameraMode(enabled, silent)",
+    "example": "pr_lib.gizmo.setFreeCameraMode(true, true)"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.toggleFreeCameraMode()",
+    "example": "local result = pr_lib.gizmo.toggleFreeCameraMode()"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.applyControlLocks()",
+    "example": "pr_lib.gizmo.applyControlLocks()"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.setPrecisionMode(enabled, silent)",
+    "example": "pr_lib.gizmo.setPrecisionMode(true, true)"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.togglePrecisionMode()",
+    "example": "local result = pr_lib.gizmo.togglePrecisionMode()"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.setPrecisionModeProvider(callback)",
+    "example": "pr_lib.gizmo.setPrecisionModeProvider(function(...)\\n    -- handle result\\nend)"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.getPrecisionSpeed()",
+    "example": "local result = pr_lib.gizmo.getPrecisionSpeed()"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.setPrecisionSpeed(value)",
+    "example": "pr_lib.gizmo.setPrecisionSpeed('value')"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.adjustPrecisionSpeed(delta)",
+    "example": "pr_lib.gizmo.adjustPrecisionSpeed(1)"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.handlePrecisionToggleInput()",
+    "example": "pr_lib.gizmo.handlePrecisionToggleInput()"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.handlePrecisionSpeedInput()",
+    "example": "pr_lib.gizmo.handlePrecisionSpeedInput()"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.toggleMode()",
+    "example": "local result = pr_lib.gizmo.toggleMode()"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.getSpeedModifier()",
+    "example": "local result = pr_lib.gizmo.getSpeedModifier()"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.getMousePosition()",
+    "example": "local result = pr_lib.gizmo.getMousePosition()"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.getAxisDirection(axis, keepSign)",
+    "example": "local result = pr_lib.gizmo.getAxisDirection('example', 'value')"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.getPlaneNormal(plane)",
+    "example": "local result = pr_lib.gizmo.getPlaneNormal('example')"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.getRotationRingBasis(axis)",
+    "example": "local result = pr_lib.gizmo.getRotationRingBasis('example')"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.getColorAlpha(axisName, colorSet)",
+    "example": "local result = pr_lib.gizmo.getColorAlpha('example', 'value')"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.checkPointNearMouse(worldPoint, mx, my)",
+    "example": "pr_lib.gizmo.checkPointNearMouse('value', 'value', 'value')"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.checkLineSegment(from, to, mx, my, samples)",
+    "example": "pr_lib.gizmo.checkLineSegment('value', 'value', 'value', 'value', 'value')"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.checkLineSegmentNearMouse(from, to, mx, my, threshold)",
+    "example": "pr_lib.gizmo.checkLineSegmentNearMouse('value', 'value', 'value', 'value', 'value')"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.checkPlane(mx, my, center, planeName)",
+    "example": "pr_lib.gizmo.checkPlane('value', 'value', 'value', 'example')"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.checkCenterSquare(mx, my, center)",
+    "example": "pr_lib.gizmo.checkCenterSquare('value', 'value', 'value')"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.updateHover(mx, my)",
+    "example": "pr_lib.gizmo.updateHover('value', 'value')"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.beginAxisDrag(axis, mx, my)",
+    "example": "pr_lib.gizmo.beginAxisDrag('example', 'value', 'value')"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.setCoords(x, y, z)",
+    "example": "pr_lib.gizmo.setCoords(1, 1, 1)"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.placeEntityOnGround()",
+    "example": "pr_lib.gizmo.placeEntityOnGround()"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.updateAxisDrag(mx, my)",
+    "example": "pr_lib.gizmo.updateAxisDrag('value', 'value')"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.beginPlaneDrag(plane, mx, my)",
+    "example": "pr_lib.gizmo.beginPlaneDrag('example', 'value', 'value')"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.beginFreeDrag(mx, my)",
+    "example": "pr_lib.gizmo.beginFreeDrag('value', 'value')"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.updateFreeDrag(mx, my)",
+    "example": "pr_lib.gizmo.updateFreeDrag('value', 'value')"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.updatePlaneDrag(mx, my)",
+    "example": "pr_lib.gizmo.updatePlaneDrag('value', 'value')"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.beginRotationDrag(axis, mx, my)",
+    "example": "pr_lib.gizmo.beginRotationDrag('example', 'value', 'value')"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.updateRotationDrag(mx, my)",
+    "example": "pr_lib.gizmo.updateRotationDrag('value', 'value')"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.drawArrow(origin, axis, colorSet)",
+    "example": "pr_lib.gizmo.drawArrow('value', 'example', 'value')"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.drawPlaneSquare(origin, plane, colorSet, isFacing)",
+    "example": "pr_lib.gizmo.drawPlaneSquare('value', 'example', 'value', true)"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.drawCenterSquare(origin)",
+    "example": "pr_lib.gizmo.drawCenterSquare('value')"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.drawRotationHandle(point, color)",
+    "example": "pr_lib.gizmo.drawRotationHandle('value', 'value')"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.drawRotationArrow(origin, dir, color)",
+    "example": "pr_lib.gizmo.drawRotationArrow('value', 'value', 'value')"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.drawRotationAxisGuides(origin)",
+    "example": "pr_lib.gizmo.drawRotationAxisGuides('value')"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.drawRotationRing(origin, axis, colorSet, distance)",
+    "example": "pr_lib.gizmo.drawRotationRing('value', 'example', 'value', 1)"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.drawDragLine()",
+    "example": "pr_lib.gizmo.drawDragLine()"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.handleTranslation(dx, dy)",
+    "example": "pr_lib.gizmo.handleTranslation('value', 'value')"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.draw()",
+    "example": "pr_lib.gizmo.draw()"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.update()",
+    "example": "pr_lib.gizmo.update()"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.HandlePropControls(offsetForward, offsetRight, offsetZ, rotX, rotY, rotZ, manualZ, precisionMode, speedMultiplier)",
+    "example": "pr_lib.gizmo.HandlePropControls('value', 'value', 'value', 'value', 'value', 'value', 'value', 'value', 0.0)"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.HandlePrecisionRotation(rotation, rotSpeed, normalizeFn)",
+    "example": "pr_lib.gizmo.HandlePrecisionRotation(0.0, 0.0, 'value')"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.getPreviewData()",
+    "example": "local result = pr_lib.gizmo.getPreviewData()"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.buildPreviewText()",
+    "example": "pr_lib.gizmo.buildPreviewText()"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.buildEntityInfoText()",
+    "example": "pr_lib.gizmo.buildEntityInfoText()"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.drawPreview(force)",
+    "example": "pr_lib.gizmo.drawPreview(true)"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.hidePreview()",
+    "example": "pr_lib.gizmo.hidePreview()"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.invalidateKeybinds()",
+    "example": "pr_lib.gizmo.invalidateKeybinds()"
+  },
+  {
+    "module": "fivem.gizmo",
+    "context": "client",
+    "signature": "pr_lib.gizmo.drawKeybinds()",
+    "example": "pr_lib.gizmo.drawKeybinds()"
+  },
+  {
+    "module": "fivem.devlaser",
+    "context": "client",
+    "signature": "pr_lib.devlaser.inspectEntity(entity)",
+    "example": "local result = pr_lib.devlaser.inspectEntity(entity)"
+  },
+  {
+    "module": "fivem.devlaser",
+    "context": "client",
+    "signature": "pr_lib.devlaser.getTarget()",
+    "example": "local result = pr_lib.devlaser.getTarget()"
+  },
+  {
+    "module": "fivem.devlaser",
+    "context": "client",
+    "signature": "pr_lib.devlaser.requestControl(entity, timeout)",
+    "example": "pr_lib.devlaser.requestControl(entity, 1)"
+  },
+  {
+    "module": "fivem.devlaser",
+    "context": "client",
+    "signature": "pr_lib.devlaser.logEntityAction(action, entity, value, extra)",
+    "example": "pr_lib.devlaser.logEntityAction('value', entity, 'value', 'value')"
+  },
+  {
+    "module": "fivem.devlaser",
+    "context": "client",
+    "signature": "pr_lib.devlaser.moveWithGizmo(entity)",
+    "example": "pr_lib.devlaser.moveWithGizmo(entity)"
+  },
+  {
+    "module": "fivem.devlaser",
+    "context": "client",
+    "signature": "pr_lib.devlaser.isActive()",
+    "example": "local result = pr_lib.devlaser.isActive()"
+  },
+  {
+    "module": "fivem.devlaser",
+    "context": "client",
+    "signature": "pr_lib.devlaser.start(options)",
+    "example": "local result = pr_lib.devlaser.start({})"
+  },
+  {
+    "module": "fivem.devlaser",
+    "context": "client",
+    "signature": "pr_lib.devlaser.stop(silent)",
+    "example": "pr_lib.devlaser.stop(true)"
+  },
+  {
+    "module": "fivem.devlaser",
+    "context": "client",
+    "signature": "pr_lib.devlaser.toggle(options)",
+    "example": "local result = pr_lib.devlaser.toggle({})"
+  },
+  {
+    "module": "fivem.devlaser",
+    "context": "client",
+    "signature": "pr_lib.devlaser.Start(options)",
+    "example": "local result = pr_lib.devlaser.Start({})"
+  },
+  {
+    "module": "fivem.devlaser",
+    "context": "client",
+    "signature": "pr_lib.devlaser.Stop(silent)",
+    "example": "pr_lib.devlaser.Stop(true)"
+  },
+  {
+    "module": "fivem.devlaser",
+    "context": "client",
+    "signature": "pr_lib.devlaser.Toggle(options)",
+    "example": "local result = pr_lib.devlaser.Toggle({})"
+  },
+  {
+    "module": "fivem.devlaser",
+    "context": "client",
+    "signature": "pr_lib.devlaser.IsActive()",
+    "example": "local result = pr_lib.devlaser.IsActive()"
+  },
+  {
+    "module": "fivem.devlaser",
+    "context": "client",
+    "signature": "pr_lib.devlaser.GetTarget()",
+    "example": "local result = pr_lib.devlaser.GetTarget()"
+  },
+  {
+    "module": "fivem.devlaser",
+    "context": "client",
+    "signature": "pr_lib.devlaser.InspectEntity(entity)",
+    "example": "local result = pr_lib.devlaser.InspectEntity(entity)"
+  },
+  {
+    "module": "fivem.devlaser",
+    "context": "client",
+    "signature": "pr_lib.devlaser.MoveWithGizmo(entity)",
+    "example": "pr_lib.devlaser.MoveWithGizmo(entity)"
+  },
+  {
+    "module": "fivem.instructionalButtons",
+    "context": "client",
+    "signature": "pr_lib.fivem.instructionalButtons.create(buttons, options)",
+    "example": "local result = pr_lib.fivem.instructionalButtons.create('value', {})"
+  },
+  {
+    "module": "fivem.instructionalButtons",
+    "context": "client",
+    "signature": "pr_lib.fivem.instructionalButtons.show(buttons, options)",
+    "example": "pr_lib.fivem.instructionalButtons.show('value', {})"
+  },
+  {
+    "module": "fivem.instructionalButtons",
+    "context": "client",
+    "signature": "pr_lib.fivem.instructionalButtons.showSimple(label, control, options)",
+    "example": "pr_lib.fivem.instructionalButtons.showSimple('value', 'value', {})"
+  },
+  {
+    "module": "fivem.instructionalButtons",
+    "context": "client",
+    "signature": "pr_lib.fivem.instructionalButtons.showClickable(label, control, controlId, options)",
+    "example": "pr_lib.fivem.instructionalButtons.showClickable('value', 'value', 'example', {})"
+  },
+  {
+    "module": "fivem.instructionalButtons",
+    "context": "client",
+    "signature": "buttonInstance:refresh()",
+    "example": "buttonInstance:refresh()"
+  },
+  {
+    "module": "fivem.instructionalButtons",
+    "context": "client",
+    "signature": "buttonInstance:draw()",
+    "example": "buttonInstance:draw()"
+  },
+  {
+    "module": "fivem.instructionalButtons",
+    "context": "client",
+    "signature": "buttonInstance:dispose()",
+    "example": "buttonInstance:dispose()"
+  },
+  {
+    "module": "fivem.identifiers",
+    "context": "server",
+    "signature": "pr_lib.identifiers.getByType(source, identifierType)",
+    "example": "local result = pr_lib.identifiers.getByType(source, 'example')"
+  },
+  {
+    "module": "fivem.identifiers",
+    "context": "server",
+    "signature": "pr_lib.identifiers.getAll(source)",
+    "example": "local result = pr_lib.identifiers.getAll(source)"
+  },
+  {
+    "module": "fivem.identifiers",
+    "context": "server",
+    "signature": "pr_lib.identifiers.getPrimaryLicense(source)",
+    "example": "local result = pr_lib.identifiers.getPrimaryLicense(source)"
+  },
+  {
+    "module": "fivem.identifiers",
+    "context": "server",
+    "signature": "pr_lib.identifiers.getLicenseSet(source, extraLicenses)",
+    "example": "local result = pr_lib.identifiers.getLicenseSet(source, 'value')"
+  },
+  {
+    "module": "fivem.identifiers",
+    "context": "server",
+    "signature": "pr_lib.identifiers.has(source, identifier)",
+    "example": "local result = pr_lib.identifiers.has(source, 'example')"
+  },
+  {
+    "module": "fivem.identifiers",
+    "context": "server",
+    "signature": "pr_lib.identifiers.GetByType(source, identifierType)",
+    "example": "local result = pr_lib.identifiers.GetByType(source, 'example')"
+  },
+  {
+    "module": "fivem.identifiers",
+    "context": "server",
+    "signature": "pr_lib.identifiers.GetAll(source)",
+    "example": "local result = pr_lib.identifiers.GetAll(source)"
+  },
+  {
+    "module": "fivem.identifiers",
+    "context": "server",
+    "signature": "pr_lib.identifiers.GetPrimaryLicense(source)",
+    "example": "local result = pr_lib.identifiers.GetPrimaryLicense(source)"
+  },
+  {
+    "module": "fivem.identifiers",
+    "context": "server",
+    "signature": "pr_lib.identifiers.GetLicenseSet(source, extraLicenses)",
+    "example": "local result = pr_lib.identifiers.GetLicenseSet(source, 'value')"
+  },
+  {
+    "module": "fivem.identifiers",
+    "context": "server",
+    "signature": "pr_lib.identifiers.Has(source, identifier)",
+    "example": "local result = pr_lib.identifiers.Has(source, 'example')"
   }
 ];
 export const PR_BRIDGE_MODULES = [
@@ -5965,6 +6643,11 @@ export const PR_BRIDGE_MODULES = [
   "fivem.vehicleCache",
   "fivem.blips",
   "fivem.devtools",
-  "fivem_aliases"
+  "fivem_aliases",
+  "fivem.editorCamera",
+  "fivem.gizmo",
+  "fivem.devlaser",
+  "fivem.instructionalButtons",
+  "fivem.identifiers"
 ];
-export const PR_BRIDGE_API_COUNT = 987;
+export const PR_BRIDGE_API_COUNT = 1100;
