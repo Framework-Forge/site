@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { PR_BRIDGE_API } from '../data/prBridgeApi.generated';
 import { PR_BRIDGE_SOURCE_AUDIT_BATCH_0 } from '../data/prBridgeSourceAudit.batch0';
 import { PR_BRIDGE_SOURCE_AUDIT_BATCH_1 } from '../data/prBridgeSourceAudit.batch1';
 import { PR_BRIDGE_SOURCE_AUDIT_BATCH_2 } from '../data/prBridgeSourceAudit.batch2';
@@ -55,6 +56,14 @@ const NORMALIZED_AUDIT = AUDIT.map((file) => ({ ...file, records: dedupeRecords(
 const ALL_RECORDS = NORMALIZED_AUDIT.flatMap((file) => file.records.map((record) => ({ ...record, file: file.path, context: file.context, module: file.module })));
 const FUNCTION_RECORDS = ALL_RECORDS.filter((record) => FUNCTION_KINDS.has(record.kind));
 const REGISTRATION_RECORDS = ALL_RECORDS.filter((record) => REGISTRATION_KINDS.has(record.kind));
+const PUBLIC_PR_LIB_API = PR_BRIDGE_API.filter((entry) => /^pr_lib\./.test(entry.signature));
+const PUBLIC_PR_LIB_MODULES = [...new Set(PUBLIC_PR_LIB_API.map((entry) => entry.module))].sort();
+const PUBLIC_PR_LIB_BY_MODULE = PUBLIC_PR_LIB_MODULES
+  .map((module) => ({
+    module,
+    count: PUBLIC_PR_LIB_API.filter((entry) => entry.module === module).length,
+  }))
+  .sort((a, b) => b.count - a.count || a.module.localeCompare(b.module));
 
 function labelKind(kind, locale) {
   const pt = {
@@ -93,6 +102,8 @@ export const PR_BRIDGE_SOURCE_AUDIT_STATS = {
   events: REGISTRATION_RECORDS.filter((record) => record.kind === 'net-event' || record.kind === 'event-handler').length,
   interactFunctions: FUNCTION_RECORDS.filter((record) => record.file.startsWith('bridge/interact/')).length,
   callbackDefinitions: FUNCTION_RECORDS.filter((record) => record.file.startsWith('bridge/callback/') && record.name.startsWith('callback.')).length,
+  publicApi: PUBLIC_PR_LIB_API.length,
+  publicCategories: PUBLIC_PR_LIB_MODULES.length,
 };
 
 export default function PrBridgeSourceAudit({ locale = 'en' }) {
@@ -101,6 +112,8 @@ export default function PrBridgeSourceAudit({ locale = 'en' }) {
   const [module, setModule] = useState('all');
   const [kind, setKind] = useState('all');
   const [showEmpty, setShowEmpty] = useState(true);
+  const [publicModule, setPublicModule] = useState('all');
+  const [publicQuery, setPublicQuery] = useState('');
 
   const modules = useMemo(() => [...new Set(NORMALIZED_AUDIT.map((file) => file.module))].sort(), []);
 
@@ -130,6 +143,18 @@ export default function PrBridgeSourceAudit({ locale = 'en' }) {
   }, [query, context, module, kind, showEmpty]);
 
   const visibleRecords = filtered.reduce((sum, file) => sum + file.records.length, 0);
+  const visiblePublicApi = useMemo(() => {
+    const term = publicQuery.trim().toLowerCase();
+    return PUBLIC_PR_LIB_API.filter((entry) => {
+      if (publicModule !== 'all' && entry.module !== publicModule) return false;
+      if (!term) return publicModule !== 'all';
+      return [entry.module, entry.context, entry.signature, entry.detail, entry.tags]
+        .filter(Boolean)
+        .join(' ')
+        .toLowerCase()
+        .includes(term);
+    });
+  }, [publicModule, publicQuery]);
   const isPt = locale === 'pt-BR';
 
   return (
@@ -139,7 +164,68 @@ export default function PrBridgeSourceAudit({ locale = 'en' }) {
         <article><strong>{PR_BRIDGE_SOURCE_AUDIT_STATS.lines.toLocaleString()}</strong><span>{isPt ? 'linhas auditadas' : 'audited lines'}</span></article>
         <article><strong>{PR_BRIDGE_SOURCE_AUDIT_STATS.functions.toLocaleString()}</strong><span>{isPt ? 'definições de função' : 'function definitions'}</span></article>
         <article><strong>{PR_BRIDGE_SOURCE_AUDIT_STATS.registrations}</strong><span>{isPt ? 'registros de runtime' : 'runtime registrations'}</span></article>
+        <article className="bridge-source-audit-stat--public"><strong>{PR_BRIDGE_SOURCE_AUDIT_STATS.publicApi.toLocaleString()}</strong><span>{isPt ? 'funções públicas pr_lib' : 'public pr_lib functions'}</span></article>
+        <article className="bridge-source-audit-stat--public"><strong>{PR_BRIDGE_SOURCE_AUDIT_STATS.publicCategories}</strong><span>{isPt ? 'categorias públicas' : 'public categories'}</span></article>
       </div>
+
+      <section className="bridge-public-api-index">
+        <div className="bridge-public-api-head">
+          <div>
+            <span>PUBLIC API</span>
+            <h3>{isPt ? 'Funções chamáveis por outros scripts' : 'Functions callable by other scripts'}</h3>
+            <p>{isPt
+              ? 'Aqui entram somente contratos expostos como pr_lib.*. Helpers locais, funções internas e handlers do runtime continuam na auditoria abaixo, mas não contam como API pública.'
+              : 'Only contracts exposed as pr_lib.* are counted here. Local helpers, internal functions and runtime handlers remain in the source audit below but are not counted as public API.'}</p>
+          </div>
+          <strong>{PUBLIC_PR_LIB_API.length.toLocaleString()}</strong>
+        </div>
+
+        <div className="bridge-public-api-categories">
+          {PUBLIC_PR_LIB_BY_MODULE.map((item) => (
+            <button
+              type="button"
+              key={item.module}
+              className={publicModule === item.module ? 'is-active' : ''}
+              onClick={() => setPublicModule((current) => current === item.module ? 'all' : item.module)}
+            >
+              <code>{item.module}</code>
+              <span>{item.count}</span>
+            </button>
+          ))}
+        </div>
+
+        <div className="bridge-public-api-filter">
+          <input
+            value={publicQuery}
+            onChange={(event) => setPublicQuery(event.target.value)}
+            placeholder={isPt ? 'Buscar em pr_lib.*…' : 'Search pr_lib.*…'}
+          />
+          <select value={publicModule} onChange={(event) => setPublicModule(event.target.value)}>
+            <option value="all">{isPt ? 'Selecione uma categoria' : 'Select a category'}</option>
+            {PUBLIC_PR_LIB_BY_MODULE.map((item) => (
+              <option key={item.module} value={item.module}>{item.module} ({item.count})</option>
+            ))}
+          </select>
+        </div>
+
+        {(publicModule !== 'all' || publicQuery.trim()) && (
+          <div className="bridge-public-api-results">
+            <div className="bridge-public-api-results-head">
+              <span>{isPt ? 'Funções públicas encontradas' : 'Public functions found'}</span>
+              <strong>{visiblePublicApi.length}</strong>
+            </div>
+            {visiblePublicApi.map((entry) => (
+              <article key={entry.context + ':' + entry.signature}>
+                <div>
+                  <code>{entry.signature}</code>
+                  <span>{entry.module} · {entry.context}</span>
+                </div>
+                {entry.detail && <p>{entry.detail}</p>}
+              </article>
+            ))}
+          </div>
+        )}
+      </section>
 
       <div className="bridge-source-audit-toolbar">
         <input
