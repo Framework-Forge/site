@@ -1,7 +1,7 @@
 import ForgeFlame3D from '../components/ForgeFlame3D';
 import { useI18n } from '../i18n';
 
-export default function About({ onOpenUIKit }) {
+export default function About({ onOpenUIKit, onOpenPrBridge }) {
   const { t } = useI18n();
 
   return (
@@ -38,6 +38,39 @@ export default function About({ onOpenUIKit }) {
 
         <div className="docs-hero-visual">
           <ForgeFlame3D />
+        </div>
+      </section>
+
+      <section className="docs-home-announcement">
+        <div className="docs-home-announcement-glow" aria-hidden="true" />
+        <div className="docs-home-announcement-copy">
+          <div className="docs-home-announcement-eyebrow">
+            <span>NEW</span>
+            {t('bridgeAnnouncementEyebrow')}
+          </div>
+
+          <h2>{t('bridgeAnnouncementTitle')}</h2>
+          <p>{t('bridgeAnnouncementDesc')}</p>
+
+          <div className="docs-home-announcement-tags">
+            <span>Framework agnostic</span>
+            <span>Interact</span>
+            <span>Target</span>
+            <span>UI</span>
+            <span>Callbacks</span>
+            <span>Developer tools</span>
+          </div>
+        </div>
+
+        <div className="docs-home-announcement-action">
+          <div className="docs-home-announcement-mark" aria-hidden="true">
+            <strong>PR</strong>
+            <span>BRIDGE</span>
+          </div>
+
+          <button type="button" className="docs-primary-button" onClick={onOpenPrBridge}>
+            {t('bridgeAnnouncementButton')}
+          </button>
         </div>
       </section>
 
