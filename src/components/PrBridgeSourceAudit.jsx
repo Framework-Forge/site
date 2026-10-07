@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { PR_BRIDGE_API } from '../data/prBridgeApi.generated';
 import { PR_BRIDGE_REAL_EXAMPLES } from '../data/prBridgeExamples.generated';
-import { LuaCode } from './LuaCodeBlock';
+import LuaCodeBlock from './LuaCodeBlock';
 import { PR_BRIDGE_SOURCE_AUDIT_BATCH_0 } from '../data/prBridgeSourceAudit.batch0';
 import { PR_BRIDGE_SOURCE_AUDIT_BATCH_1 } from '../data/prBridgeSourceAudit.batch1';
 import { PR_BRIDGE_SOURCE_AUDIT_BATCH_2 } from '../data/prBridgeSourceAudit.batch2';
@@ -148,7 +148,7 @@ function buildFallbackExample(entry) {
   }
 
   const inline = prefix + path + '(' + values.join(', ') + ')';
-  if (inline.length <= 84 && !values.some((value) => value.includes('\n'))) {
+  if (values.length <= 1 && inline.length <= 84 && !values.some((value) => value.includes('\n'))) {
     return inline;
   }
 
@@ -365,9 +365,9 @@ export default function PrBridgeSourceAudit({ locale = 'en' }) {
                       )}
                     </div>
 
-                    <pre>
-                      <LuaCode code={usage.code} />
-                    </pre>
+                    <LuaCodeBlock className="bridge-public-api-lua-block">
+                      {usage.code}
+                    </LuaCodeBlock>
 
                     {usage.source && (
                       <div className="bridge-public-api-example-source">
