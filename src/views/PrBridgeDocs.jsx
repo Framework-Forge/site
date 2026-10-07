@@ -7,13 +7,16 @@ const PROVIDERS = {
   Frameworks: ['TMC / core','ND Core','ox_core','ESX','QBX','QBCore','Custom'],
   Inventories: ['ox_inventory','tgiann-inventory','core_inventory','ps-inventory','ak47_inventory','jaksam_inventory','qs-inventory','codem/minventory','origen_inventory','qb-inventory'],
   Notifications: ['ox_lib','okokNotify','mythic_notify','pNotify','17mov_Hud','codem-notification','ESX','QBCore'],
-  Targets: ['ox_target','core_focus','qb-target','default'],
+  Targets: ['pr_bridge native','ox_target','core_focus','qb-target'],
   TextUI: ['ox_lib','jg-textui','okokTextUI','cd_drawtextui','codem-textui','brutal_textui','default'],
   Banking: ['Renewed-Banking','qb-banking','okokBanking','tgiann-bank','kartik-banking','fd_banking'],
   Phones: ['qs-smartphone-pro','lb-phone','okokPhone','yseries'],
+  Progressbars: ['pr_bridge native','ox_lib','qb-core','es_extended'],
+  Minigames: ['glitch-minigames','glitch-minigame','mhacking','ox_lib'],
+  Weather: ['Renewed-Weathersync','cd_easytime','qb-weathersync','default'],
   Database: ['oxmysql','ghmattimysql','mysql-async'],
   Fuel: ['cdn-fuel','lc_fuel','LegacyFuel'],
-  'Vehicle Keys': ['mm_carkeys','mri_Qcarkeys','qb-vehiclekeys','qbx_vehiclekeys','wasabi_carlock'],
+  'Vehicle Keys': ['mm_carkeys','pr_carkeys','mri_Qcarkeys','qb-vehiclekeys','qbx_vehiclekeys','wasabi_carlock'],
 };
 
 const T = {
