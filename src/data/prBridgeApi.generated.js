@@ -9783,6 +9783,96 @@ export const PR_BRIDGE_API = [
     "directory": "bridge/weather/renewed/server.lua",
     "tags": "weather, alias, renewed, server",
     "example": "local result = pr_lib.weather.getRegionalWeather('downtown')"
+  },
+  {
+    "module": "callback",
+    "context": "client",
+    "signature": "pr_lib.callback.call(name, delay, cb, ...)",
+    "detail": "Compatibility call helper with optional per-event delay; awaits when cb is nil/false and triggers asynchronously when cb is a function.",
+    "directory": "bridge/callback/secure_client.lua",
+    "tags": "callback, secure, client",
+    "example": "pr_lib.callback.call('example:callback', 5000, function(...) print(...) end, args)"
+  },
+  {
+    "module": "callback",
+    "context": "client",
+    "signature": "pr_lib.callback.awaitOx(name, delay, ...)",
+    "detail": "OX-compatible await helper with client-side per-event cooldown/rate limiting.",
+    "directory": "bridge/callback/secure_client.lua",
+    "tags": "callback, secure, client",
+    "example": "local result = pr_lib.callback.awaitOx('example:callback', 5000, args)"
+  },
+  {
+    "module": "callback",
+    "context": "client",
+    "signature": "pr_lib.callback.register(name, handler)",
+    "detail": "Registers a secure client callback endpoint that can be invoked by the server and replies through the PR Bridge callback envelope.",
+    "directory": "bridge/callback/secure_client.lua",
+    "tags": "callback, secure, client",
+    "example": "pr_lib.callback.register('example:callback', function(source, ...) return true end)"
+  },
+  {
+    "module": "callback",
+    "context": "server",
+    "signature": "pr_lib.callback.awaitOx(name, target, ...)",
+    "detail": "OX-compatible server helper that awaits a callback response from the target client.",
+    "directory": "bridge/callback/secure_server.lua",
+    "tags": "callback, secure, server",
+    "example": "local result = pr_lib.callback.awaitOx('example:callback', source, args)"
+  },
+  {
+    "module": "callback",
+    "context": "server",
+    "signature": "pr_lib.callback.callOx(name, target, cb, ...)",
+    "detail": "OX-compatible server callback helper; awaits when cb is nil/false or triggers asynchronously with cb.",
+    "directory": "bridge/callback/secure_server.lua",
+    "tags": "callback, secure, server",
+    "example": "pr_lib.callback.callOx('example:callback', source, function(...) print(...) end, args)"
+  },
+  {
+    "module": "callback",
+    "context": "server",
+    "signature": "pr_lib.callback.register(name, handler)",
+    "detail": "Registers a secure server callback endpoint. The handler receives source first and is protected by inbound concurrency limits.",
+    "directory": "bridge/callback/secure_server.lua",
+    "tags": "callback, secure, server",
+    "example": "pr_lib.callback.register('example:callback', function(source, ...) return true end)"
+  },
+  {
+    "module": "callback",
+    "context": "server",
+    "signature": "pr_lib.callback.awaitLegacy(target, name, timeout, ...)",
+    "detail": "Compatibility alias that points to awaitClient.",
+    "directory": "bridge/callback/secure_server.lua",
+    "tags": "callback, secure, server",
+    "example": "local result = pr_lib.callback.awaitLegacy(source, 'example:callback', 5000, args)"
+  },
+  {
+    "module": "callback",
+    "context": "server",
+    "signature": "pr_lib.callback.ox(name, target, cb, ...)",
+    "detail": "Callable OX-compatible callback facade on the server.",
+    "directory": "bridge/callback/secure_server.lua",
+    "tags": "callback, secure, server",
+    "example": "pr_lib.callback.ox('example:callback', source, function(...) print(...) end, args)"
+  },
+  {
+    "module": "callback",
+    "context": "server",
+    "signature": "pr_lib.callback.ox.await(name, target, ...)",
+    "detail": "OX-compatible await alias exposed under callback.ox.await.",
+    "directory": "bridge/callback/secure_server.lua",
+    "tags": "callback, secure, server",
+    "example": "local result = pr_lib.callback.ox.await('example:callback', source, args)"
+  },
+  {
+    "module": "callback",
+    "context": "server",
+    "signature": "pr_lib.callback(first, second, third, ...)",
+    "detail": "Callable callback facade; dispatches through the secure server trigger contract.",
+    "directory": "bridge/callback/secure_server.lua",
+    "tags": "callback, secure, server",
+    "example": "pr_lib.callback('value', 'value', 'value', args)"
   }
 ];
 export const PR_BRIDGE_MODULES = [
@@ -9844,6 +9934,6 @@ export const PR_BRIDGE_MODULES = [
   "zones",
   "garage"
 ];
-export const PR_BRIDGE_API_COUNT = 1087;
+export const PR_BRIDGE_API_COUNT = 1097;
 export const PR_BRIDGE_SOURCE_VERSION = "1.3.1";
 export const PR_BRIDGE_SOURCE_REVISION = "93e638b3060e647d3d20030f068d65c37ad269d1";
