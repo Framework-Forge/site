@@ -269,8 +269,44 @@ export default function PrBridgeDocs({ topic = 'bridge-overview', onNavigateTopi
   </div>;
 
   if (topic === 'bridge-ui') return <div className="bridge-docs bridge-docs-page">
-    <TopicHeader number="08" eyebrow="Menus / Notify / TextUI" title={d.uiTitle} text={d.uiP} />
-    <Code>{"pr_lib.menus.RegisterContext({\n    id = 'vehicle_menu',\n    title = 'Vehicle',\n    options = {\n        { title = 'Repair', onSelect = function() TriggerServerEvent('garage:repair') end },\n        { title = 'Store', onSelect = function() TriggerEvent('garage:store') end },\n    }\n})\npr_lib.menus.ShowContext('vehicle_menu')\n\npr_lib.notifications.Notify({ title='Garage', description='Saved', type='success' })"}</Code>
+    <TopicHeader
+      number="08"
+      eyebrow="Native UI / Menus / Radial / Notify / TextUI"
+      title={d.uiTitle}
+      text={locale === 'pt-BR'
+        ? 'A interface do PR Bridge é uma camada própria, hospedada pelo próprio resource, com frontend Svelte/Vue e módulos para context menu, register menu, input, alert, notify, bubble, TextUI, radial menu, progress, skillcheck e configuração visual global.'
+        : d.uiP}
+    />
+
+    <div className="bridge-card-grid two">
+      <Card k="CONTEXT" title="Context & registered menus">RegisterContext/ShowContext e RegisterMenu/ShowMenu compartilham o host NUI e mantêm o resource consumidor desacoplado do provider visual.</Card>
+      <Card k="INPUT" title="Input & Alert dialogs">InputDialog suporta input, number, checkbox, select, multi-select, slider, color, date, date-range, time e textarea, com validação e tamanhos configuráveis.</Card>
+      <Card k="RADIAL" title="Radial menu">O menu radial possui registro de submenus, itens raiz, callbacks por resource, navegação, keepOpen, disable e estado do menu atual.</Card>
+      <Card k="VISUAL" title="Global visual editor">O admin pode editar paleta, posições, target, interact e outros módulos; a configuração é persistida em interface/data/config.json e replicada via GlobalState.</Card>
+    </div>
+
+    <h3 className="bridge-subtitle">Context menu</h3>
+    <Code>{"pr_lib.registerContext({\n    id = 'vehicle_menu',\n    title = 'Vehicle',\n    options = {\n        {\n            title = 'Repair',\n            icon = 'wrench',\n            onSelect = function()\n                TriggerServerEvent('garage:repair')\n            end,\n        },\n        {\n            title = 'Store',\n            icon = 'car-front-fill',\n            onSelect = function()\n                TriggerEvent('garage:store')\n            end,\n        },\n    }\n})\n\npr_lib.showContext('vehicle_menu')"}</Code>
+
+    <h3 className="bridge-subtitle">Input dialog</h3>
+    <Code>{"local values = pr_lib.inputDialog('Create garage', {\n    { type = 'input', label = 'Name', required = true },\n    { type = 'number', label = 'Slots', default = 10, min = 1, max = 100, step = 1 },\n    { type = 'color', label = 'Theme color', default = '#ff7a1a' },\n    {\n        type = 'select',\n        label = 'Access',\n        options = {\n            { value = 'public', label = 'Public' },\n            { value = 'private', label = 'Private' },\n        }\n    },\n    { type = 'checkbox', label = 'Enabled', checked = true },\n}, {\n    size = 'md',\n    allowCancel = true,\n})\n\nif not values then return end"}</Code>
+
+    <h3 className="bridge-subtitle">Radial menu</h3>
+    <Code>{"pr_lib.registerRadial({\n    id = 'vehicle_actions',\n    items = {\n        {\n            id = 'vehicle_lock',\n            label = 'Lock / Unlock',\n            icon = 'lock-fill',\n            onSelect = function(menuId, index)\n                ToggleVehicleLock()\n            end,\n        },\n        {\n            id = 'vehicle_engine',\n            label = 'Engine',\n            icon = 'power',\n            keepOpen = true,\n            onSelect = function()\n                ToggleEngine()\n            end,\n        },\n    }\n})\n\npr_lib.addRadialItem({\n    id = 'vehicle',\n    label = 'Vehicle',\n    icon = 'car-front-fill',\n    menu = 'vehicle_actions',\n})\n\n-- Remove only one root item later\npr_lib.removeRadialItem('vehicle')\n\n-- Or clear all radial items owned by this resource\npr_lib.clearRadialItems()"}</Code>
+
+    <h3 className="bridge-subtitle">Notifications and TextUI</h3>
+    <Code>{"pr_lib.Notify({\n    title = 'Garage',\n    description = 'Vehicle stored successfully.',\n    type = 'success',\n    duration = 3500,\n})\n\npr_lib.showTextUI('[E] Open garage', {\n    position = 'right-center',\n})\n\n-- later\npr_lib.hideTextUI()"}</Code>
+
+    <div className="bridge-note">
+      <strong>Radial controls and ownership</strong>
+      <p>O host NUI mantém itens e submenus separados por resource. O menu padrão usa F1 através do keybind (pr_bridge) Menu radial; Escape/F1 fecha a interface. Itens podem abrir submenus ou executar callbacks/eventos registrados pelo resource que os criou.</p>
+    </div>
+
+    <div className="bridge-note">
+      <strong>Svelte / Vue</strong>
+      <p>Config.ui_interface seleciona a interface desejada. O host permanece centralizado no pr_bridge; recursos consumidores enviam ações para a mesma NUI em vez de criar browsers/interfaces duplicadas.</p>
+    </div>
+
     <ReferenceBlock locale={locale} modules={TOPIC_MODULES[topic]} />
     {commonFooter}
   </div>;
