@@ -3708,3 +3708,89 @@
 .bridge-public-api-example .bridge-code.bridge-public-api-lua-block .lua-punctuation {
   color: #ffd700;
 }
+
+
+/* Stack public API description above code example on desktop */
+.bridge-public-api-function {
+  display: block !important;
+}
+
+.bridge-public-api-function-main {
+  padding: 16px 18px 18px;
+  border-right: 0;
+  border-bottom: 1px solid rgba(255,255,255,.045);
+}
+
+.bridge-public-api-signature {
+  overflow: visible;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.bridge-public-api-example {
+  border-top: 0;
+}
+
+.bridge-public-api-example .bridge-code.bridge-public-api-lua-block {
+  overflow-x: auto;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Site-matched scrollbar for code blocks on tablet/mobile */
+.bridge-public-api-example .bridge-code.bridge-public-api-lua-block,
+.bridge-public-api-signature,
+.bridge-public-api-results,
+.bridge-source-signature,
+.bridge-function-card-head > code {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,122,26,.34) rgba(255,255,255,.025);
+}
+
+.bridge-public-api-example .bridge-code.bridge-public-api-lua-block::-webkit-scrollbar,
+.bridge-public-api-signature::-webkit-scrollbar,
+.bridge-public-api-results::-webkit-scrollbar,
+.bridge-source-signature::-webkit-scrollbar,
+.bridge-function-card-head > code::-webkit-scrollbar {
+  height: 7px;
+  width: 7px;
+}
+
+.bridge-public-api-example .bridge-code.bridge-public-api-lua-block::-webkit-scrollbar-track,
+.bridge-public-api-signature::-webkit-scrollbar-track,
+.bridge-public-api-results::-webkit-scrollbar-track,
+.bridge-source-signature::-webkit-scrollbar-track,
+.bridge-function-card-head > code::-webkit-scrollbar-track {
+  background: rgba(255,255,255,.018);
+  border-radius: 999px;
+}
+
+.bridge-public-api-example .bridge-code.bridge-public-api-lua-block::-webkit-scrollbar-thumb,
+.bridge-public-api-signature::-webkit-scrollbar-thumb,
+.bridge-public-api-results::-webkit-scrollbar-thumb,
+.bridge-source-signature::-webkit-scrollbar-thumb,
+.bridge-function-card-head > code::-webkit-scrollbar-thumb {
+  background: rgba(255,122,26,.30);
+  border: 1px solid rgba(255,122,26,.18);
+  border-radius: 999px;
+}
+
+.bridge-public-api-example .bridge-code.bridge-public-api-lua-block::-webkit-scrollbar-thumb:hover,
+.bridge-public-api-signature::-webkit-scrollbar-thumb:hover,
+.bridge-public-api-results::-webkit-scrollbar-thumb:hover,
+.bridge-source-signature::-webkit-scrollbar-thumb:hover,
+.bridge-function-card-head > code::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,122,26,.48);
+}
+
+@media (max-width: 980px) {
+  .bridge-public-api-function {
+    display: block !important;
+  }
+
+  .bridge-public-api-example .bridge-code.bridge-public-api-lua-block {
+    -webkit-overflow-scrolling: touch;
+  }
+}
