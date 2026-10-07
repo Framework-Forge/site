@@ -194,8 +194,8 @@ export default function PrBridgeDocs({ topic = 'bridge-overview', onNavigateTopi
     <section className="bridge-page-body">
       <TopicHeader number="01" eyebrow="PR Bridge" title={d.overviewTitle} />
       <div className="bridge-prose"><p>{d.overviewP1}</p><p>{d.overviewP2}</p><p>{d.overviewP3}</p></div>
-      <div className="bridge-stat-grid"><article><strong>{PR_BRIDGE_API_COUNT}</strong><p>Callable API entries</p></article><article><strong>{PR_BRIDGE_MODULES.length}</strong><p>API families</p></article><article><strong>3</strong><p>Runtime contexts</p></article><article><strong>0</strong><p>Required RP frameworks</p></article></div>
-      <div className="bridge-card-grid two">
+      <div className="bridge-stat-grid bridge-overview-stat-grid"><article><strong>{PR_BRIDGE_API_COUNT}</strong><p>Callable API entries</p></article><article><strong>{PR_BRIDGE_MODULES.length}</strong><p>API families</p></article><article><strong>3</strong><p>Runtime contexts</p></article><article><strong>0</strong><p>Required RP frameworks</p></article></div>
+      <div className="bridge-card-grid two bridge-overview-feature-grid">
         <Card k="COMPAT" title="Compatibility layer">Resources depend on one contract while PR Bridge handles the active framework/provider underneath.</Card>
         <Card k="DX" title="Developer platform">The same import also provides cache, callbacks, commands, translation, streaming, DUI and editor-oriented utilities.</Card>
         <Card k="PORTABLE" title="Portable resources">Move a script between supported stacks without rewriting its business rules around provider names.</Card>
