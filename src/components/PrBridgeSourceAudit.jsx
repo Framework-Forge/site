@@ -167,6 +167,25 @@ function buildFallbackExample(entry) {
   ].join('\n');
 }
 
+function publicFunctionReturnsValue(signature) {
+  const fn = getPublicFunctionPath(signature).split(/[.:]/).pop().toLowerCase();
+  return /^(get|has|can|is|find|search|read|load|fetch|query|single|scalar|insert|create|await|remember|call|resolve|list|inspect)/.test(fn);
+}
+
+function getPublicReturnText(entry, locale) {
+  const isPt = locale === 'pt-BR';
+
+  if (publicFunctionReturnsValue(entry.signature)) {
+    return isPt
+      ? 'Retorna um valor de acordo com o contrato da função e o provider/runtime ativo.'
+      : 'Returns a value according to the function contract and active provider/runtime.';
+  }
+
+  return isPt
+    ? 'Função de ação. O retorno depende do adapter/operação quando o contrato específico não indicar outro comportamento.'
+    : 'Action function. Return behavior depends on the adapter/operation when the specific contract does not define another value.';
+}
+
 function getUsageExample(entry) {
   const path = getPublicFunctionPath(entry.signature);
   const real = PR_BRIDGE_REAL_EXAMPLES[path]?.[0];
@@ -344,34 +363,66 @@ export default function PrBridgeSourceAudit({ locale = 'en' }) {
             </div>
             {visiblePublicApi.map((entry) => {
               const usage = getUsageExample(entry);
+              const params = splitSignatureArgs(entry.signature);
 
               return (
-                <article className="bridge-public-api-function" key={entry.context + ':' + entry.signature}>
-                  <div className="bridge-public-api-function-main">
-                    <div>
-                      <code className="bridge-public-api-signature">{entry.signature}</code>
-                      <span>{entry.module} · {entry.context}</span>
-                    </div>
-                    {entry.detail && <p>{entry.detail}</p>}
+                <article className="bridge-function-card bridge-public-api-catalog-card" key={entry.context + ':' + entry.signature}>
+                  <div className="bridge-function-card-head">
+                    <code>{entry.signature}</code>
+                    <span className={'bridge-context bridge-context-' + entry.context}>{entry.context}</span>
                   </div>
 
-                  <div className="bridge-public-api-example">
-                    <div className="bridge-public-api-example-head">
-                      <span>{isPt ? 'EXEMPLO DE USO' : 'USAGE EXAMPLE'}</span>
-                      {usage.real ? (
-                        <strong>{isPt ? 'Exemplo real · pr_scriptTest' : 'Real example · pr_scriptTest'}</strong>
-                      ) : (
-                        <strong>{isPt ? 'Exemplo da API' : 'API example'}</strong>
-                      )}
+                  <p className="bridge-function-description">
+                    {entry.detail || (isPt
+                      ? 'Contrato público exposto pelo PR Bridge para uso por outros resources.'
+                      : 'Public PR Bridge contract exposed for use by other resources.')}
+                  </p>
+
+                  <div className="bridge-function-source">
+                    <div>
+                      <span>{isPt ? 'Fonte' : 'Source'}</span>
+                      <code>{entry.directory || 'pr_bridge runtime'}</code>
                     </div>
 
-                    <LuaCodeBlock className="bridge-public-api-lua-block">
+                    <div>
+                      <span>Tags</span>
+                      <p>{entry.tags || (entry.module + ', ' + entry.context)}</p>
+                    </div>
+                  </div>
+
+                  <dl className="bridge-function-meta">
+                    <div>
+                      <dt>{isPt ? 'Parâmetros' : 'Parameters'}</dt>
+                      <dd>
+                        {params.length
+                          ? params.map((arg) => <code key={arg}>{arg}</code>)
+                          : <span>{isPt ? 'Sem parâmetros' : 'No parameters'}</span>}
+                      </dd>
+                    </div>
+
+                    <div>
+                      <dt>{isPt ? 'Retorno' : 'Return'}</dt>
+                      <dd>{getPublicReturnText(entry, locale)}</dd>
+                    </div>
+                  </dl>
+
+                  <div className="bridge-function-example bridge-public-api-catalog-example">
+                    <div className="bridge-public-api-example-title">
+                      <span>{isPt ? 'Exemplo' : 'Example'}</span>
+                      <strong>
+                        {usage.real
+                          ? (isPt ? 'Exemplo real · pr_scriptTest' : 'Real example · pr_scriptTest')
+                          : (isPt ? 'Exemplo da API' : 'API example')}
+                      </strong>
+                    </div>
+
+                    <LuaCodeBlock className="bridge-public-api-catalog-lua">
                       {usage.code}
                     </LuaCodeBlock>
 
                     {usage.source && (
                       <div className="bridge-public-api-example-source">
-                        <span>{isPt ? 'Fonte' : 'Source'}</span>
+                        <span>{isPt ? 'Fonte do exemplo' : 'Example source'}</span>
                         <code>{usage.source}</code>
                       </div>
                     )}
