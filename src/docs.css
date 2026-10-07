@@ -3643,3 +3643,68 @@
     font-size: 10px;
   }
 }
+
+
+/* Audit examples use the exact same Lua block visual as documentation examples */
+.bridge-public-api-example .bridge-code.bridge-public-api-lua-block {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.008), transparent),
+    #08080b;
+  box-shadow: none;
+  padding: 16px 18px;
+  min-height: 100%;
+  font: 11.5px/1.78 var(--font-mono);
+  white-space: pre;
+}
+
+.bridge-public-api-example .bridge-code.bridge-public-api-lua-block code,
+.bridge-public-api-example .bridge-code.bridge-public-api-lua-block .lua-highlight,
+.bridge-public-api-example .bridge-code.bridge-public-api-lua-block .lua-highlight span {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  font: inherit;
+}
+
+.bridge-public-api-example .bridge-code.bridge-public-api-lua-block .lua-keyword {
+  color: #c586c0;
+  font-weight: 700;
+}
+
+.bridge-public-api-example .bridge-code.bridge-public-api-lua-block .lua-string {
+  color: #ce9178;
+}
+
+.bridge-public-api-example .bridge-code.bridge-public-api-lua-block .lua-number {
+  color: #b5cea8;
+}
+
+.bridge-public-api-example .bridge-code.bridge-public-api-lua-block .lua-comment {
+  color: #6a9955;
+  font-style: italic;
+}
+
+.bridge-public-api-example .bridge-code.bridge-public-api-lua-block .lua-function {
+  color: #dcdcaa;
+}
+
+.bridge-public-api-example .bridge-code.bridge-public-api-lua-block .lua-builtin {
+  color: #4ec9b0;
+}
+
+.bridge-public-api-example .bridge-code.bridge-public-api-lua-block .lua-namespace {
+  color: #4fc1ff;
+  font-weight: 700;
+}
+
+.bridge-public-api-example .bridge-code.bridge-public-api-lua-block .lua-property {
+  color: #9cdcfe;
+}
+
+.bridge-public-api-example .bridge-code.bridge-public-api-lua-block .lua-punctuation {
+  color: #ffd700;
+}
