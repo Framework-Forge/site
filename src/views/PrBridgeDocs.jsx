@@ -1,7 +1,7 @@
 import { useI18n } from '../i18n';
 import PrBridgeFunctionCatalog from '../components/PrBridgeFunctionCatalog';
 import LuaCodeBlock from '../components/LuaCodeBlock';
-import { PR_BRIDGE_API_COUNT, PR_BRIDGE_MODULES } from '../data/prBridgeApi.generated';
+import { PR_BRIDGE_API_COUNT, PR_BRIDGE_MODULES, PR_BRIDGE_SOURCE_VERSION } from '../data/prBridgeApi.generated';
 
 const PROVIDERS = {
   Frameworks: ['TMC / core','ND Core','ox_core','ESX','QBX','QBCore','Custom'],
@@ -39,9 +39,9 @@ const T = {
     fivemTitle:'FiveM utilities: streaming, vehicles, world queries, blips and raycasts.', fivemP:'The native layer covers asset streaming, entity creation, animations/interactions, vehicle properties/tuning, network resolution, radius searches, object pools, blip metadata and UI drawing.',
     duiTitle:'DUI: browser surfaces, render targets and interactive textures.', duiP:'The DUI API creates browser-backed surfaces and can render them as sprites, polys, render targets or replacement textures. It also forwards mouse events, controls focus and updates URL/opacity/brightness.',
     extendTitle:'Extending PR Bridge: add providers without changing downstream scripts.', extendP:'New adapters follow bridge/<category>/<provider>/<context>.lua. Add provider detection to ConfigBridge and implement the normalized contract. Custom framework stubs and normalizers let an adapter start small and grow incrementally.',
-    apiTitle:'API catalog: 1100 callable entries across 46 families.', apiP:'The repository index currently now catalogs 1100 callable signatures after synchronizing newly exposed editor, identifiers, instructional-buttons and developer-interaction modules. The catalog below groups the callable surface by namespace.',
-    noteRadial:'The current main/API index does not publish dedicated pr_lib.radial or pr_lib.interact namespaces. Target/focus, menus and interaction-animation APIs are documented exactly as they exist in source.', production:'Production guidance',
-    source:'This page reflects Framework-Forge/pr_bridge main, fxmanifest version 1.0.9 and the current API_FUNCTIONS.md index.'
+    apiTitle:'API catalog synchronized from the current development source.', apiP:'The catalog is rebuilt from the current PR Bridge development source and its audited detailed-function document, then supplemented with public APIs present in the current runtime that are not yet listed in that document. The catalog below groups the callable surface by namespace.',
+    noteRadial:'PR Bridge exposes a dedicated pr_lib.interact namespace with its own world-interaction runtime and NUI. Radial-menu helpers are exposed through the interface module and convenience aliases.', production:'Production guidance',
+    source:'This documentation is audited against the current PR Bridge development source (v1.3.1). Public repository links remain under Framework-Forge/pr_bridge.'
   },
   'pt-BR': {
     kicker:'Plataforma standalone de compatibilidade e desenvolvimento',
@@ -62,19 +62,19 @@ const T = {
     fivemTitle:'Utilitários FiveM: streaming, veículos, world queries, blips e raycast.', fivemP:'A camada nativa cobre streaming de assets, criação de entidade, animações/interações, propriedades/tuning, resolução network, buscas por raio/pool, blips e desenho UI.',
     duiTitle:'DUI: browser surfaces, render targets e texturas interativas.', duiP:'A API DUI cria surfaces baseadas em browser e renderiza como sprite, poly, render target ou replacement texture. Também encaminha mouse events, foco e mudanças de URL/opacidade/brilho.',
     extendTitle:'Expandindo o PR Bridge: adicione providers sem alterar scripts consumidores.', extendP:'Novos adapters seguem bridge/<categoria>/<provider>/<context>.lua. Adicione a detecção em ConfigBridge e implemente o contrato normalizado. Stubs de framework custom e normalizers permitem começar pequeno e evoluir.',
-    apiTitle:'Catálogo da API: 1100 entradas chamáveis em 46 famílias.', apiP:'O índice do repositório agora cataloga 1100 assinaturas chamáveis após sincronizar os novos módulos de editor, identifiers, instructional-buttons e ferramentas de interação. O catálogo abaixo agrupa a superfície real por namespace.',
-    noteRadial:'A main/API atual não publica namespaces dedicados pr_lib.radial ou pr_lib.interact. Target/focus, menus e interaction animations são documentados exatamente como existem no código.', production:'Boas práticas de produção',
-    source:'Esta página reflete Framework-Forge/pr_bridge main, fxmanifest versão 1.0.9 e o API_FUNCTIONS.md atual.'
+    apiTitle:'Catálogo da API sincronizado com a fonte atual de desenvolvimento.', apiP:'O catálogo foi reconstruído a partir da fonte atual de desenvolvimento do PR Bridge e do documento auditado de funções detalhadas, complementado pelas APIs públicas presentes no runtime atual que ainda não constam nesse documento. O catálogo abaixo agrupa a superfície chamável por namespace.',
+    noteRadial:'O PR Bridge expõe um namespace pr_lib.interact dedicado, com runtime próprio de interação no mundo e NUI. O menu radial é exposto pela interface e por aliases de conveniência.', production:'Boas práticas de produção',
+    source:'Esta documentação foi auditada contra a fonte atual de desenvolvimento do PR Bridge (v1.3.1). Os links públicos continuam apontando para Framework-Forge/pr_bridge.'
   },
   es: {
     kicker:'Plataforma standalone de compatibilidad y desarrollo', lead:'PR Bridge es una plataforma independiente para FiveM. No depende de Forge Framework: cualquier recurso puede usarla para normalizar frameworks, inventarios, bases de datos, targets, menús, notificaciones, teléfonos, banking, vehículos y utilidades nativas mediante pr_lib.', repo:'Repositorio',api:'API_FUNCTIONS.md',version:'Versión',calls:'Llamadas documentadas',contexts:'Contextos',architecture:'Arquitectura',
     overviewTitle:'Una API estable entre tu recurso y toda la stack FiveM.', overviewP1:'El core carga sin framework u ox_lib; adapters opcionales se eligen en runtime.', overviewP2:'La lógica usa namespaces pr_lib sin ramas específicas del provider.', overviewP3:'También incluye callbacks, comandos, keybinds, ACE, loaders, cache, traducción, DUI, streaming, raycast, vehículos y devtools.',
     installTitle:'Instala una vez y úsalo desde cualquier recurso.', installP1:'Inicia pr_bridge antes e importa @pr_bridge/init.lua; Lua 5.4 es obligatorio.', installP2:'El import crea pr_lib por recurso y detecta providers activos.', architectureTitle:'Loader, detección, normalización y utilidades son capas separadas.', adaptersTitle:'Providers autodetectados y extensión custom.', adaptersP:'La prioridad vive en bridge/config.lua; framework/DB pueden forzarse o quedar en auto.',
-    frameworkTitle:'API Framework: jugador, jobs, dinero y metadata.', frameworkP:'Normaliza QB/QBX, ESX, OX, ND, TMC y custom.', inventoryTitle:'API Inventario: items, slots, metadata, stashes y shops.', inventoryP:'Normaliza count/amount, metadata/info y slots, con ciclo completo de inventario.', databaseTitle:'API Database sobre oxmysql, ghmattimysql y mysql-async.', databaseP:'Normaliza queries y añade backups SQL.', uiTitle:'UI y menús independientes del provider.', uiP:'Context menus, input, alerts, notifications, TextUI y progress.', targetTitle:'Target e interacción mediante una API.', targetP:'Zones, modelos, entidades, players, peds y vehículos con ox_target/core_focus/qb-target.', cacheTitle:'Cache con memoización e invalidación.', cacheP:'set/get, clearPrefix, remember, onChange, player metadata y vehicleCache.', callbacksTitle:'Callbacks request-response.', callbacksP:'await/trigger/cancel/pending en client/server.', securityTitle:'Commands, keybinds y permisos.', securityP:'Tipos, ACE, whitelist, jobs/groups y combos de teclas.', devTitle:'Herramientas dev.', devP:'Placement, zones, gizmo, laser y debugging.', fivemTitle:'Utilidades FiveM.', fivemP:'Streaming, vehículos, queries del mundo, blips, raycasts y UI.', duiTitle:'DUI y texturas interactivas.', duiP:'Browser surfaces, sprites, poly, render targets, replacement textures y mouse/focus.', extendTitle:'Extender PR Bridge sin cambiar consumidores.', extendP:'Añade adapters bajo bridge/<category>/<provider>/<context>.lua.', apiTitle:'Catálogo API: 1100 entradas en 46 familias.', apiP:'El índice ahora cataloga 1100 firmas invocables tras sincronizar los nuevos módulos de editor, identifiers, instructional-buttons e interacción.', noteRadial:'La main actual no publica pr_lib.radial o pr_lib.interact dedicados.', production:'Producción', source:'Basado en main v1.0.9 y API_FUNCTIONS.md actual.'
+    frameworkTitle:'API Framework: jugador, jobs, dinero y metadata.', frameworkP:'Normaliza QB/QBX, ESX, OX, ND, TMC y custom.', inventoryTitle:'API Inventario: items, slots, metadata, stashes y shops.', inventoryP:'Normaliza count/amount, metadata/info y slots, con ciclo completo de inventario.', databaseTitle:'API Database sobre oxmysql, ghmattimysql y mysql-async.', databaseP:'Normaliza queries y añade backups SQL.', uiTitle:'UI y menús independientes del provider.', uiP:'Context menus, input, alerts, notifications, TextUI y progress.', targetTitle:'Target e interacción mediante una API.', targetP:'Zones, modelos, entidades, players, peds y vehículos con ox_target/core_focus/qb-target.', cacheTitle:'Cache con memoización e invalidación.', cacheP:'set/get, clearPrefix, remember, onChange, player metadata y vehicleCache.', callbacksTitle:'Callbacks request-response.', callbacksP:'await/trigger/cancel/pending en client/server.', securityTitle:'Commands, keybinds y permisos.', securityP:'Tipos, ACE, whitelist, jobs/groups y combos de teclas.', devTitle:'Herramientas dev.', devP:'Placement, zones, gizmo, laser y debugging.', fivemTitle:'Utilidades FiveM.', fivemP:'Streaming, vehículos, queries del mundo, blips, raycasts y UI.', duiTitle:'DUI y texturas interactivas.', duiP:'Browser surfaces, sprites, poly, render targets, replacement textures y mouse/focus.', extendTitle:'Extender PR Bridge sin cambiar consumidores.', extendP:'Añade adapters bajo bridge/<category>/<provider>/<context>.lua.', apiTitle:'Catálogo API sincronizado con la fuente actual de desarrollo.', apiP:'El catálogo se reconstruye desde la fuente actual de desarrollo y el documento auditado de funciones, complementado con APIs públicas presentes en el runtime actual.', noteRadial:'PR Bridge expone pr_lib.interact con runtime/NUI propios y helpers de menú radial mediante la interfaz.', production:'Producción', source:'Auditado contra la fuente actual de desarrollo de PR Bridge (v1.3.1), manteniendo los enlaces públicos de Framework-Forge/pr_bridge.'
   },
   fr: {
     kicker:'Plateforme standalone de compatibilité et développement', lead:'PR Bridge est une plateforme indépendante pour FiveM. Elle n’est pas liée à Forge Framework : toute ressource peut normaliser frameworks, inventaires, DB, targets, menus, notifications, téléphones, banking, véhicules et outils natifs via pr_lib.', repo:'Dépôt',api:'API_FUNCTIONS.md',version:'Version',calls:'Appels documentés',contexts:'Contextes',architecture:'Architecture',
-    overviewTitle:'Une API stable entre votre ressource et toute la stack FiveM.', overviewP1:'Le core charge sans framework ni ox_lib ; les adapters sont choisis au runtime.', overviewP2:'La logique consomme pr_lib sans branches propres au provider.', overviewP3:'Callbacks, commands, keybinds, ACE, loaders, cache, traduction, DUI, streaming, raycast, véhicules et devtools sont inclus.', installTitle:'Installez une fois, utilisez partout.', installP1:'Démarrez pr_bridge puis importez @pr_bridge/init.lua ; Lua 5.4 est requis.', installP2:'L’import crée pr_lib par ressource et détecte les providers actifs.', architectureTitle:'Loader, détection, normalisation et utilitaires sont séparés.', adaptersTitle:'Providers auto-détectés et extension custom.', adaptersP:'La priorité est dans bridge/config.lua ; framework/DB peuvent être forcés.', frameworkTitle:'API Framework : joueur, jobs, argent et metadata.', frameworkP:'Normalise QB/QBX, ESX, OX, ND, TMC et custom.', inventoryTitle:'API Inventaire : items, slots, metadata, stashes et shops.', inventoryP:'Normalise count/amount, metadata/info et slots.', databaseTitle:'API Database pour oxmysql, ghmattimysql et mysql-async.', databaseP:'Normalise les requêtes et ajoute les backups SQL.', uiTitle:'UI et menus indépendants du provider.', uiP:'Context menus, input, alerts, notifications, TextUI et progress.', targetTitle:'Target et interaction via une API.', targetP:'Zones, modèles, entités, players, peds, véhicules avec ox_target/core_focus/qb-target.', cacheTitle:'Cache avec memoization et invalidation.', cacheP:'set/get, clearPrefix, remember, onChange, player metadata et vehicleCache.', callbacksTitle:'Callbacks request-response.', callbacksP:'await/trigger/cancel/pending côté client/serveur.', securityTitle:'Commands, keybinds et permissions.', securityP:'Types, ACE, whitelist, jobs/groups et combinaisons.', devTitle:'Outils dev.', devP:'Placement, zones, gizmo, laser et debug.', fivemTitle:'Utilitaires FiveM.', fivemP:'Streaming, véhicules, world queries, blips, raycasts et UI.', duiTitle:'DUI et textures interactives.', duiP:'Browser surfaces, sprites, polys, render targets, replacement textures, souris/focus.', extendTitle:'Étendre PR Bridge sans changer les consommateurs.', extendP:'Ajoutez les adapters sous bridge/<category>/<provider>/<context>.lua.', apiTitle:'Catalogue API : 1100 entrées dans 46 familles.', apiP:'L’index catalogue désormais 1100 signatures appelables après synchronisation des nouveaux modules d’éditeur, identifiers, instructional-buttons et interaction.', noteRadial:'La main actuelle ne publie pas de pr_lib.radial ou pr_lib.interact dédié.', production:'Production', source:'Basé sur main v1.0.9 et API_FUNCTIONS.md actuel.'
+    overviewTitle:'Une API stable entre votre ressource et toute la stack FiveM.', overviewP1:'Le core charge sans framework ni ox_lib ; les adapters sont choisis au runtime.', overviewP2:'La logique consomme pr_lib sans branches propres au provider.', overviewP3:'Callbacks, commands, keybinds, ACE, loaders, cache, traduction, DUI, streaming, raycast, véhicules et devtools sont inclus.', installTitle:'Installez une fois, utilisez partout.', installP1:'Démarrez pr_bridge puis importez @pr_bridge/init.lua ; Lua 5.4 est requis.', installP2:'L’import crée pr_lib par ressource et détecte les providers actifs.', architectureTitle:'Loader, détection, normalisation et utilitaires sont séparés.', adaptersTitle:'Providers auto-détectés et extension custom.', adaptersP:'La priorité est dans bridge/config.lua ; framework/DB peuvent être forcés.', frameworkTitle:'API Framework : joueur, jobs, argent et metadata.', frameworkP:'Normalise QB/QBX, ESX, OX, ND, TMC et custom.', inventoryTitle:'API Inventaire : items, slots, metadata, stashes et shops.', inventoryP:'Normalise count/amount, metadata/info et slots.', databaseTitle:'API Database pour oxmysql, ghmattimysql et mysql-async.', databaseP:'Normalise les requêtes et ajoute les backups SQL.', uiTitle:'UI et menus indépendants du provider.', uiP:'Context menus, input, alerts, notifications, TextUI et progress.', targetTitle:'Target et interaction via une API.', targetP:'Zones, modèles, entités, players, peds, véhicules avec ox_target/core_focus/qb-target.', cacheTitle:'Cache avec memoization et invalidation.', cacheP:'set/get, clearPrefix, remember, onChange, player metadata et vehicleCache.', callbacksTitle:'Callbacks request-response.', callbacksP:'await/trigger/cancel/pending côté client/serveur.', securityTitle:'Commands, keybinds et permissions.', securityP:'Types, ACE, whitelist, jobs/groups et combinaisons.', devTitle:'Outils dev.', devP:'Placement, zones, gizmo, laser et debug.', fivemTitle:'Utilitaires FiveM.', fivemP:'Streaming, véhicules, world queries, blips, raycasts et UI.', duiTitle:'DUI et textures interactives.', duiP:'Browser surfaces, sprites, polys, render targets, replacement textures, souris/focus.', extendTitle:'Étendre PR Bridge sans changer les consommateurs.', extendP:'Ajoutez les adapters sous bridge/<category>/<provider>/<context>.lua.', apiTitle:'Catalogue API synchronisé avec la source de développement actuelle.', apiP:'Le catalogue est reconstruit depuis la source de développement actuelle et le document audité des fonctions, complété par les APIs publiques présentes dans le runtime actuel.', noteRadial:'PR Bridge expose pr_lib.interact avec son propre runtime/NUI et des helpers de menu radial via l’interface.', production:'Production', source:'Audité contre la source de développement actuelle de PR Bridge (v1.3.1), tout en conservant les liens publics Framework-Forge/pr_bridge.'
   }
 };
 
@@ -87,22 +87,13 @@ const TOPICS = [
   'bridge-dev','bridge-fivem','bridge-dui','bridge-expand','bridge-api'
 ];
 
-const INTERACTION_SIGNATURES = [
-  'pr_lib.fivem.streaming.PerformAction(data)',
-  'pr_lib.fivem.streaming.performAction(data)',
-  'pr_lib.fivem.streaming.PlayAction(data)',
-  'pr_lib.fivem.streaming.playAction(data)',
-  'pr_lib.fivem.streaming.PlayInteraction(data)',
-  'pr_lib.fivem.streaming.playInteraction(data)',
-];
-
 const TOPIC_MODULES = {
   'bridge-architecture': ['core','locale','utils','math','table','ids'],
   'bridge-framework': ['framework'],
   'bridge-inventory': ['inventory'],
   'bridge-database': ['database'],
-  'bridge-ui': ['notification','menu','progressbar','textui_adapter','fivem.ui','fivem.drawtext'],
-  'bridge-target': ['target'],
+  'bridge-ui': ['notification','menu','radial','progressbar','textui_adapter','fivem.ui','fivem.drawtext'],
+  'bridge-target': ['target','interact'],
   'bridge-cache': ['cache','fivem.vehicleCache'],
   'bridge-callbacks': ['callback','events'],
   'bridge-security': ['ace','addcommand','addkeybind'],
@@ -189,7 +180,7 @@ export default function PrBridgeDocs({ topic = 'bridge-overview', onNavigateTopi
       <aside className="bridge-summary">
         <div className="bridge-summary-logo"><b>PR</b><strong>BRIDGE</strong></div>
         <dl>
-          <div><dt>{d.version}</dt><dd>1.0.9</dd></div>
+          <div><dt>{d.version}</dt><dd>{PR_BRIDGE_SOURCE_VERSION}</dd></div>
           <div><dt>{d.calls}</dt><dd>{total}</dd></div>
           <div><dt>{d.contexts}</dt><dd>shared / server / client</dd></div>
           <div><dt>{d.architecture}</dt><dd>standalone + adapters</dd></div>
@@ -282,26 +273,64 @@ export default function PrBridgeDocs({ topic = 'bridge-overview', onNavigateTopi
   </div>;
 
   if (topic === 'bridge-target') return <div className="bridge-docs bridge-docs-page">
-    <TopicHeader number="09" eyebrow="pr_lib.target + pr_lib.fivem.streaming.playInteraction" title={d.targetTitle} text={d.targetP} />
+    <TopicHeader
+      number="09"
+      eyebrow="pr_lib.target + pr_lib.interact"
+      title={d.targetTitle}
+      text={locale === 'pt-BR'
+        ? 'Target e Interact são sistemas diferentes. Target trabalha com mira/seleção sobre entidades e zonas; Interact mantém pontos persistentes no mundo, renderiza sua própria interface NUI e executa a opção selecionada pela tecla configurável.'
+        : locale === 'es'
+          ? 'Target e Interact son sistemas distintos. Target usa selección por objetivo; Interact mantiene puntos persistentes en el mundo, renderiza su propia NUI y ejecuta opciones con una tecla configurable.'
+          : locale === 'fr'
+            ? 'Target et Interact sont deux systèmes distincts. Target utilise la sélection par visée ; Interact maintient des points persistants dans le monde avec sa propre NUI et une touche configurable.'
+            : 'Target and Interact are separate systems. Target is aim/selection based; Interact keeps persistent world interactions, renders its own NUI and executes the selected option through a configurable key.'}
+    />
 
     <div className="bridge-card-grid two">
-      <Card k="TARGET" title="Target providers">Create zones and attach options to models, entities, players, peds, vehicles and objects through ox_target, core_focus, qb-target or the fallback adapter.</Card>
-      <Card k="INTERACT" title="Physical interaction flow">Move the player to a target, align heading, open vehicle doors when required, play an animation/scenario and execute lifecycle callbacks before/after the interaction.</Card>
-      <Card k="POSITION" title="Anchors & placement">Interaction positioning accepts explicit coords, offsets, bones and vehicle anchors such as hood, trunk, driverDoor, passengerDoor, rear doors, left/right and center.</Card>
-      <Card k="LIFECYCLE" title="Interaction callbacks">onBeforeMove, onBeforeStart, onStart and onFinish let a resource validate, cancel or extend the sequence without rebuilding movement/animation code.</Card>
+      <Card k="TARGET" title="Target engine">Zones, models, entities, players, peds, vehicles, objects and pickups can be registered through the normalized target API. Native target is one supported provider alongside ox_target, core_focus and qb-target.</Card>
+      <Card k="INTERACT" title="World Interact runtime">pr_lib.interact owns a separate persistent registry, proximity scanner, LOS checks, group filters, option selection and a dedicated world-space NUI.</Card>
+      <Card k="NUI" title="Dedicated interface">Nearby points are projected to screen coordinates and rendered by WorldInteract.svelte. The active point shows the key and options; mouse wheel or up/down changes the selected option.</Card>
+      <Card k="CLEANUP" title="Resource ownership">Every interaction records the creating resource. When that resource stops, its records are removed automatically by the central runtime.</Card>
     </div>
 
     <h3 className="bridge-subtitle">Target example</h3>
-    <Code>{"local zoneId = pr_lib.target.addSphereZone({\n    name = 'mechanic_bench',\n    coords = vec3(-340.0, -136.0, 39.0),\n    radius = 1.5,\n    options = {{\n        name = 'open_bench',\n        label = 'Open workbench',\n        icon = 'fa-solid fa-wrench',\n        onSelect = function() OpenWorkbench() end,\n    }}\n})\n\npr_lib.target.removeZone(zoneId)"}</Code>
+    <Code>{"local zoneId = pr_lib.target.addSphereZone({\n    name = 'mechanic_bench',\n    coords = vec3(-340.0, -136.0, 39.0),\n    radius = 1.5,\n    options = {{\n        name = 'open_bench',\n        label = 'Open workbench',\n        icon = 'fa-solid fa-wrench',\n        onSelect = function()\n            OpenWorkbench()\n        end,\n    }}\n})\n\npr_lib.target.removeZone(zoneId)"}</Code>
 
-    <h3 className="bridge-subtitle">Interaction example</h3>
-    <Code>{"local ok, result = pr_lib.fivem.streaming.playInteraction({\n    type = 'vehicle',\n    target = vehicle,\n\n    position = {\n        anchor = 'driverDoor',\n        distance = 0.75,\n        faceTarget = true,\n        moveTo = true,\n        timeout = 4500,\n        speed = 1.0,\n        arriveDistance = 0.65,\n    },\n\n    vehicleOptions = {\n        door = 0,\n        openDoor = true,\n        closeDoor = true,\n    },\n\n    anim = {\n        dict = 'mp_common',\n        clip = 'givetake1_a',\n        duration = 1400,\n        flags = 0,\n    },\n\n    onBeforeMove = function(ped, entity, coords, heading, entityType)\n        return entity ~= 0\n    end,\n\n    onStart = function(ped, entity)\n        print('interaction started', entity)\n    end,\n\n    onFinish = function(ped, entity)\n        print('interaction finished', entity)\n    end,\n})\n\nif not ok then\n    print('interaction failed', result)\nend"}</Code>
+    <h3 className="bridge-subtitle">World Interact — coordinates</h3>
+    <Code>{"local interactionId = pr_lib.interact.AddInteraction({\n    id = 'mechanic:counter',\n    name = 'mechanic-counter',\n    coords = vec3(-339.86, -137.02, 39.01),\n    distance = 8.0,\n    interactDst = 1.5,\n    groups = { mechanic = 0 },\n    options = {\n        {\n            name = 'mechanic:open',\n            label = 'Open workbench',\n            args = { bench = 'main' },\n            canInteract = function(entity, coords, args)\n                return not IsPedDeadOrDying(PlayerPedId(), true)\n            end,\n            action = function(entity, coords, args)\n                OpenWorkbench(args.bench)\n            end,\n        },\n        {\n            name = 'mechanic:stock',\n            label = 'Check stock',\n            serverEvent = 'mechanic:server:openStock',\n            args = { stash = 'mechanic_main' },\n        },\n    }\n})"}</Code>
 
-    <div className="bridge-note"><strong>Supported interaction aliases</strong><p>playInteraction is also exposed as PlayInteraction, playAction, PlayAction, performAction and PerformAction. All six signatures point to the same interaction workflow.</p></div>
+    <h3 className="bridge-subtitle">Entity, bone and model interactions</h3>
+    <Code>{"-- local entity\npr_lib.interact.AddLocalEntityInteraction({\n    entity = vehicle,\n    distance = 6.0,\n    interactDst = 1.2,\n    offset = vec3(0.0, -2.2, 0.4),\n    options = {\n        { name = 'trunk', label = 'Open trunk', event = 'garage:client:trunk' }\n    }\n})\n\n-- entity bone\npr_lib.interact.AddEntityBoneInteraction({\n    entity = vehicle,\n    bone = 'boot',\n    offset = vec3(0.0, 0.0, 0.15),\n    options = {\n        { name = 'inspect_boot', label = 'Inspect trunk', action = InspectTrunk }\n    }\n})\n\n-- any matching model\npr_lib.interact.AddModelInteraction({\n    models = { 'prop_atm_01', 'prop_atm_02' },\n    distance = 10.0,\n    interactDst = 1.4,\n    options = {\n        { name = 'atm', label = 'Use ATM', event = 'banking:client:openAtm' }\n    }\n})"}</Code>
 
-    <div className="bridge-note warning"><strong>Radial menu</strong><p>{d.noteRadial}</p></div>
+    <h3 className="bridge-subtitle">Network and global interactions</h3>
+    <Code>{"pr_lib.interact.AddEntityInteraction({\n    netId = NetworkGetNetworkIdFromEntity(vehicle),\n    distance = 7.0,\n    interactDst = 1.5,\n    options = {\n        { name = 'inspect_vehicle', label = 'Inspect vehicle', action = InspectVehicle }\n    }\n})\n\npr_lib.interact.AddGlobalVehicleInteraction({\n    distance = 5.0,\n    interactDst = 1.3,\n    options = {\n        { name = 'vehicle_info', label = 'Vehicle info', action = ShowVehicleInfo }\n    }\n})\n\npr_lib.interact.AddGlobalPlayerInteraction({\n    distance = 4.0,\n    interactDst = 1.2,\n    options = {\n        { name = 'player_id', label = 'Check player', action = InspectPlayer }\n    }\n})"}</Code>
 
-    <ReferenceBlock locale={locale} modules={TOPIC_MODULES[topic]} extraSignatures={INTERACTION_SIGNATURES} />
+    <h3 className="bridge-subtitle">Update, remove and disable</h3>
+    <Code>{"pr_lib.interact.UpdateInteraction(interactionId, {\n    { name = 'updated', label = 'Updated option', action = UpdatedAction }\n})\n\npr_lib.interact.RemoveInteractionOption(interactionId, 'updated')\npr_lib.interact.RemoveInteraction(interactionId)\n\n-- Temporarily disables all Interact detection/UI for the local player.\npr_lib.interact.Disable(true)\npr_lib.interact.Disable(false)"}</Code>
+
+    <div className="bridge-card-grid two">
+      <Card k="FILTER" title="Groups & canInteract">groups accepts a group/job name, list or grade map. Each option may also define groups and canInteract(entity, coords, args).</Card>
+      <Card k="DISPATCH" title="Option dispatch">An Interact option may execute action(entity, coords, args, serverId), serverEvent, event or command.</Card>
+      <Card k="DISTANCE" title="Two distance levels">distance controls discovery range. interactDst controls when the point becomes actionable and its option list/key becomes active.</Card>
+      <Card k="LOS" title="Walls & visibility">Line-of-sight checking is enabled by default and can be bypassed per record with ignoreLos. A record can hide only its NUI marker without disabling detection.</Card>
+    </div>
+
+    <div className="bridge-note">
+      <strong>Interact controls</strong>
+      <p>The default interaction key is E (convar pr_bridge:interact:defaultKey) and follows FiveM key mapping. Mouse wheel or the up/down controls switch between multiple options.</p>
+    </div>
+
+    <div className="bridge-note">
+      <strong>Interact visual interface</strong>
+      <p>WorldInteract.svelte provides the dedicated world UI. Current visual presets include blue_circle, gold_circle, green_square, glitch and obtaizen_ui. The global interface editor controls scale, pin/key/bullet sizes, option dimensions, colors, opacity, wall detection and automatic disable states.</p>
+    </div>
+
+    <div className="bridge-note warning">
+      <strong>Important distinction</strong>
+      <p>pr_lib.fivem.streaming.playInteraction/playAction is an animation/action helper and is not the PR Bridge Interact system. The public world-interaction API documented here is pr_lib.interact.</p>
+    </div>
+
+    <ReferenceBlock locale={locale} modules={TOPIC_MODULES[topic]} />
     {commonFooter}
   </div>;
 
