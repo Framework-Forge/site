@@ -3,10 +3,10 @@ import { PR_BRIDGE_API, PR_BRIDGE_MODULES } from '../data/prBridgeApi.generated'
 import { LuaCode } from './LuaCodeBlock';
 
 const LABELS = {
-  en: { search:'Search functions…', all:'All modules', functions:'functions', parameters:'Parameters', returns:'Return', example:'Example', noParams:'No parameters', empty:'No functions match this filter.', returnsValue:'Returns a value according to the active provider/runtime.', actionReturn:'Return value depends on the adapter or operation unless the specific contract documents otherwise.' },
-  'pt-BR': { search:'Buscar funções…', all:'Todos os módulos', functions:'funções', parameters:'Parâmetros', returns:'Retorno', example:'Exemplo', noParams:'Sem parâmetros', empty:'Nenhuma função encontrada com esse filtro.', returnsValue:'Retorna um valor de acordo com o provider/runtime ativo.', actionReturn:'O retorno depende do adapter ou da operação quando o contrato específico não indicar outro comportamento.' },
-  es: { search:'Buscar funciones…', all:'Todos los módulos', functions:'funciones', parameters:'Parámetros', returns:'Retorno', example:'Ejemplo', noParams:'Sin parámetros', empty:'No se encontraron funciones.', returnsValue:'Devuelve un valor según el provider/runtime activo.', actionReturn:'El retorno depende del adapter u operación cuando el contrato específico no indique lo contrario.' },
-  fr: { search:'Rechercher des fonctions…', all:'Tous les modules', functions:'fonctions', parameters:'Paramètres', returns:'Retour', example:'Exemple', noParams:'Aucun paramètre', empty:'Aucune fonction ne correspond au filtre.', returnsValue:'Retourne une valeur selon le provider/runtime actif.', actionReturn:'Le retour dépend de l’adapter ou de l’opération lorsque le contrat précis ne dit pas autrement.' }
+  en: { search:'Search functions…', all:'All modules', functions:'functions', parameters:'Parameters', returns:'Return', example:'Example', noParams:'No parameters', empty:'No functions match this filter.', returnsValue:'Returns a value according to the active provider/runtime.', actionReturn:'Return value depends on the adapter or operation unless the specific contract documents otherwise.', source:'Source', tags:'Tags' },
+  'pt-BR': { search:'Buscar funções…', all:'Todos os módulos', functions:'funções', parameters:'Parâmetros', returns:'Retorno', example:'Exemplo', noParams:'Sem parâmetros', empty:'Nenhuma função encontrada com esse filtro.', returnsValue:'Retorna um valor de acordo com o provider/runtime ativo.', actionReturn:'O retorno depende do adapter ou da operação quando o contrato específico não indicar outro comportamento.', source:'Fonte', tags:'Tags' },
+  es: { search:'Buscar funciones…', all:'Todos los módulos', functions:'funciones', parameters:'Parámetros', returns:'Retorno', example:'Ejemplo', noParams:'Sin parámetros', empty:'No se encontraron funciones.', returnsValue:'Devuelve un valor según el provider/runtime activo.', actionReturn:'El retorno depende del adapter u operación cuando el contrato específico no indique lo contrario.', source:'Fuente', tags:'Tags' },
+  fr: { search:'Rechercher des fonctions…', all:'Tous les modules', functions:'fonctions', parameters:'Paramètres', returns:'Retour', example:'Exemple', noParams:'Aucun paramètre', empty:'Aucune fonction ne correspond au filtre.', returnsValue:'Retourne une valeur selon le provider/runtime actif.', actionReturn:'Le retour dépend de l’adapter ou de l’opération lorsque le contrat précis ne dit pas autrement.', source:'Source', tags:'Tags' }
 };
 
 const ACTIONS = {
@@ -106,7 +106,26 @@ export default function PrBridgeFunctionCatalog({ locale = 'en', modules = null,
                     <code>{entry.signature}</code>
                     <span className={'bridge-context bridge-context-' + entry.context}>{entry.context}</span>
                   </div>
-                  <p className="bridge-function-description">{describe(entry, locale)}</p>
+                  <p className="bridge-function-description">
+                    {locale === 'pt-BR' && entry.detail ? entry.detail : describe(entry, locale)}
+                  </p>
+
+                  {(entry.directory || entry.tags) && (
+                    <div className="bridge-function-source">
+                      {entry.directory && (
+                        <div>
+                          <span>{l.source}</span>
+                          <code>{entry.directory}</code>
+                        </div>
+                      )}
+                      {entry.tags && (
+                        <div>
+                          <span>{l.tags}</span>
+                          <p>{entry.tags}</p>
+                        </div>
+                      )}
+                    </div>
+                  )}
                   <dl className="bridge-function-meta">
                     <div>
                       <dt>{l.parameters}</dt>
