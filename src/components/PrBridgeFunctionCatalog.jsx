@@ -93,7 +93,7 @@ export default function PrBridgeFunctionCatalog({ locale = 'en', modules = null,
       {grouped.map(([module, functions]) => (
         <section className="bridge-function-module" key={module}>
           <div className="bridge-function-module-head">
-            <div><span>namespace</span><h3>pr_lib.{module}</h3></div>
+            <div><span>module</span><h3>{module}</h3></div>
             <strong>{functions.length} {l.functions}</strong>
           </div>
 
