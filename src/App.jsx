@@ -5,6 +5,7 @@ import About from './views/About';
 import ForgeLegacy from './views/ForgeLegacy';
 import XtPrisonDocs from './views/XtPrisonDocs';
 import PrElevatorDocs from './views/PrElevatorDocs';
+import RenewedBankingDocs from './views/RenewedBankingDocs';
 import PrBridgeDocs from './views/PrBridgeDocs';
 import forgeLogo from './assets/forge_legacy_logo.png';
 import { AutoTranslate, LanguageProvider, LANGUAGES, useI18n } from './i18n';
@@ -119,7 +120,7 @@ function ForgeDocs() {
   }, [currentSection]);
 
   const isUiMenuOpen = currentSection === 'uikit' || uiMenuOpen;
-  const isLegacyMenuOpen = currentSection === 'legacy' || currentSection === 'xt-prison' || currentSection === 'pr-elevator' || legacyMenuOpen;
+  const isLegacyMenuOpen = currentSection === 'legacy' || currentSection === 'xt-prison' || currentSection === 'pr-elevator' || currentSection === 'renewed-banking' || legacyMenuOpen;
   const isBridgeMenuOpen = currentSection === 'pr-bridge' || bridgeMenuOpen;
 
   const groups = [
@@ -252,9 +253,9 @@ function ForgeDocs() {
               <li>
                 <button
                   type="button"
-                  className={`showcase-menu-item docs-menu-button ${currentSection === 'legacy' || currentSection === 'xt-prison' || currentSection === 'pr-elevator' ? 'active' : ''}`}
+                  className={`showcase-menu-item docs-menu-button ${currentSection === 'legacy' || currentSection === 'xt-prison' || currentSection === 'pr-elevator' || currentSection === 'renewed-banking' ? 'active' : ''}`}
                   onClick={() => {
-                    if (currentSection === 'legacy' || currentSection === 'xt-prison' || currentSection === 'pr-elevator') return;
+                    if (currentSection === 'legacy' || currentSection === 'xt-prison' || currentSection === 'pr-elevator' || currentSection === 'renewed-banking') return;
                     setLegacyMenuOpen((value) => !value);
                   }}
                   aria-expanded={isLegacyMenuOpen}
@@ -290,6 +291,14 @@ function ForgeDocs() {
                     >
                       <span>pr_elevator</span>
                       <small>{t('elevatorNavDescription')}</small>
+                    </button>
+                    <button
+                      type="button"
+                      className={`docs-submenu-item ${currentSection === 'renewed-banking' ? 'active' : ''}`}
+                      onClick={() => navigateTo('renewed-banking')}
+                    >
+                      <span>Renewed-Banking</span>
+                      <small>{t('bankingNavDescription')}</small>
                     </button>
                   </div>
                 )}
@@ -394,9 +403,10 @@ function ForgeDocs() {
               onOpenPrBridge={() => openBridgeTopic('bridge-overview')}
             />
           )}
-          {currentSection === 'legacy' && <ForgeLegacy onOpenXtPrison={() => navigateTo('xt-prison')} onOpenPrElevator={() => navigateTo('pr-elevator')} />}
+          {currentSection === 'legacy' && <ForgeLegacy onOpenXtPrison={() => navigateTo('xt-prison')} onOpenPrElevator={() => navigateTo('pr-elevator')} onOpenRenewedBanking={() => navigateTo('renewed-banking')} />}
           {currentSection === 'xt-prison' && <XtPrisonDocs />}
           {currentSection === 'pr-elevator' && <PrElevatorDocs />}
+          {currentSection === 'renewed-banking' && <RenewedBankingDocs />}
           {currentSection === 'pr-bridge' && <PrBridgeDocs topic={activeBridgeTopic} onNavigateTopic={openBridgeTopic} />}
           {currentSection === 'uikit' && (
             <>
