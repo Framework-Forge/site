@@ -24,8 +24,8 @@ const Info = ({ label, children }) => (
 );
 
 export default function RenewedBankingDocs() {
-  const { language } = useI18n();
-  const isPt = language === 'pt-BR';
+  const { locale } = useI18n();
+  const isPt = locale === 'pt-BR';
 
   return (
     <div className="banking-docs">
