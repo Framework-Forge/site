@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { PR_BRIDGE_API, PR_BRIDGE_MODULES } from '../data/prBridgeApi.generated';
+import { LuaCode } from './LuaCodeBlock';
 
 const LABELS = {
   en: { search:'Search functions…', all:'All modules', functions:'functions', parameters:'Parameters', returns:'Return', example:'Example', noParams:'No parameters', empty:'No functions match this filter.', returnsValue:'Returns a value according to the active provider/runtime.', actionReturn:'Return value depends on the adapter or operation unless the specific contract documents otherwise.' },
@@ -118,7 +119,7 @@ export default function PrBridgeFunctionCatalog({ locale = 'en', modules = null,
                   </dl>
                   <div className="bridge-function-example">
                     <span>{l.example}</span>
-                    <pre><code>{entry.example}</code></pre>
+                    <pre><LuaCode code={entry.example} /></pre>
                   </div>
                 </article>
               );
