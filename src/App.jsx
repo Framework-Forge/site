@@ -154,6 +154,7 @@ function ForgeDocs() {
     ['bridge-dui', t('prBridgeTopicDui')],
     ['bridge-expand', t('prBridgeTopicExpand')],
     ['bridge-api', t('prBridgeTopicApi')],
+    ['bridge-source-audit', t('prBridgeTopicSourceAudit')],
   ];
 
   const openBridgeTopic = (topicId = 'bridge-overview') => {
