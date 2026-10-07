@@ -3619,3 +3619,27 @@
     border-bottom: 1px solid rgba(255,255,255,.045);
   }
 }
+
+
+/* Fix Lua token layout inside public API examples */
+.bridge-public-api-example .lua-highlight,
+.bridge-public-api-example .lua-highlight span {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+}
+
+.bridge-public-api-example pre {
+  white-space: pre;
+}
+
+.bridge-public-api-example .lua-highlight {
+  font: 600 11px/1.7 var(--font-mono);
+}
+
+@media (max-width: 720px) {
+  .bridge-public-api-example .lua-highlight {
+    font-size: 10px;
+  }
+}
