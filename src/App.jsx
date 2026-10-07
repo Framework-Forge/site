@@ -5,6 +5,7 @@ import About from './views/About';
 import ForgeLegacy from './views/ForgeLegacy';
 import XtPrisonDocs from './views/XtPrisonDocs';
 import PrElevatorDocs from './views/PrElevatorDocs';
+import PrBridgeDocs from './views/PrBridgeDocs';
 import forgeLogo from './assets/forge_legacy_logo.png';
 import { AutoTranslate, LanguageProvider, LANGUAGES, useI18n } from './i18n';
 import './docs.css';
@@ -258,6 +259,31 @@ function ForgeDocs() {
           </div>
 
           <div className="showcase-menu-group">
+            <h3 className="showcase-menu-title">{t('tools')}</h3>
+            <ul className="showcase-menu-list">
+              <li>
+                <button
+                  type="button"
+                  className={`showcase-menu-item docs-menu-button ${currentSection === 'pr-bridge' ? 'active' : ''}`}
+                  onClick={() => navigateTo('pr-bridge')}
+                  title="PR Bridge"
+                >
+                  <GridIcon />
+                  <span className="showcase-menu-item-text">PR Bridge</span>
+                </button>
+                {currentSection === 'pr-bridge' && !sidebarCollapsed && (
+                  <div className="docs-submenu">
+                    <div className="docs-submenu-item active docs-submenu-static">
+                      <span>PR Bridge</span>
+                      <small>{t('prBridgeNavDescription')}</small>
+                    </div>
+                  </div>
+                )}
+              </li>
+            </ul>
+          </div>
+
+          <div className="showcase-menu-group">
             <h3 className="showcase-menu-title">{t('reference')}</h3>
             <ul className="showcase-menu-list">
               <li>
@@ -312,6 +338,7 @@ function ForgeDocs() {
           {currentSection === 'legacy' && <ForgeLegacy onOpenXtPrison={() => navigateTo('xt-prison')} onOpenPrElevator={() => navigateTo('pr-elevator')} />}
           {currentSection === 'xt-prison' && <XtPrisonDocs />}
           {currentSection === 'pr-elevator' && <PrElevatorDocs />}
+          {currentSection === 'pr-bridge' && <PrBridgeDocs />}
           {currentSection === 'uikit' && (
             <>
               <div className="docs-uikit-context">
