@@ -1,15 +1,7 @@
 import { useI18n } from '../i18n';
 import PrBridgeFunctionCatalog from '../components/PrBridgeFunctionCatalog';
-
-const API_MODULES = [
-  ['core',14],['locale',8],['cache',10],['debug',9],['framework',169],['inventory',180],
-  ['notification',5],['menu',15],['target',42],['phone',23],['progressbar',4],['weather',2],
-  ['database',40],['fuel',3],['vehicle_key',41],['banking',10],['textui',5],['callback',10],
-  ['ace',17],['addCommand',8],['addKeybind',3],['translator',8],['github',3],['utils',7],
-  ['math',40],['table',14],['ids',2],['raycast',4],['net',12],['ui',6],['dui',60],
-  ['tuning',17],['drawtext',17],['vehicleProperties',8],['streaming',50],['objects',52],
-  ['vehicleCache',10],['blips',16],['devtools',14],['fivem aliases',28],
-];
+import LuaCodeBlock from '../components/LuaCodeBlock';
+import { PR_BRIDGE_API_COUNT, PR_BRIDGE_MODULES } from '../data/prBridgeApi.generated';
 
 const PROVIDERS = {
   Frameworks: ['TMC / core','ND Core','ox_core','ESX','QBX','QBCore','Custom'],
@@ -86,7 +78,7 @@ const T = {
   }
 };
 
-const Code=({children})=><pre className="bridge-code"><code>{children}</code></pre>;
+const Code=({children})=><LuaCodeBlock>{children}</LuaCodeBlock>;
 const Card=({k,title,children})=><article className="bridge-card"><span>{k}</span><h3>{title}</h3><p>{children}</p></article>;
 
 const TOPICS = [
