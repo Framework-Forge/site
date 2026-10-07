@@ -4075,3 +4075,62 @@
     justify-self: stretch;
   }
 }
+
+
+/* Home featured PR Bridge announcement: guaranteed visual separation */
+.docs-home-announcement--featured {
+  display: grid;
+  margin-top: 44px;
+  margin-bottom: 86px;
+  min-height: 220px;
+  box-shadow:
+    0 18px 60px rgba(0,0,0,.22),
+    inset 0 1px 0 rgba(255,122,26,.08);
+}
+
+.docs-home-announcement--featured .docs-home-announcement-eyebrow > span {
+  background: var(--space-orange-primary);
+  border-color: var(--space-orange-primary);
+  color: #09090b;
+}
+
+.docs-home-announcement--featured .docs-primary-button {
+  box-shadow: 0 10px 28px rgba(255,122,26,.13);
+}
+
+/* PR Bridge overview spacing */
+.bridge-overview-stat-grid {
+  margin-bottom: 28px;
+}
+
+.bridge-overview-feature-grid {
+  gap: 22px;
+  row-gap: 22px;
+  margin-top: 0;
+}
+
+.bridge-overview-feature-grid .bridge-card {
+  min-height: 176px;
+}
+
+@media (max-width: 920px) {
+  .docs-home-announcement--featured {
+    margin-top: 30px;
+    margin-bottom: 64px;
+    min-height: 0;
+  }
+
+  .bridge-overview-feature-grid {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 720px) {
+  .bridge-overview-stat-grid {
+    margin-bottom: 20px;
+  }
+
+  .bridge-overview-feature-grid {
+    gap: 14px;
+  }
+}
