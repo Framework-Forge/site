@@ -2904,3 +2904,70 @@
     text-align: left;
   }
 }
+
+
+/* Lua syntax highlighting */
+.lua-highlight {
+  color: #d4d4d4;
+  font-family: var(--font-mono);
+}
+
+.lua-keyword {
+  color: #c586c0;
+  font-weight: 700;
+}
+
+.lua-string {
+  color: #ce9178;
+}
+
+.lua-number {
+  color: #b5cea8;
+}
+
+.lua-comment {
+  color: #6a9955;
+  font-style: italic;
+}
+
+.lua-function {
+  color: #dcdcaa;
+}
+
+.lua-builtin {
+  color: #4ec9b0;
+}
+
+.lua-namespace {
+  color: #4fc1ff;
+  font-weight: 700;
+}
+
+.lua-property {
+  color: #9cdcfe;
+}
+
+.lua-identifier {
+  color: #d4d4d4;
+}
+
+.lua-operator {
+  color: #d4d4d4;
+}
+
+.lua-punctuation {
+  color: #ffd700;
+}
+
+.lua-code-block code,
+.bridge-function-example code {
+  tab-size: 2;
+}
+
+.bridge-function-example pre .lua-highlight {
+  white-space: pre;
+}
+
+.bridge-function-card-head > code {
+  color: #dcdcaa;
+}
