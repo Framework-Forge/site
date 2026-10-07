@@ -41,11 +41,11 @@ export default function About({ onOpenUIKit, onOpenPrBridge }) {
         </div>
       </section>
 
-      <section className="docs-home-announcement">
+      <section className="docs-home-announcement docs-home-announcement--featured" aria-label="PR Bridge featured announcement">
         <div className="docs-home-announcement-glow" aria-hidden="true" />
         <div className="docs-home-announcement-copy">
           <div className="docs-home-announcement-eyebrow">
-            <span>NEW</span>
+            <span>PR BRIDGE</span>
             {t('bridgeAnnouncementEyebrow')}
           </div>
 
