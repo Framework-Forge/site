@@ -4138,6 +4138,9 @@
 
 /* Renewed Banking documentation */
 .banking-docs {
+  width: min(1160px, calc(100% - 64px));
+  margin: 0 auto;
+  padding: 54px 0 96px;
   display: grid;
   gap: 0;
 }
