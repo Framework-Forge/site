@@ -92,7 +92,7 @@ function ForgeDocs() {
   const [uiMenuOpen, setUiMenuOpen] = useState(false);
   const [legacyMenuOpen, setLegacyMenuOpen] = useState(false);
   const [bridgeMenuOpen, setBridgeMenuOpen] = useState(false);
-  const [activeBridgeTopic, setActiveBridgeTopic] = useState('bridge-overview');
+  const [activeBridgeTopic, setActiveBridgeTopic] = useState(() => localStorage.getItem('forge-pr-bridge-topic') || 'bridge-overview');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(() => localStorage.getItem('forge-sidebar-collapsed') === 'true');
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [activeUiGroup, setActiveUiGroup] = useState(() => localStorage.getItem('forge-ui-group') || 'atoms');
@@ -108,6 +108,10 @@ function ForgeDocs() {
   React.useEffect(() => {
     localStorage.setItem('forge-sidebar-collapsed', String(sidebarCollapsed));
   }, [sidebarCollapsed]);
+
+  React.useEffect(() => {
+    localStorage.setItem('forge-pr-bridge-topic', activeBridgeTopic);
+  }, [activeBridgeTopic]);
 
   React.useEffect(() => {
     setMobileSidebarOpen(false);
@@ -158,9 +162,9 @@ function ForgeDocs() {
     setCurrentSection('pr-bridge');
     setMobileSidebarOpen(false);
 
-    window.setTimeout(() => {
-      document.getElementById(topicId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, currentSection === 'pr-bridge' ? 0 : 80);
+    requestAnimationFrame(() => {
+      document.querySelector('.showcase-content.docs-content')?.scrollTo({ top: 0, behavior: 'auto' });
+    });
   };
 
   const openUIKit = (group = 'atoms') => {
@@ -387,7 +391,7 @@ function ForgeDocs() {
           {currentSection === 'legacy' && <ForgeLegacy onOpenXtPrison={() => navigateTo('xt-prison')} onOpenPrElevator={() => navigateTo('pr-elevator')} />}
           {currentSection === 'xt-prison' && <XtPrisonDocs />}
           {currentSection === 'pr-elevator' && <PrElevatorDocs />}
-          {currentSection === 'pr-bridge' && <PrBridgeDocs />}
+          {currentSection === 'pr-bridge' && <PrBridgeDocs topic={activeBridgeTopic} onNavigateTopic={openBridgeTopic} />}
           {currentSection === 'uikit' && (
             <>
               <div className="docs-uikit-context">
