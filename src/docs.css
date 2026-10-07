@@ -2971,3 +2971,50 @@
 .bridge-function-card-head > code {
   color: #dcdcaa;
 }
+
+
+/* PR Bridge audited source metadata */
+.bridge-function-source {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(180px, .65fr);
+  gap: 10px;
+  padding: 0 15px 14px;
+}
+
+.bridge-function-source > div {
+  min-width: 0;
+  padding: 10px 11px;
+  border: 1px solid rgba(255,255,255,.04);
+  border-radius: 8px;
+  background: rgba(255,255,255,.004);
+}
+
+.bridge-function-source span {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--space-text-muted);
+  font: 800 8px var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: .10em;
+}
+
+.bridge-function-source code {
+  display: block;
+  overflow-x: auto;
+  color: #9cdcfe;
+  font: 9.5px/1.55 var(--font-mono);
+  white-space: nowrap;
+  scrollbar-width: thin;
+}
+
+.bridge-function-source p {
+  margin: 0;
+  color: var(--space-text-muted);
+  font: 9.5px/1.55 var(--font-mono);
+}
+
+@media (max-width: 720px) {
+  .bridge-function-source {
+    grid-template-columns: 1fr;
+  }
+}
