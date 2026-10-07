@@ -9549,6 +9549,240 @@ export const PR_BRIDGE_API = [
     "directory": "bridge/garages/server.lua",
     "tags": "",
     "example": "pr_lib.garage.validateLink('example', {})"
+  },
+  {
+    "module": "weather",
+    "context": "server",
+    "signature": "pr_lib.weather.GetResourceName()",
+    "detail": "Retorna o nome do resource de weather ativo para este adapter.",
+    "directory": "bridge/weather/renewed/server.lua",
+    "tags": "weather, renewed, server",
+    "example": "local result = pr_lib.weather.GetResourceName()"
+  },
+  {
+    "module": "weather",
+    "context": "server",
+    "signature": "pr_lib.weather.IsStarted()",
+    "detail": "Informa se o provider Renewed-Weathersync está iniciado.",
+    "directory": "bridge/weather/renewed/server.lua",
+    "tags": "weather, renewed, server",
+    "example": "local result = pr_lib.weather.IsStarted()"
+  },
+  {
+    "module": "weather",
+    "context": "server",
+    "signature": "pr_lib.weather.GetWeatherList()",
+    "detail": "Obtém a sequência/lista de eventos meteorológicos do provider.",
+    "directory": "bridge/weather/renewed/server.lua",
+    "tags": "weather, renewed, server",
+    "example": "local result = pr_lib.weather.GetWeatherList()"
+  },
+  {
+    "module": "weather",
+    "context": "server",
+    "signature": "pr_lib.weather.GetWeeklyForecast()",
+    "detail": "Obtém a previsão semanal exposta pelo provider.",
+    "directory": "bridge/weather/renewed/server.lua",
+    "tags": "weather, renewed, server",
+    "example": "local result = pr_lib.weather.GetWeeklyForecast()"
+  },
+  {
+    "module": "weather",
+    "context": "server",
+    "signature": "pr_lib.weather.GetRegionalWeather(regionId)",
+    "detail": "Obtém o weather de uma região específica.",
+    "directory": "bridge/weather/renewed/server.lua",
+    "tags": "weather, renewed, server",
+    "example": "local result = pr_lib.weather.GetRegionalWeather('downtown')"
+  },
+  {
+    "module": "weather",
+    "context": "server",
+    "signature": "pr_lib.weather.GetState()",
+    "detail": "Retorna um snapshot normalizado do estado meteorológico, incluindo lista, weather atual e regiões.",
+    "directory": "bridge/weather/renewed/server.lua",
+    "tags": "weather, renewed, server",
+    "example": "local result = pr_lib.weather.GetState()"
+  },
+  {
+    "module": "weather",
+    "context": "server",
+    "signature": "pr_lib.weather.SetWeatherType(index, weatherType, match)",
+    "detail": "Altera o tipo de weather em um índice/evento, criando ou ajustando a entrada quando necessário.",
+    "directory": "bridge/weather/renewed/server.lua",
+    "tags": "weather, renewed, server",
+    "example": "pr_lib.weather.SetWeatherType(1, 'CLEAR', {})"
+  },
+  {
+    "module": "weather",
+    "context": "server",
+    "signature": "pr_lib.weather.SetEventTime(index, duration, match)",
+    "detail": "Atualiza a duração de um evento meteorológico existente.",
+    "directory": "bridge/weather/renewed/server.lua",
+    "tags": "weather, renewed, server",
+    "example": "pr_lib.weather.SetEventTime(1, 1, {})"
+  },
+  {
+    "module": "weather",
+    "context": "server",
+    "signature": "pr_lib.weather.AddWeatherEvent(weatherType, duration, index)",
+    "detail": "Adiciona um evento de weather à sequência ativa.",
+    "directory": "bridge/weather/renewed/server.lua",
+    "tags": "weather, renewed, server",
+    "example": "pr_lib.weather.AddWeatherEvent('CLEAR', 1, 1)"
+  },
+  {
+    "module": "weather",
+    "context": "server",
+    "signature": "pr_lib.weather.RemoveWeatherEvent(index, match)",
+    "detail": "Remove um evento meteorológico pelo índice/descritor.",
+    "directory": "bridge/weather/renewed/server.lua",
+    "tags": "weather, renewed, server",
+    "example": "pr_lib.weather.RemoveWeatherEvent(1, {})"
+  },
+  {
+    "module": "weather",
+    "context": "server",
+    "signature": "pr_lib.weather.SetTime(hour, minute)",
+    "detail": "Define hora e minuto no provider de weather.",
+    "directory": "bridge/weather/renewed/server.lua",
+    "tags": "weather, renewed, server",
+    "example": "pr_lib.weather.SetTime(1, 1)"
+  },
+  {
+    "module": "weather",
+    "context": "server",
+    "signature": "pr_lib.weather.SetTimeScale(scale)",
+    "detail": "Ajusta a escala de passagem do tempo.",
+    "directory": "bridge/weather/renewed/server.lua",
+    "tags": "weather, renewed, server",
+    "example": "pr_lib.weather.SetTimeScale(1)"
+  },
+  {
+    "module": "weather",
+    "context": "server",
+    "signature": "pr_lib.weather.SetFreezeTime(enabled)",
+    "detail": "Ativa ou desativa o congelamento do relógio.",
+    "directory": "bridge/weather/renewed/server.lua",
+    "tags": "weather, renewed, server",
+    "example": "pr_lib.weather.SetFreezeTime(true)"
+  },
+  {
+    "module": "weather",
+    "context": "server",
+    "signature": "pr_lib.weather.getResourceName()",
+    "detail": "Alias lowercase de pr_lib.weather.GetResourceName.",
+    "directory": "bridge/weather/renewed/server.lua",
+    "tags": "weather, alias, renewed, server",
+    "example": "local result = pr_lib.weather.getResourceName()"
+  },
+  {
+    "module": "weather",
+    "context": "server",
+    "signature": "pr_lib.weather.isStarted()",
+    "detail": "Alias lowercase de pr_lib.weather.IsStarted.",
+    "directory": "bridge/weather/renewed/server.lua",
+    "tags": "weather, alias, renewed, server",
+    "example": "local result = pr_lib.weather.isStarted()"
+  },
+  {
+    "module": "weather",
+    "context": "server",
+    "signature": "pr_lib.weather.getWeatherList()",
+    "detail": "Alias lowercase de pr_lib.weather.GetWeatherList.",
+    "directory": "bridge/weather/renewed/server.lua",
+    "tags": "weather, alias, renewed, server",
+    "example": "local result = pr_lib.weather.getWeatherList()"
+  },
+  {
+    "module": "weather",
+    "context": "server",
+    "signature": "pr_lib.weather.getState()",
+    "detail": "Alias lowercase de pr_lib.weather.GetState.",
+    "directory": "bridge/weather/renewed/server.lua",
+    "tags": "weather, alias, renewed, server",
+    "example": "local result = pr_lib.weather.getState()"
+  },
+  {
+    "module": "weather",
+    "context": "server",
+    "signature": "pr_lib.weather.setWeatherType(index, weatherType, match)",
+    "detail": "Alias lowercase de pr_lib.weather.SetWeatherType.",
+    "directory": "bridge/weather/renewed/server.lua",
+    "tags": "weather, alias, renewed, server",
+    "example": "pr_lib.weather.setWeatherType(1, 'CLEAR', {})"
+  },
+  {
+    "module": "weather",
+    "context": "server",
+    "signature": "pr_lib.weather.setEventTime(index, duration, match)",
+    "detail": "Alias lowercase de pr_lib.weather.SetEventTime.",
+    "directory": "bridge/weather/renewed/server.lua",
+    "tags": "weather, alias, renewed, server",
+    "example": "pr_lib.weather.setEventTime(1, 1, {})"
+  },
+  {
+    "module": "weather",
+    "context": "server",
+    "signature": "pr_lib.weather.addWeatherEvent(weatherType, duration, index)",
+    "detail": "Alias lowercase de pr_lib.weather.AddWeatherEvent.",
+    "directory": "bridge/weather/renewed/server.lua",
+    "tags": "weather, alias, renewed, server",
+    "example": "pr_lib.weather.addWeatherEvent('CLEAR', 1, 1)"
+  },
+  {
+    "module": "weather",
+    "context": "server",
+    "signature": "pr_lib.weather.removeWeatherEvent(index, match)",
+    "detail": "Alias lowercase de pr_lib.weather.RemoveWeatherEvent.",
+    "directory": "bridge/weather/renewed/server.lua",
+    "tags": "weather, alias, renewed, server",
+    "example": "pr_lib.weather.removeWeatherEvent(1, {})"
+  },
+  {
+    "module": "weather",
+    "context": "server",
+    "signature": "pr_lib.weather.setTime(hour, minute)",
+    "detail": "Alias lowercase de pr_lib.weather.SetTime.",
+    "directory": "bridge/weather/renewed/server.lua",
+    "tags": "weather, alias, renewed, server",
+    "example": "pr_lib.weather.setTime(1, 1)"
+  },
+  {
+    "module": "weather",
+    "context": "server",
+    "signature": "pr_lib.weather.setTimeScale(scale)",
+    "detail": "Alias lowercase de pr_lib.weather.SetTimeScale.",
+    "directory": "bridge/weather/renewed/server.lua",
+    "tags": "weather, alias, renewed, server",
+    "example": "pr_lib.weather.setTimeScale(1)"
+  },
+  {
+    "module": "weather",
+    "context": "server",
+    "signature": "pr_lib.weather.setFreezeTime(enabled)",
+    "detail": "Alias lowercase de pr_lib.weather.SetFreezeTime.",
+    "directory": "bridge/weather/renewed/server.lua",
+    "tags": "weather, alias, renewed, server",
+    "example": "pr_lib.weather.setFreezeTime(true)"
+  },
+  {
+    "module": "weather",
+    "context": "server",
+    "signature": "pr_lib.weather.getWeeklyForecast()",
+    "detail": "Alias lowercase de pr_lib.weather.GetWeeklyForecast.",
+    "directory": "bridge/weather/renewed/server.lua",
+    "tags": "weather, alias, renewed, server",
+    "example": "local result = pr_lib.weather.getWeeklyForecast()"
+  },
+  {
+    "module": "weather",
+    "context": "server",
+    "signature": "pr_lib.weather.getRegionalWeather(regionId)",
+    "detail": "Alias lowercase de pr_lib.weather.GetRegionalWeather.",
+    "directory": "bridge/weather/renewed/server.lua",
+    "tags": "weather, alias, renewed, server",
+    "example": "local result = pr_lib.weather.getRegionalWeather('downtown')"
   }
 ];
 export const PR_BRIDGE_MODULES = [
@@ -9610,6 +9844,6 @@ export const PR_BRIDGE_MODULES = [
   "zones",
   "garage"
 ];
-export const PR_BRIDGE_API_COUNT = 1061;
+export const PR_BRIDGE_API_COUNT = 1087;
 export const PR_BRIDGE_SOURCE_VERSION = "1.3.1";
 export const PR_BRIDGE_SOURCE_REVISION = "93e638b3060e647d3d20030f068d65c37ad269d1";
