@@ -3794,3 +3794,108 @@
     -webkit-overflow-scrolling: touch;
   }
 }
+
+
+/* Audit public API cards mirror the API catalog layout */
+.bridge-public-api-results {
+  display: grid;
+  gap: 12px;
+}
+
+.bridge-public-api-catalog-card {
+  width: 100%;
+}
+
+.bridge-public-api-catalog-card .bridge-function-card-head > code {
+  white-space: normal;
+  overflow: visible;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.bridge-public-api-catalog-example {
+  border-top: 1px solid rgba(255,255,255,.045);
+}
+
+.bridge-public-api-example-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  padding: 9px 15px 0;
+}
+
+.bridge-public-api-example-title > span {
+  color: var(--space-text-muted);
+  font: 800 8px var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: .10em;
+}
+
+.bridge-public-api-example-title > strong {
+  color: #ff9b52;
+  font: 750 8px var(--font-mono);
+}
+
+.bridge-public-api-catalog-lua {
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 12px 15px 15px !important;
+  min-height: 0 !important;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: auto;
+}
+
+.bridge-public-api-catalog-lua code,
+.bridge-public-api-catalog-lua .lua-highlight,
+.bridge-public-api-catalog-lua .lua-highlight span {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  font: 10.5px/1.7 var(--font-mono);
+}
+
+.bridge-public-api-catalog-card .bridge-public-api-example-source {
+  padding: 8px 15px 12px;
+  border-top: 1px solid rgba(255,255,255,.035);
+}
+
+.bridge-public-api-catalog-lua,
+.bridge-public-api-catalog-card .bridge-function-card-head > code {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,122,26,.34) rgba(255,255,255,.025);
+}
+
+.bridge-public-api-catalog-lua::-webkit-scrollbar,
+.bridge-public-api-catalog-card .bridge-function-card-head > code::-webkit-scrollbar {
+  height: 7px;
+}
+
+.bridge-public-api-catalog-lua::-webkit-scrollbar-track,
+.bridge-public-api-catalog-card .bridge-function-card-head > code::-webkit-scrollbar-track {
+  background: rgba(255,255,255,.018);
+  border-radius: 999px;
+}
+
+.bridge-public-api-catalog-lua::-webkit-scrollbar-thumb,
+.bridge-public-api-catalog-card .bridge-function-card-head > code::-webkit-scrollbar-thumb {
+  background: rgba(255,122,26,.30);
+  border-radius: 999px;
+}
+
+@media (max-width: 720px) {
+  .bridge-public-api-example-title {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .bridge-public-api-catalog-lua {
+    -webkit-overflow-scrolling: touch;
+  }
+}
