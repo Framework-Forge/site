@@ -2481,3 +2481,63 @@
     width: 100%;
   }
 }
+
+
+/* PR Bridge topic navigation + API detail groups */
+.docs-submenu-topics {
+  max-height: min(58vh, 620px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,122,26,.28) transparent;
+}
+
+.docs-submenu-topics .docs-submenu-item {
+  min-height: 34px;
+}
+
+.docs-submenu-topics .docs-submenu-item span {
+  font-size: 11px;
+}
+
+.bridge-api-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 22px 0 0 64px;
+}
+
+.bridge-api-list code {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 7px 10px;
+  border: 1px solid rgba(255,122,26,.16);
+  border-radius: 8px;
+  background: rgba(255,122,26,.035);
+  color: var(--space-text-grey);
+  font: 650 10px var(--font-mono);
+}
+
+@media (max-width: 1100px) {
+  .bridge-api-list {
+    margin-left: 0;
+  }
+
+  .docs-submenu-topics {
+    max-height: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .bridge-api-list {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .bridge-api-list code {
+    width: 100%;
+    overflow-x: auto;
+  }
+}
