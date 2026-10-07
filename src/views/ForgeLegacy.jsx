@@ -15,7 +15,7 @@ function FeatureIcon({ type }) {
   );
 }
 
-export default function ForgeLegacy({ onOpenXtPrison, onOpenPrElevator, onOpenRenewedBanking }) {
+export default function ForgeLegacy({ onOpenXtPrison, onOpenPrElevator, onOpenRenewedBanking, onOpenPsDispatch }) {
   const { t } = useI18n();
 
   return (
@@ -187,6 +187,18 @@ export default function ForgeLegacy({ onOpenXtPrison, onOpenPrElevator, onOpenRe
               </div>
             </div>
             <button type="button" className="docs-primary-button" onClick={onOpenRenewedBanking}>{t('legacyOpenDocs')}</button>
+          </article>
+          <article className="legacy-project-item">
+            <div className="legacy-project-badge">PD</div>
+            <div className="legacy-project-copy">
+              <span>Forge Legacy Resource</span>
+              <h3>ps-dispatch</h3>
+              <p>{t('legacyPsDispatchDesc')}</p>
+              <div className="legacy-project-tags">
+                <span>Dispatch</span><span>QB/QBX</span><span>Svelte</span><span>ox_lib</span><span>Incidents</span><span>In-game Settings</span>
+              </div>
+            </div>
+            <button type="button" className="docs-primary-button" onClick={onOpenPsDispatch}>{t('legacyOpenDocs')}</button>
           </article>
         </div>
       </section>
