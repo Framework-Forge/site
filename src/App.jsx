@@ -91,6 +91,8 @@ function ForgeDocs() {
   const [currentSection, setCurrentSection] = useState(() => localStorage.getItem('forge-current-section') || 'home');
   const [uiMenuOpen, setUiMenuOpen] = useState(false);
   const [legacyMenuOpen, setLegacyMenuOpen] = useState(false);
+  const [bridgeMenuOpen, setBridgeMenuOpen] = useState(false);
+  const [activeBridgeTopic, setActiveBridgeTopic] = useState('bridge-overview');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(() => localStorage.getItem('forge-sidebar-collapsed') === 'true');
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [activeUiGroup, setActiveUiGroup] = useState(() => localStorage.getItem('forge-ui-group') || 'atoms');
@@ -114,6 +116,7 @@ function ForgeDocs() {
 
   const isUiMenuOpen = currentSection === 'uikit' || uiMenuOpen;
   const isLegacyMenuOpen = currentSection === 'legacy' || currentSection === 'xt-prison' || currentSection === 'pr-elevator' || legacyMenuOpen;
+  const isBridgeMenuOpen = currentSection === 'pr-bridge' || bridgeMenuOpen;
 
   const groups = [
     { id: 'atoms', label: 'Atoms', description: t('fundamentals') },
@@ -128,6 +131,37 @@ function ForgeDocs() {
   };
 
   const goHome = () => navigateTo('home');
+
+  const bridgeTopics = [
+    ['bridge-overview', t('prBridgeTopicOverview')],
+    ['bridge-install', t('prBridgeTopicInstall')],
+    ['bridge-architecture', t('prBridgeTopicArchitecture')],
+    ['bridge-adapters', t('prBridgeTopicAdapters')],
+    ['bridge-framework', t('prBridgeTopicFramework')],
+    ['bridge-inventory', t('prBridgeTopicInventory')],
+    ['bridge-database', t('prBridgeTopicDatabase')],
+    ['bridge-ui', t('prBridgeTopicUi')],
+    ['bridge-target', t('prBridgeTopicTarget')],
+    ['bridge-cache', t('prBridgeTopicCache')],
+    ['bridge-callbacks', t('prBridgeTopicCallbacks')],
+    ['bridge-security', t('prBridgeTopicSecurity')],
+    ['bridge-dev', t('prBridgeTopicDev')],
+    ['bridge-fivem', t('prBridgeTopicFiveM')],
+    ['bridge-dui', t('prBridgeTopicDui')],
+    ['bridge-expand', t('prBridgeTopicExpand')],
+    ['bridge-api', t('prBridgeTopicApi')],
+  ];
+
+  const openBridgeTopic = (topicId = 'bridge-overview') => {
+    setActiveBridgeTopic(topicId);
+    setBridgeMenuOpen(true);
+    setCurrentSection('pr-bridge');
+    setMobileSidebarOpen(false);
+
+    window.setTimeout(() => {
+      document.getElementById(topicId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, currentSection === 'pr-bridge' ? 0 : 80);
+  };
 
   const openUIKit = (group = 'atoms') => {
     setActiveUiGroup(group);
@@ -265,18 +299,33 @@ function ForgeDocs() {
                 <button
                   type="button"
                   className={`showcase-menu-item docs-menu-button ${currentSection === 'pr-bridge' ? 'active' : ''}`}
-                  onClick={() => navigateTo('pr-bridge')}
+                  onClick={() => {
+                    if (currentSection === 'pr-bridge') {
+                      setBridgeMenuOpen((value) => !value);
+                      return;
+                    }
+                    openBridgeTopic(activeBridgeTopic);
+                  }}
+                  aria-expanded={isBridgeMenuOpen}
                   title="PR Bridge"
                 >
                   <GridIcon />
                   <span className="showcase-menu-item-text">PR Bridge</span>
+                  <ChevronIcon open={isBridgeMenuOpen} />
                 </button>
-                {currentSection === 'pr-bridge' && !sidebarCollapsed && (
-                  <div className="docs-submenu">
-                    <div className="docs-submenu-item active docs-submenu-static">
-                      <span>PR Bridge</span>
-                      <small>{t('prBridgeNavDescription')}</small>
-                    </div>
+
+                {isBridgeMenuOpen && (
+                  <div className="docs-submenu docs-submenu-topics">
+                    {bridgeTopics.map(([id, label]) => (
+                      <button
+                        type="button"
+                        key={id}
+                        className={`docs-submenu-item ${currentSection === 'pr-bridge' && activeBridgeTopic === id ? 'active' : ''}`}
+                        onClick={() => openBridgeTopic(id)}
+                      >
+                        <span>{label}</span>
+                      </button>
+                    ))}
                   </div>
                 )}
               </li>
