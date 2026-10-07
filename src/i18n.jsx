@@ -123,7 +123,7 @@ const copy = {
 
 const projectCopy = {
   en: {
-    projects: 'Projects', forgeLegacyOverviewNav: 'Overview', forgeLegacyNavDesc: 'Framework, resources and Forge Legacy architecture', xtNavDescription: 'Complete prison system documentation', elevatorNavDescription: 'Elevators, access control, DUI keypads and creator API',
+    projects: 'Projects', tools: 'Tools', prBridgeNavDescription: 'Standalone compatibility, APIs and developer tooling', forgeLegacyOverviewNav: 'Overview', forgeLegacyNavDesc: 'Framework, resources and Forge Legacy architecture', xtNavDescription: 'Complete prison system documentation', elevatorNavDescription: 'Elevators, access control, DUI keypads and creator API',
     legacyProjectEyebrow: 'Forge project • GTA V Legacy', legacyProjectLead: 'Forge Legacy is the Forge ecosystem for GTA V Legacy on FiveM: a framework, native resources and developer tooling designed to work together with a consistent architecture.',
     legacyProjectGithub: 'View on GitHub', legacyProjectExplore: 'Explore the framework', legacyProjectIdentity: 'Project identity', legacyProjectIdentityDesc: 'The Legacy branch of the Forge ecosystem, focused on the current GTA V/FiveM generation.',
     legacyFrameworkLabel: 'Framework', legacyFrameworkTitle: 'A technical foundation for building complete FiveM servers.',
@@ -209,7 +209,7 @@ const projectCopy = {
   },
 
   'pt-BR': {
-    projects: 'Projetos', forgeLegacyOverviewNav: 'Visão geral', forgeLegacyNavDesc: 'Framework, recursos e arquitetura Forge Legacy', xtNavDescription: 'Documentação completa do sistema prisional', elevatorNavDescription: 'Elevadores, controle de acesso, teclados DUI e API de criação',
+    projects: 'Projetos', tools: 'Ferramentas', prBridgeNavDescription: 'Compatibilidade standalone, APIs e ferramentas para desenvolvimento', forgeLegacyOverviewNav: 'Visão geral', forgeLegacyNavDesc: 'Framework, recursos e arquitetura Forge Legacy', xtNavDescription: 'Documentação completa do sistema prisional', elevatorNavDescription: 'Elevadores, controle de acesso, teclados DUI e API de criação',
     legacyProjectEyebrow: 'Projeto Forge • GTA V Legacy', legacyProjectLead: 'Forge Legacy é o ecossistema da Forge para GTA V Legacy no FiveM: uma framework, recursos nativos e ferramentas para desenvolvedores criados para trabalhar juntos com uma arquitetura consistente.',
     legacyProjectGithub: 'Ver no GitHub', legacyProjectExplore: 'Explorar a framework', legacyProjectIdentity: 'Identidade do projeto', legacyProjectIdentityDesc: 'A vertente Legacy do ecossistema Forge, focada na geração atual de GTA V/FiveM.',
     legacyFrameworkLabel: 'Framework', legacyFrameworkTitle: 'Uma base técnica para construir servidores FiveM completos.',
@@ -295,7 +295,7 @@ const projectCopy = {
   },
 
   es: {
-    projects: 'Proyectos', forgeLegacyOverviewNav: 'Visión general', forgeLegacyNavDesc: 'Framework, recursos y arquitectura Forge Legacy', xtNavDescription: 'Documentación completa del sistema penitenciario', elevatorNavDescription: 'Ascensores, control de acceso, teclados DUI y API de creación',
+    projects: 'Proyectos', tools: 'Herramientas', prBridgeNavDescription: 'Compatibilidad standalone, APIs y herramientas de desarrollo', forgeLegacyOverviewNav: 'Visión general', forgeLegacyNavDesc: 'Framework, recursos y arquitectura Forge Legacy', xtNavDescription: 'Documentación completa del sistema penitenciario', elevatorNavDescription: 'Ascensores, control de acceso, teclados DUI y API de creación',
     legacyProjectEyebrow: 'Proyecto Forge • GTA V Legacy', legacyProjectLead: 'Forge Legacy es el ecosistema de Forge para GTA V Legacy en FiveM: un framework, recursos nativos y herramientas diseñados para trabajar juntos con una arquitectura consistente.',
     legacyProjectGithub: 'Ver en GitHub', legacyProjectExplore: 'Explorar el framework', legacyProjectIdentity: 'Identidad del proyecto', legacyProjectIdentityDesc: 'La rama Legacy del ecosistema Forge para la generación actual de GTA V/FiveM.',
     legacyFrameworkLabel: 'Framework', legacyFrameworkTitle: 'Una base técnica para crear servidores FiveM completos.', legacyFrameworkP1: 'Forge Legacy combina el framework principal con recursos que siguen las mismas convenciones de APIs, eventos, exports, interfaces y flujo de datos.', legacyFrameworkP2: 'El objetivo es reducir infraestructura duplicada y ofrecer una base predecible que pueda ampliarse sin modificar constantemente el core.',
@@ -319,7 +319,7 @@ const projectCopy = {
   },
 
   fr: {
-    projects: 'Projets', forgeLegacyOverviewNav: 'Vue d’ensemble', forgeLegacyNavDesc: 'Framework, ressources et architecture Forge Legacy', xtNavDescription: 'Documentation complète du système pénitentiaire', elevatorNavDescription: 'Ascenseurs, contrôle d’accès, claviers DUI et API de création',
+    projects: 'Projets', tools: 'Outils', prBridgeNavDescription: 'Compatibilité standalone, APIs et outils de développement', forgeLegacyOverviewNav: 'Vue d’ensemble', forgeLegacyNavDesc: 'Framework, ressources et architecture Forge Legacy', xtNavDescription: 'Documentation complète du système pénitentiaire', elevatorNavDescription: 'Ascenseurs, contrôle d’accès, claviers DUI et API de création',
     legacyProjectEyebrow: 'Projet Forge • GTA V Legacy', legacyProjectLead: 'Forge Legacy est l’écosystème Forge pour GTA V Legacy sur FiveM : framework, ressources natives et outils conçus pour fonctionner ensemble avec une architecture cohérente.',
     legacyProjectGithub: 'Voir sur GitHub', legacyProjectExplore: 'Explorer le framework', legacyProjectIdentity: 'Identité du projet', legacyProjectIdentityDesc: 'La branche Legacy de Forge pour la génération actuelle GTA V/FiveM.',
     legacyFrameworkLabel: 'Framework', legacyFrameworkTitle: 'Une base technique pour construire des serveurs FiveM complets.', legacyFrameworkP1: 'Forge Legacy combine le framework et des ressources suivant les mêmes conventions API, événements, exports, interfaces et flux de données.', legacyFrameworkP2: 'L’objectif est de réduire l’infrastructure dupliquée et de fournir une base prévisible et extensible.',
