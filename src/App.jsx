@@ -7,6 +7,7 @@ import XtPrisonDocs from './views/XtPrisonDocs';
 import PrElevatorDocs from './views/PrElevatorDocs';
 import RenewedBankingDocs from './views/RenewedBankingDocs';
 import PsDispatchDocs from './views/PsDispatchDocs';
+import ForgeCraftingDocs from './views/ForgeCraftingDocs';
 import PrBridgeDocs from './views/PrBridgeDocs';
 import forgeLogo from './assets/forge_legacy_logo.png';
 import { AutoTranslate, LanguageProvider, LANGUAGES, useI18n } from './i18n';
@@ -121,7 +122,7 @@ function ForgeDocs() {
   }, [currentSection]);
 
   const isUiMenuOpen = currentSection === 'uikit' || uiMenuOpen;
-  const isLegacyMenuOpen = currentSection === 'legacy' || currentSection === 'xt-prison' || currentSection === 'pr-elevator' || currentSection === 'renewed-banking' || currentSection === 'ps-dispatch' || legacyMenuOpen;
+  const isLegacyMenuOpen = currentSection === 'legacy' || currentSection === 'xt-prison' || currentSection === 'pr-elevator' || currentSection === 'renewed-banking' || currentSection === 'ps-dispatch' || currentSection === 'forge-crafting' || legacyMenuOpen;
   const isBridgeMenuOpen = currentSection === 'pr-bridge' || bridgeMenuOpen;
 
   const groups = [
@@ -254,9 +255,9 @@ function ForgeDocs() {
               <li>
                 <button
                   type="button"
-                  className={`showcase-menu-item docs-menu-button ${currentSection === 'legacy' || currentSection === 'xt-prison' || currentSection === 'pr-elevator' || currentSection === 'renewed-banking' || currentSection === 'ps-dispatch' ? 'active' : ''}`}
+                  className={`showcase-menu-item docs-menu-button ${currentSection === 'legacy' || currentSection === 'xt-prison' || currentSection === 'pr-elevator' || currentSection === 'renewed-banking' || currentSection === 'ps-dispatch' || currentSection === 'forge-crafting' ? 'active' : ''}`}
                   onClick={() => {
-                    if (currentSection === 'legacy' || currentSection === 'xt-prison' || currentSection === 'pr-elevator' || currentSection === 'renewed-banking' || currentSection === 'ps-dispatch') return;
+                    if (currentSection === 'legacy' || currentSection === 'xt-prison' || currentSection === 'pr-elevator' || currentSection === 'renewed-banking' || currentSection === 'ps-dispatch' || currentSection === 'forge-crafting') return;
                     setLegacyMenuOpen((value) => !value);
                   }}
                   aria-expanded={isLegacyMenuOpen}
@@ -308,6 +309,14 @@ function ForgeDocs() {
                     >
                       <span>ps-dispatch</span>
                       <small>{t('dispatchNavDescription')}</small>
+                    </button>
+                    <button
+                      type="button"
+                      className={`docs-submenu-item ${currentSection === 'forge-crafting' ? 'active' : ''}`}
+                      onClick={() => navigateTo('forge-crafting')}
+                    >
+                      <span>forge-crafting</span>
+                      <small>{t('craftingNavDescription')}</small>
                     </button>
                   </div>
                 )}
@@ -413,11 +422,12 @@ function ForgeDocs() {
               onOpenLegacy={() => navigateTo('legacy')}
             />
           )}
-          {currentSection === 'legacy' && <ForgeLegacy onOpenXtPrison={() => navigateTo('xt-prison')} onOpenPrElevator={() => navigateTo('pr-elevator')} onOpenRenewedBanking={() => navigateTo('renewed-banking')} onOpenPsDispatch={() => navigateTo('ps-dispatch')} />}
+          {currentSection === 'legacy' && <ForgeLegacy onOpenXtPrison={() => navigateTo('xt-prison')} onOpenPrElevator={() => navigateTo('pr-elevator')} onOpenRenewedBanking={() => navigateTo('renewed-banking')} onOpenPsDispatch={() => navigateTo('ps-dispatch')} onOpenForgeCrafting={() => navigateTo('forge-crafting')} />}
           {currentSection === 'xt-prison' && <XtPrisonDocs />}
           {currentSection === 'pr-elevator' && <PrElevatorDocs />}
           {currentSection === 'renewed-banking' && <RenewedBankingDocs />}
           {currentSection === 'ps-dispatch' && <PsDispatchDocs />}
+          {currentSection === 'forge-crafting' && <ForgeCraftingDocs />}
           {currentSection === 'pr-bridge' && <PrBridgeDocs topic={activeBridgeTopic} onNavigateTopic={openBridgeTopic} />}
           {currentSection === 'uikit' && (
             <>
