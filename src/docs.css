@@ -5213,6 +5213,8 @@
 /* Scripts navigation and overview */
 .docs-submenu--icons {
   margin-left: 28px;
+  padding-left: 0;
+  border-left: 0;
 }
 
 .docs-submenu-item--icon {

@@ -36,6 +36,20 @@ function GridIcon() {
   );
 }
 
+function SwissArmyIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" className="showcase-menu-item-icon" aria-hidden="true">
+      <path d="M7.5 4.5h7.7a2.3 2.3 0 0 1 2.3 2.3v10.4a2.3 2.3 0 0 1-2.3 2.3H7.5a3 3 0 0 1-3-3v-9a3 3 0 0 1 3-3Z" />
+      <path d="M7.5 4.5v15" />
+      <circle cx="6" cy="16.5" r=".9" />
+      <path d="m12 8 1.2 1.2L16 6.4" />
+      <path d="M10.5 12.5h4.8" />
+      <path d="m11.4 15.8 3.8-3.8" />
+      <path d="m14.8 15.8-3.4-3.4" />
+    </svg>
+  );
+}
+
 function ForgeLegacyIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="showcase-menu-item-icon" aria-hidden="true">
@@ -406,7 +420,7 @@ function ForgeDocs() {
                   aria-expanded={isBridgeMenuOpen}
                   title="PR Bridge"
                 >
-                  <GridIcon />
+                  <SwissArmyIcon />
                   <span className="showcase-menu-item-text">PR Bridge</span>
                   <ChevronIcon open={isBridgeMenuOpen} />
                 </button>
