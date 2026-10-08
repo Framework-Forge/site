@@ -2485,12 +2485,11 @@
 
 /* PR Bridge topic navigation + API detail groups */
 .docs-submenu-topics {
-  max-height: min(58vh, 620px);
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding-right: 4px;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255,122,26,.28) transparent;
+  max-height: none;
+  overflow: visible;
+  padding-left: 0;
+  padding-right: 0;
+  border-left: 0;
 }
 
 .docs-submenu-topics .docs-submenu-item {
