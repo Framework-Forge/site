@@ -17,6 +17,17 @@ function ScriptIcon({ type }) {
       </svg>
     );
   }
+  if (type === 'garage') {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
+        <path d="M3 20V8l9-5 9 5v12" />
+        <path d="M6 20v-8h12v8M7.5 16h9" />
+        <path d="M8.5 13.5h7l1.2 2.5H7.3l1.2-2.5Z" />
+        <circle cx="9" cy="17.5" r=".8" />
+        <circle cx="15" cy="17.5" r=".8" />
+      </svg>
+    );
+  }
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" aria-hidden="true">
       <path d="M7 9v6M17 9v6M4 8v8M20 8v8M7 12h10M2 10v4M22 10v4" />
@@ -24,7 +35,7 @@ function ScriptIcon({ type }) {
   );
 }
 
-export default function Scripts({ onOpenPrElevator, onOpenForgeCrafting, onOpenForgeGym }) {
+export default function Scripts({ onOpenPrElevator, onOpenForgeCrafting, onOpenForgeGym, onOpenForgeGarage }) {
   const { t } = useI18n();
 
   const entries = [
@@ -48,6 +59,13 @@ export default function Scripts({ onOpenPrElevator, onOpenForgeCrafting, onOpenF
       description: t('legacyForgeGymDesc'),
       tags: ['Gym', 'PR Bridge', 'Gizmo', 'Skills'],
       onOpen: onOpenForgeGym,
+    },
+    {
+      name: 'forge-garage',
+      type: 'garage',
+      description: t('legacyForgeGarageDesc'),
+      tags: ['Garage', 'PR Bridge', 'IPL', 'Parking', 'Keys', 'Persistence'],
+      onOpen: onOpenForgeGarage,
     },
   ];
 

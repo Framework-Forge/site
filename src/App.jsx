@@ -10,6 +10,7 @@ import RenewedBankingDocs from './views/RenewedBankingDocs';
 import PsDispatchDocs from './views/PsDispatchDocs';
 import ForgeCraftingDocs from './views/ForgeCraftingDocs';
 import ForgeGymDocs from './views/ForgeGymDocs';
+import ForgeGarageDocs from './views/ForgeGarageDocs';
 import PrBridgeDocs from './views/PrBridgeDocs';
 import forgeLogo from './assets/forge_legacy_logo.png';
 import { AutoTranslate, LanguageProvider, LANGUAGES, useI18n } from './i18n';
@@ -97,6 +98,19 @@ function DumbbellIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" className="docs-submenu-icon" aria-hidden="true">
       <path d="M7 9v6M17 9v6M4 8v8M20 8v8M7 12h10M2 10v4M22 10v4" />
+    </svg>
+  );
+}
+
+function GarageIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" className="docs-submenu-icon" aria-hidden="true">
+      <path d="M3 20V8l9-5 9 5v12" />
+      <path d="M6 20v-8h12v8" />
+      <path d="M7.5 16h9" />
+      <path d="M8.5 13.5h7l1.2 2.5H7.3l1.2-2.5Z" />
+      <circle cx="9" cy="17.5" r=".8" />
+      <circle cx="15" cy="17.5" r=".8" />
     </svg>
   );
 }
@@ -200,7 +214,7 @@ function ForgeDocs() {
   }, [currentSection]);
 
   const isUiMenuOpen = currentSection === 'uikit' || uiMenuOpen;
-  const isScriptsMenuOpen = currentSection === 'scripts' || currentSection === 'pr-elevator' || currentSection === 'forge-crafting' || currentSection === 'forge-gym' || scriptsMenuOpen;
+  const isScriptsMenuOpen = currentSection === 'scripts' || currentSection === 'pr-elevator' || currentSection === 'forge-crafting' || currentSection === 'forge-gym' || currentSection === 'forge-garage' || scriptsMenuOpen;
   const isBridgeMenuOpen = currentSection === 'pr-bridge' || bridgeMenuOpen;
 
   const groups = [
@@ -345,9 +359,9 @@ function ForgeDocs() {
               <li>
                 <button
                   type="button"
-                  className={`showcase-menu-item docs-menu-button ${currentSection === 'scripts' || currentSection === 'pr-elevator' || currentSection === 'forge-crafting' || currentSection === 'forge-gym' ? 'active' : ''}`}
+                  className={`showcase-menu-item docs-menu-button ${currentSection === 'scripts' || currentSection === 'pr-elevator' || currentSection === 'forge-crafting' || currentSection === 'forge-gym' || currentSection === 'forge-garage' ? 'active' : ''}`}
                   onClick={() => {
-                    if (currentSection === 'scripts' || currentSection === 'pr-elevator' || currentSection === 'forge-crafting' || currentSection === 'forge-gym') {
+                    if (currentSection === 'scripts' || currentSection === 'pr-elevator' || currentSection === 'forge-crafting' || currentSection === 'forge-gym' || currentSection === 'forge-garage') {
                       setScriptsMenuOpen((value) => !value);
                       return;
                     }
@@ -395,6 +409,17 @@ function ForgeDocs() {
                       <span className="docs-submenu-copy">
                         <span>forge-gym</span>
                         <small>{t('gymNavDescription')}</small>
+                      </span>
+                    </button>
+                    <button
+                      type="button"
+                      className={`docs-submenu-item docs-submenu-item--icon ${currentSection === 'forge-garage' ? 'active' : ''}`}
+                      onClick={() => navigateTo('forge-garage')}
+                    >
+                      <GarageIcon />
+                      <span className="docs-submenu-copy">
+                        <span>forge-garage</span>
+                        <small>{t('garageNavDescription')}</small>
                       </span>
                     </button>
                   </div>
@@ -502,13 +527,14 @@ function ForgeDocs() {
             />
           )}
           {currentSection === 'legacy' && <ForgeLegacy onOpenPrElevator={() => navigateTo('pr-elevator')} onOpenForgeCrafting={() => navigateTo('forge-crafting')} onOpenForgeGym={() => navigateTo('forge-gym')} />}
-          {currentSection === 'scripts' && <Scripts onOpenPrElevator={() => navigateTo('pr-elevator')} onOpenForgeCrafting={() => navigateTo('forge-crafting')} onOpenForgeGym={() => navigateTo('forge-gym')} />}
+          {currentSection === 'scripts' && <Scripts onOpenPrElevator={() => navigateTo('pr-elevator')} onOpenForgeCrafting={() => navigateTo('forge-crafting')} onOpenForgeGym={() => navigateTo('forge-gym')} onOpenForgeGarage={() => navigateTo('forge-garage')} />}
           {currentSection === 'xt-prison' && <XtPrisonDocs />}
           {currentSection === 'pr-elevator' && <PrElevatorDocs />}
           {currentSection === 'renewed-banking' && <RenewedBankingDocs />}
           {currentSection === 'ps-dispatch' && <PsDispatchDocs />}
           {currentSection === 'forge-crafting' && <ForgeCraftingDocs />}
           {currentSection === 'forge-gym' && <ForgeGymDocs />}
+          {currentSection === 'forge-garage' && <ForgeGarageDocs />}
           {currentSection === 'pr-bridge' && <PrBridgeDocs topic={activeBridgeTopic} onNavigateTopic={openBridgeTopic} />}
           {currentSection === 'uikit' && (
             <>
