@@ -488,7 +488,7 @@ function ForgeDocs() {
                 </button>
 
                 {isUiMenuOpen && (
-                  <div className="docs-submenu">
+                  <div className="docs-submenu docs-submenu--no-line">
                     {groups.map((group) => (
                       <button
                         type="button"
