@@ -15,7 +15,7 @@ function FeatureIcon({ type }) {
   );
 }
 
-export default function ForgeLegacy({ onOpenXtPrison, onOpenPrElevator, onOpenRenewedBanking, onOpenPsDispatch, onOpenForgeCrafting, onOpenForgeGym }) {
+export default function ForgeLegacy({ onOpenPrElevator, onOpenForgeCrafting, onOpenForgeGym }) {
   const { t } = useI18n();
 
   return (
@@ -153,18 +153,6 @@ export default function ForgeLegacy({ onOpenXtPrison, onOpenPrElevator, onOpenRe
 
         <div className="legacy-project-catalog">
           <article className="legacy-project-item">
-            <div className="legacy-project-badge">XT</div>
-            <div className="legacy-project-copy">
-              <span>Forge Legacy Resource</span>
-              <h3>xt-prison</h3>
-              <p>{t('legacyXtPrisonDesc')}</p>
-              <div className="legacy-project-tags">
-                <span>FiveM</span><span>PR Bridge</span><span>Config in-game</span><span>Persistência</span>
-              </div>
-            </div>
-            <button type="button" className="docs-primary-button" onClick={onOpenXtPrison}>{t('legacyOpenDocs')}</button>
-          </article>
-          <article className="legacy-project-item">
             <div className="legacy-project-badge">PR</div>
             <div className="legacy-project-copy">
               <span>Forge Legacy Resource</span>
@@ -175,30 +163,6 @@ export default function ForgeLegacy({ onOpenXtPrison, onOpenPrElevator, onOpenRe
               </div>
             </div>
             <button type="button" className="docs-primary-button" onClick={onOpenPrElevator}>{t('legacyOpenDocs')}</button>
-          </article>
-          <article className="legacy-project-item">
-            <div className="legacy-project-badge">RB</div>
-            <div className="legacy-project-copy">
-              <span>Forge Legacy Resource</span>
-              <h3>Renewed-Banking</h3>
-              <p>{t('legacyRenewedBankingDesc')}</p>
-              <div className="legacy-project-tags">
-                <span>Banking</span><span>PR Bridge</span><span>MariaDB</span><span>Admin</span>
-              </div>
-            </div>
-            <button type="button" className="docs-primary-button" onClick={onOpenRenewedBanking}>{t('legacyOpenDocs')}</button>
-          </article>
-          <article className="legacy-project-item">
-            <div className="legacy-project-badge">PD</div>
-            <div className="legacy-project-copy">
-              <span>Forge Legacy Resource</span>
-              <h3>ps-dispatch</h3>
-              <p>{t('legacyPsDispatchDesc')}</p>
-              <div className="legacy-project-tags">
-                <span>Dispatch</span><span>PR Bridge</span><span>Incidents</span><span>In-game Settings</span>
-              </div>
-            </div>
-            <button type="button" className="docs-primary-button" onClick={onOpenPsDispatch}>{t('legacyOpenDocs')}</button>
           </article>
           <article className="legacy-project-item">
             <div className="legacy-project-badge">FC</div>

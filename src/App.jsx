@@ -3,6 +3,7 @@ import { NotificationProvider } from './components/NotificationCenter';
 import ComponentShowcase from './views/ComponentShowcase';
 import About from './views/About';
 import ForgeLegacy from './views/ForgeLegacy';
+import Scripts from './views/Scripts';
 import XtPrisonDocs from './views/XtPrisonDocs';
 import PrElevatorDocs from './views/PrElevatorDocs';
 import RenewedBankingDocs from './views/RenewedBankingDocs';
@@ -31,6 +32,68 @@ function GridIcon() {
       <rect x="14" y="3" width="7" height="7" rx="1" />
       <rect x="3" y="14" width="7" height="7" rx="1" />
       <rect x="14" y="14" width="7" height="7" rx="1" />
+    </svg>
+  );
+}
+
+function ForgeLegacyIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="showcase-menu-item-icon" aria-hidden="true">
+      <rect x="3" y="4" width="18" height="15" rx="2" />
+      <path d="M3 8h18" />
+      <path d="m9 11-2 2 2 2" />
+      <path d="m15 11 2 2-2 2" />
+      <path d="m13 10-2 6" />
+    </svg>
+  );
+}
+
+function CodeIcon({ className = 'showcase-menu-item-icon' }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" className={className} aria-hidden="true">
+      <path d="m8 8-4 4 4 4" />
+      <path d="m16 8 4 4-4 4" />
+      <path d="m14 5-4 14" />
+    </svg>
+  );
+}
+
+function ElevatorIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="docs-submenu-icon" aria-hidden="true">
+      <rect x="5" y="3" width="14" height="18" rx="2" />
+      <path d="M12 7V17" />
+      <path d="m9.5 9.5 2.5-2.5 2.5 2.5" />
+      <path d="m9.5 14.5 2.5 2.5 2.5-2.5" />
+    </svg>
+  );
+}
+
+function AnvilIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" className="docs-submenu-icon" aria-hidden="true">
+      <path d="M3 8h11l3 3h4v3h-7c-.7 2.3-2.2 3.7-4.5 4.2V21H6v-2.8C4 17.6 3 16.2 3 14V8Z" />
+      <path d="m14 4 5 5" />
+      <path d="m17 3 3 3-2 2-3-3 2-2Z" />
+    </svg>
+  );
+}
+
+function DumbbellIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" className="docs-submenu-icon" aria-hidden="true">
+      <path d="M7 9v6M17 9v6M4 8v8M20 8v8M7 12h10M2 10v4M22 10v4" />
+    </svg>
+  );
+}
+
+function RulerPencilIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" className="showcase-menu-item-icon" aria-hidden="true">
+      <path d="M4 19 19 4l2 2L6 21H4v-2Z" />
+      <path d="m14 5 5 5" />
+      <path d="M3 5h8v4H7v4H3V5Z" />
+      <path d="M5 7h2M5 10h2" />
     </svg>
   );
 }
@@ -94,7 +157,7 @@ function ForgeDocs() {
   const { t } = useI18n();
   const [currentSection, setCurrentSection] = useState(() => localStorage.getItem('forge-current-section') || 'home');
   const [uiMenuOpen, setUiMenuOpen] = useState(false);
-  const [legacyMenuOpen, setLegacyMenuOpen] = useState(false);
+  const [scriptsMenuOpen, setScriptsMenuOpen] = useState(false);
   const [bridgeMenuOpen, setBridgeMenuOpen] = useState(false);
   const [activeBridgeTopic, setActiveBridgeTopic] = useState(() => localStorage.getItem('forge-pr-bridge-topic') || 'bridge-overview');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(() => localStorage.getItem('forge-sidebar-collapsed') === 'true');
@@ -123,7 +186,7 @@ function ForgeDocs() {
   }, [currentSection]);
 
   const isUiMenuOpen = currentSection === 'uikit' || uiMenuOpen;
-  const isLegacyMenuOpen = currentSection === 'legacy' || currentSection === 'xt-prison' || currentSection === 'pr-elevator' || currentSection === 'renewed-banking' || currentSection === 'ps-dispatch' || currentSection === 'forge-crafting' || currentSection === 'forge-gym' || currentSection === 'forge-gym' || legacyMenuOpen;
+  const isScriptsMenuOpen = currentSection === 'scripts' || currentSection === 'pr-elevator' || currentSection === 'forge-crafting' || currentSection === 'forge-gym' || scriptsMenuOpen;
   const isBridgeMenuOpen = currentSection === 'pr-bridge' || bridgeMenuOpen;
 
   const groups = [
@@ -256,76 +319,69 @@ function ForgeDocs() {
               <li>
                 <button
                   type="button"
-                  className={`showcase-menu-item docs-menu-button ${currentSection === 'legacy' || currentSection === 'xt-prison' || currentSection === 'pr-elevator' || currentSection === 'renewed-banking' || currentSection === 'ps-dispatch' || currentSection === 'forge-crafting' || currentSection === 'forge-gym' ? 'active' : ''}`}
-                  onClick={() => {
-                    if (currentSection === 'legacy' || currentSection === 'xt-prison' || currentSection === 'pr-elevator' || currentSection === 'renewed-banking' || currentSection === 'ps-dispatch' || currentSection === 'forge-crafting' || currentSection === 'forge-gym') return;
-                    setLegacyMenuOpen((value) => !value);
-                  }}
-                  aria-expanded={isLegacyMenuOpen}
+                  className={`showcase-menu-item docs-menu-button ${currentSection === 'legacy' ? 'active' : ''}`}
+                  onClick={() => navigateTo('legacy')}
                   title="Forge Legacy"
                 >
-                  <GridIcon />
+                  <ForgeLegacyIcon />
                   <span className="showcase-menu-item-text">Forge Legacy</span>
-                  <ChevronIcon open={isLegacyMenuOpen} />
+                </button>
+              </li>
+
+              <li>
+                <button
+                  type="button"
+                  className={`showcase-menu-item docs-menu-button ${currentSection === 'scripts' || currentSection === 'pr-elevator' || currentSection === 'forge-crafting' || currentSection === 'forge-gym' ? 'active' : ''}`}
+                  onClick={() => {
+                    if (currentSection === 'scripts' || currentSection === 'pr-elevator' || currentSection === 'forge-crafting' || currentSection === 'forge-gym') {
+                      setScriptsMenuOpen((value) => !value);
+                      return;
+                    }
+                    setScriptsMenuOpen(true);
+                    navigateTo('scripts');
+                  }}
+                  aria-expanded={isScriptsMenuOpen}
+                  title={t('scriptsTitle')}
+                >
+                  <CodeIcon />
+                  <span className="showcase-menu-item-text">{t('scriptsTitle')}</span>
+                  <ChevronIcon open={isScriptsMenuOpen} />
                 </button>
 
-                {isLegacyMenuOpen && (
-                  <div className="docs-submenu">
+                {isScriptsMenuOpen && (
+                  <div className="docs-submenu docs-submenu--icons">
                     <button
                       type="button"
-                      className={`docs-submenu-item ${currentSection === 'legacy' ? 'active' : ''}`}
-                      onClick={() => navigateTo('legacy')}
-                    >
-                      <span>{t('forgeLegacyOverviewNav')}</span>
-                      <small>{t('forgeLegacyNavDesc')}</small>
-                    </button>
-                    <button
-                      type="button"
-                      className={`docs-submenu-item ${currentSection === 'xt-prison' ? 'active' : ''}`}
-                      onClick={() => navigateTo('xt-prison')}
-                    >
-                      <span>xt-prison</span>
-                      <small>{t('xtNavDescription')}</small>
-                    </button>
-                    <button
-                      type="button"
-                      className={`docs-submenu-item ${currentSection === 'pr-elevator' ? 'active' : ''}`}
+                      className={`docs-submenu-item docs-submenu-item--icon ${currentSection === 'pr-elevator' ? 'active' : ''}`}
                       onClick={() => navigateTo('pr-elevator')}
                     >
-                      <span>pr_elevator</span>
-                      <small>{t('elevatorNavDescription')}</small>
+                      <ElevatorIcon />
+                      <span className="docs-submenu-copy">
+                        <span>pr_elevator</span>
+                        <small>{t('elevatorNavDescription')}</small>
+                      </span>
                     </button>
                     <button
                       type="button"
-                      className={`docs-submenu-item ${currentSection === 'renewed-banking' ? 'active' : ''}`}
-                      onClick={() => navigateTo('renewed-banking')}
-                    >
-                      <span>Renewed-Banking</span>
-                      <small>{t('bankingNavDescription')}</small>
-                    </button>
-                    <button
-                      type="button"
-                      className={`docs-submenu-item ${currentSection === 'ps-dispatch' ? 'active' : ''}`}
-                      onClick={() => navigateTo('ps-dispatch')}
-                    >
-                      <span>ps-dispatch</span>
-                      <small>{t('dispatchNavDescription')}</small>
-                    </button>
-                    <button
-                      type="button"
-                      className={`docs-submenu-item ${currentSection === 'forge-crafting' ? 'active' : ''}`}
+                      className={`docs-submenu-item docs-submenu-item--icon ${currentSection === 'forge-crafting' ? 'active' : ''}`}
                       onClick={() => navigateTo('forge-crafting')}
                     >
-                      <span>forge-crafting</span>
-                      <small>{t('craftingNavDescription')}</small>
+                      <AnvilIcon />
+                      <span className="docs-submenu-copy">
+                        <span>forge-crafting</span>
+                        <small>{t('craftingNavDescription')}</small>
+                      </span>
                     </button>
                     <button
                       type="button"
-                      className={`docs-submenu-item ${currentSection === 'forge-gym' ? 'active' : ''}`}
+                      className={`docs-submenu-item docs-submenu-item--icon ${currentSection === 'forge-gym' ? 'active' : ''}`}
                       onClick={() => navigateTo('forge-gym')}
                     >
-                      <span>forge-gym</span>
-                      <small>{t('gymNavDescription')}</small>
+                      <DumbbellIcon />
+                      <span className="docs-submenu-copy">
+                        <span>forge-gym</span>
+                        <small>{t('gymNavDescription')}</small>
+                      </span>
                     </button>
                   </div>
                 )}
@@ -387,7 +443,7 @@ function ForgeDocs() {
                   aria-expanded={isUiMenuOpen}
                   title="Forge UI Kit"
                 >
-                  <GridIcon />
+                  <RulerPencilIcon />
                   <span className="showcase-menu-item-text">Forge UI Kit</span>
                   <ChevronIcon open={isUiMenuOpen} />
                 </button>
@@ -431,7 +487,8 @@ function ForgeDocs() {
               onOpenLegacy={() => navigateTo('legacy')}
             />
           )}
-          {currentSection === 'legacy' && <ForgeLegacy onOpenXtPrison={() => navigateTo('xt-prison')} onOpenPrElevator={() => navigateTo('pr-elevator')} onOpenRenewedBanking={() => navigateTo('renewed-banking')} onOpenPsDispatch={() => navigateTo('ps-dispatch')} onOpenForgeCrafting={() => navigateTo('forge-crafting')} onOpenForgeGym={() => navigateTo('forge-gym')} />}
+          {currentSection === 'legacy' && <ForgeLegacy onOpenPrElevator={() => navigateTo('pr-elevator')} onOpenForgeCrafting={() => navigateTo('forge-crafting')} onOpenForgeGym={() => navigateTo('forge-gym')} />}
+          {currentSection === 'scripts' && <Scripts onOpenPrElevator={() => navigateTo('pr-elevator')} onOpenForgeCrafting={() => navigateTo('forge-crafting')} onOpenForgeGym={() => navigateTo('forge-gym')} />}
           {currentSection === 'xt-prison' && <XtPrisonDocs />}
           {currentSection === 'pr-elevator' && <PrElevatorDocs />}
           {currentSection === 'renewed-banking' && <RenewedBankingDocs />}
