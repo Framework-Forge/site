@@ -1,6 +1,8 @@
 import { useI18n } from '../i18n';
+import { npwdNavigation } from '../data/forgeNpwdNavigation';
 
 function ScriptIcon({ type }) {
+  if (type === 'phone') return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 5h4M11 18h2"/></svg>;
   if (type === 'elevator') {
     return (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
@@ -35,10 +37,14 @@ function ScriptIcon({ type }) {
   );
 }
 
-export default function Scripts({ onOpenPrElevator, onOpenForgeCrafting, onOpenForgeGym, onOpenForgeGarage }) {
-  const { t } = useI18n();
+export default function Scripts({ onOpenPrElevator, onOpenForgeCrafting, onOpenForgeGym, onOpenForgeGarage, onOpenForgeNpwd }) {
+  const { t, locale } = useI18n();
 
   const entries = [
+    {
+      name: 'forge-npwd', type: 'phone', description: npwdNavigation[locale],
+      tags: ['Phone', 'PR Bridge', 'PIN', 'Widgets', 'Forge Store'], onOpen: onOpenForgeNpwd,
+    },
     {
       name: 'pr_elevator',
       type: 'elevator',

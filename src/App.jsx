@@ -12,9 +12,17 @@ import ForgeCraftingDocs from './views/ForgeCraftingDocs';
 import ForgeGymDocs from './views/ForgeGymDocs';
 import ForgeGarageDocs from './views/ForgeGarageDocs';
 import PrBridgeDocs from './views/PrBridgeDocs';
+import { npwdNavigation } from './data/forgeNpwdNavigation';
 import forgeLogo from './assets/forge_legacy_logo.png';
 import { AutoTranslate, LanguageProvider, LANGUAGES, useI18n } from './i18n';
 import './docs.css';
+
+const ForgeNpwdDocs = React.lazy(() => import('./views/ForgeNpwdDocs'));
+const isScriptSection = section => ['scripts', 'pr-elevator', 'forge-crafting', 'forge-gym', 'forge-garage', 'forge-npwd'].includes(section);
+
+function PhoneIcon() {
+  return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="docs-submenu-icon" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 5h4M11 18h2"/></svg>;
+}
 
 function HomeIcon() {
   return (
@@ -182,8 +190,8 @@ function LanguageSwitcher() {
 }
 
 function ForgeDocs() {
-  const { t } = useI18n();
-  const [currentSection, setCurrentSection] = useState(() => localStorage.getItem('forge-current-section') || 'home');
+  const { t, locale } = useI18n();
+  const [currentSection, setCurrentSection] = useState(() => window.location.hash.startsWith('#forge-npwd/') ? 'forge-npwd' : localStorage.getItem('forge-current-section') || 'home');
   const [uiMenuOpen, setUiMenuOpen] = useState(false);
   const [scriptsMenuOpen, setScriptsMenuOpen] = useState(false);
   const [bridgeMenuOpen, setBridgeMenuOpen] = useState(false);
@@ -193,7 +201,16 @@ function ForgeDocs() {
   const [activeUiGroup, setActiveUiGroup] = useState(() => localStorage.getItem('forge-ui-group') || 'atoms');
 
   React.useEffect(() => {
+    const openDeepLink = () => { if (window.location.hash.startsWith('#forge-npwd/')) setCurrentSection('forge-npwd'); };
+    window.addEventListener('hashchange', openDeepLink);
+    return () => window.removeEventListener('hashchange', openDeepLink);
+  }, []);
+
+  React.useEffect(() => {
     localStorage.setItem('forge-current-section', currentSection);
+    if (currentSection !== 'forge-npwd' && window.location.hash.startsWith('#forge-npwd/')) {
+      window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
   }, [currentSection]);
 
   React.useEffect(() => {
@@ -214,7 +231,7 @@ function ForgeDocs() {
   }, [currentSection]);
 
   const isUiMenuOpen = currentSection === 'uikit' || uiMenuOpen;
-  const isScriptsMenuOpen = currentSection === 'scripts' || currentSection === 'pr-elevator' || currentSection === 'forge-crafting' || currentSection === 'forge-gym' || currentSection === 'forge-garage' || scriptsMenuOpen;
+  const isScriptsMenuOpen = isScriptSection(currentSection) || scriptsMenuOpen;
   const isBridgeMenuOpen = currentSection === 'pr-bridge' || bridgeMenuOpen;
 
   const groups = [
@@ -225,6 +242,9 @@ function ForgeDocs() {
   ];
 
   const navigateTo = (section) => {
+    if (section !== 'forge-npwd' && window.location.hash.startsWith('#forge-npwd/')) {
+      window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
     setCurrentSection(section);
     setMobileSidebarOpen(false);
   };
@@ -359,9 +379,9 @@ function ForgeDocs() {
               <li>
                 <button
                   type="button"
-                  className={`showcase-menu-item docs-menu-button ${currentSection === 'scripts' || currentSection === 'pr-elevator' || currentSection === 'forge-crafting' || currentSection === 'forge-gym' || currentSection === 'forge-garage' ? 'active' : ''}`}
+                  className={`showcase-menu-item docs-menu-button ${isScriptSection(currentSection) ? 'active' : ''}`}
                   onClick={() => {
-                    if (currentSection === 'scripts' || currentSection === 'pr-elevator' || currentSection === 'forge-crafting' || currentSection === 'forge-gym' || currentSection === 'forge-garage') {
+                    if (isScriptSection(currentSection)) {
                       setScriptsMenuOpen((value) => !value);
                       return;
                     }
@@ -388,6 +408,9 @@ function ForgeDocs() {
                         <span>pr_elevator</span>
                         <small>{t('elevatorNavDescription')}</small>
                       </span>
+                    </button>
+                    <button type="button" className={`docs-submenu-item docs-submenu-item--icon ${currentSection === 'forge-npwd' ? 'active' : ''}`} onClick={() => navigateTo('forge-npwd')}>
+                      <PhoneIcon/><span className="docs-submenu-copy"><span>forge-npwd</span><small>{npwdNavigation[locale]}</small></span>
                     </button>
                     <button
                       type="button"
@@ -527,7 +550,8 @@ function ForgeDocs() {
             />
           )}
           {currentSection === 'legacy' && <ForgeLegacy onOpenPrElevator={() => navigateTo('pr-elevator')} onOpenForgeCrafting={() => navigateTo('forge-crafting')} onOpenForgeGym={() => navigateTo('forge-gym')} />}
-          {currentSection === 'scripts' && <Scripts onOpenPrElevator={() => navigateTo('pr-elevator')} onOpenForgeCrafting={() => navigateTo('forge-crafting')} onOpenForgeGym={() => navigateTo('forge-gym')} onOpenForgeGarage={() => navigateTo('forge-garage')} />}
+          {currentSection === 'scripts' && <Scripts onOpenPrElevator={() => navigateTo('pr-elevator')} onOpenForgeCrafting={() => navigateTo('forge-crafting')} onOpenForgeGym={() => navigateTo('forge-gym')} onOpenForgeGarage={() => navigateTo('forge-garage')} onOpenForgeNpwd={() => navigateTo('forge-npwd')} />}
+          {currentSection === 'forge-npwd' && <React.Suspense fallback={<p role="status" style={{ padding: 30 }}>Forge NPWD…</p>}><ForgeNpwdDocs/></React.Suspense>}
           {currentSection === 'xt-prison' && <XtPrisonDocs />}
           {currentSection === 'pr-elevator' && <PrElevatorDocs />}
           {currentSection === 'renewed-banking' && <RenewedBankingDocs />}

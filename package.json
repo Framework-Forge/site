@@ -7,6 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "oxlint",
+    "test:npwd-docs": "node scripts/check-forge-npwd-docs.mjs",
+    "sync:npwd-docs": "node scripts/sync-forge-npwd-example-docs.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
