@@ -45,7 +45,7 @@
   },
   "startup": {
     "file": "server.cfg · order example",
-    "code": "ensure pr_bridge\nensure pma-voice\nensure screenshot-basic\n\n# Independent template: build/start before the phone.\nensure forge-npwd-appexemple\n# Bundled apps may depend on forge-npwd: read the startup caveat.\n# The dependency graph, not only textual ensure order, controls boot.\nensure forge-npwd\nensure forge-npwd-bridge\n# Optional service resource (purchase / replacement):\nensure forge-npwd-shop\n# Legacy proxies only AFTER all corresponding canonical providers:\n# ensure [forge-npwd-compat]"
+    "code": "ensure pr_bridge\nensure pma-voice\nensure screenshot-basic\n\n# Start the selected framework, inventory and SQL driver first.\n# Build/start apps before players open the phone; respect dependencies.\nensure forge-npwd-appexemple\nensure forge-npwd\n# Integration and compatibility are INSIDE forge-npwd.\n# Optional purchase / replacement service:\nensure forge-npwd-shop"
   },
   "deviceConfig": {
     "file": "config.json · merge with your existing config",
@@ -76,12 +76,12 @@
     "code": "local function resolveDevice(playerSource)\n    local context = exports['forge-npwd']:getActivePhoneContext(playerSource)\n    if not context then return nil, 'NO_ACTIVE_DEVICE' end\n    -- context.deviceId: physical device\n    -- context.profileId: phone data profile\n    -- context.phoneNumber: active line\n    -- context.ownerIdentifier: registered owner\n    -- context.holderIdentifier: current holder\n    return context\nend\n\n-- Never authorize a private/financial operation from this context alone.\n-- Enforce your app's own server-side session, ownership and permissions.\n-- Opening the phone or having its item is NOT proof of PIN authorization."
   },
   "compatInstall": {
-    "file": "forge-npwd · install thin legacy aliases",
-    "code": "node misc/install-compat.cjs\n# Creates sibling [forge-npwd-compat], preserving existing differing files.\n# Start canonical providers first, then the necessary alias resources.\n# Do NOT start another original NPWD phone alongside Forge NPWD."
+    "file": "forge-npwd - built-in compatibility",
+    "code": "ensure forge-npwd\n# No compatibility group or separate phone bridge to install/start.\n# Start the canonical apps you use.\n# Never run original NPWD alongside Forge NPWD.\n# Maintainers only, after changing aliases/exports:\n# node misc/generate-compat.cjs"
   },
   "classic": {
     "file": "client.lua · legacy caller versus new caller",
-    "code": "-- Existing legacy caller (requires the installed npwd proxy):\nexports['npwd']:isPhoneVisible()\nexports['npwd']:sendNPWDMessage('forge-npwd-appexemple', 'summaryUpdated', {})\n\n-- New integrations use ONLY the canonical resource:\nexports['forge-npwd']:isPhoneVisible()\nexports['forge-npwd']:sendForgeNPWDMessage('forge-npwd-appexemple', 'summaryUpdated', {})\n\n-- The proxy is a compatibility boundary, not another phone.\n-- ESM/Vite external apps expose './config'; older Webpack remotes may\n-- need rebuilding before use with the current external-app loader."
+    "code": "-- Unchanged legacy caller; routed INSIDE Forge NPWD:\nexports['npwd']:isPhoneVisible()\nexports['npwd']:sendNPWDMessage('forge-npwd-appexemple', 'summaryUpdated', {})\n\n-- New integrations use the canonical resource:\nexports['forge-npwd']:isPhoneVisible()\nexports['forge-npwd']:sendForgeNPWDMessage('forge-npwd-appexemple', 'summaryUpdated', {})\n\n-- No duplicate resource or compatibility installer.\n-- ESM/Vite apps expose './config'; older Webpack remotes may need rebuilding."
   },
   "manifest": {
     "file": "fxmanifest.lua",
