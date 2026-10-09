@@ -251,9 +251,9 @@ function ForgeDocs() {
     window.scrollTo({ top: 0, behavior: 'auto' });
   }, [currentSection]);
 
-  const isUiMenuOpen = currentSection === 'uikit' || uiMenuOpen;
-  const isScriptsMenuOpen = isScriptSection(currentSection) || scriptsMenuOpen;
-  const isBridgeMenuOpen = currentSection === 'pr-bridge' || bridgeMenuOpen;
+  const isUiMenuOpen = uiMenuOpen;
+  const isScriptsMenuOpen = scriptsMenuOpen;
+  const isBridgeMenuOpen = bridgeMenuOpen;
 
   const groups = [
     { id: 'atoms', label: 'Atoms', description: t('fundamentals') },
@@ -270,7 +270,16 @@ function ForgeDocs() {
     setMobileSidebarOpen(false);
   };
 
-  const goHome = () => navigateTo('home');
+  const closeMainSubmenus = () => {
+    setScriptsMenuOpen(false);
+    setBridgeMenuOpen(false);
+    setUiMenuOpen(false);
+  };
+
+  const goHome = () => {
+    closeMainSubmenus();
+    navigateTo('home');
+  };
 
   const bridgeTopics = [
     ['bridge-overview', t('prBridgeTopicOverview')],
@@ -295,6 +304,8 @@ function ForgeDocs() {
 
   const openBridgeTopic = (topicId = 'bridge-overview') => {
     setActiveBridgeTopic(topicId);
+    setScriptsMenuOpen(false);
+    setUiMenuOpen(false);
     setBridgeMenuOpen(true);
     setCurrentSection('pr-bridge');
     setMobileSidebarOpen(false);
@@ -306,6 +317,8 @@ function ForgeDocs() {
 
   const openUIKit = (group = 'atoms') => {
     setActiveUiGroup(group);
+    setScriptsMenuOpen(false);
+    setBridgeMenuOpen(false);
     setUiMenuOpen(true);
     setCurrentSection('uikit');
     setMobileSidebarOpen(false);
@@ -389,7 +402,10 @@ function ForgeDocs() {
                 <button
                   type="button"
                   className={`showcase-menu-item docs-menu-button ${currentSection === 'legacy' ? 'active' : ''}`}
-                  onClick={() => navigateTo('legacy')}
+                  onClick={() => {
+                    closeMainSubmenus();
+                    navigateTo('legacy');
+                  }}
                   title="Forge Legacy"
                 >
                   <ForgeLegacyIcon />
@@ -402,12 +418,18 @@ function ForgeDocs() {
                   type="button"
                   className={`showcase-menu-item docs-menu-button ${isScriptSection(currentSection) ? 'active' : ''}`}
                   onClick={() => {
-                    if (isScriptSection(currentSection)) {
-                      setScriptsMenuOpen((value) => !value);
+                    if (scriptsMenuOpen) {
+                      setScriptsMenuOpen(false);
                       return;
                     }
+
+                    setBridgeMenuOpen(false);
+                    setUiMenuOpen(false);
                     setScriptsMenuOpen(true);
-                    navigateTo('scripts');
+
+                    if (!isScriptSection(currentSection)) {
+                      navigateTo('scripts');
+                    }
                   }}
                   aria-expanded={isScriptsMenuOpen}
                   title={t('scriptsTitle')}
@@ -422,7 +444,12 @@ function ForgeDocs() {
                     <button
                       type="button"
                       className={`docs-submenu-item docs-submenu-item--icon ${currentSection === 'pr-elevator' ? 'active' : ''}`}
-                      onClick={() => navigateTo('pr-elevator')}
+                      onClick={() => {
+                        setBridgeMenuOpen(false);
+                        setUiMenuOpen(false);
+                        setScriptsMenuOpen(true);
+                        navigateTo('pr-elevator');
+                      }}
                     >
                       <ElevatorIcon />
                       <span className="docs-submenu-copy">
@@ -430,13 +457,23 @@ function ForgeDocs() {
                         <small>{t('elevatorNavDescription')}</small>
                       </span>
                     </button>
-                    <button type="button" className={`docs-submenu-item docs-submenu-item--icon ${currentSection === 'forge-npwd' ? 'active' : ''}`} onClick={() => navigateTo('forge-npwd')}>
+                    <button type="button" className={`docs-submenu-item docs-submenu-item--icon ${currentSection === 'forge-npwd' ? 'active' : ''}`} onClick={() => {
+                        setBridgeMenuOpen(false);
+                        setUiMenuOpen(false);
+                        setScriptsMenuOpen(true);
+                        navigateTo('forge-npwd');
+                      }}>
                       <PhoneIcon/><span className="docs-submenu-copy"><span>forge-npwd</span><small>{npwdNavigation[locale]}</small></span>
                     </button>
                     <button
                       type="button"
                       className={`docs-submenu-item docs-submenu-item--icon ${currentSection === 'forge-crafting' ? 'active' : ''}`}
-                      onClick={() => navigateTo('forge-crafting')}
+                      onClick={() => {
+                        setBridgeMenuOpen(false);
+                        setUiMenuOpen(false);
+                        setScriptsMenuOpen(true);
+                        navigateTo('forge-crafting');
+                      }}
                     >
                       <AnvilIcon />
                       <span className="docs-submenu-copy">
@@ -447,7 +484,12 @@ function ForgeDocs() {
                     <button
                       type="button"
                       className={`docs-submenu-item docs-submenu-item--icon ${currentSection === 'forge-gym' ? 'active' : ''}`}
-                      onClick={() => navigateTo('forge-gym')}
+                      onClick={() => {
+                        setBridgeMenuOpen(false);
+                        setUiMenuOpen(false);
+                        setScriptsMenuOpen(true);
+                        navigateTo('forge-gym');
+                      }}
                     >
                       <DumbbellIcon />
                       <span className="docs-submenu-copy">
@@ -458,7 +500,12 @@ function ForgeDocs() {
                     <button
                       type="button"
                       className={`docs-submenu-item docs-submenu-item--icon ${currentSection === 'forge-garage' ? 'active' : ''}`}
-                      onClick={() => navigateTo('forge-garage')}
+                      onClick={() => {
+                        setBridgeMenuOpen(false);
+                        setUiMenuOpen(false);
+                        setScriptsMenuOpen(true);
+                        navigateTo('forge-garage');
+                      }}
                     >
                       <GarageIcon />
                       <span className="docs-submenu-copy">
@@ -469,7 +516,12 @@ function ForgeDocs() {
                     <button
                       type="button"
                       className={`docs-submenu-item docs-submenu-item--icon ${currentSection === 'forge-dk' ? 'active' : ''}`}
-                      onClick={() => navigateTo('forge-dk')}
+                      onClick={() => {
+                        setBridgeMenuOpen(false);
+                        setUiMenuOpen(false);
+                        setScriptsMenuOpen(true);
+                        navigateTo('forge-dk');
+                      }}
                     >
                       <DocumentIcon />
                       <span className="docs-submenu-copy">
@@ -480,7 +532,12 @@ function ForgeDocs() {
                     <button
                       type="button"
                       className={`docs-submenu-item docs-submenu-item--icon ${currentSection === 'pr-3dsound' ? 'active' : ''}`}
-                      onClick={() => navigateTo('pr-3dsound')}
+                      onClick={() => {
+                        setBridgeMenuOpen(false);
+                        setUiMenuOpen(false);
+                        setScriptsMenuOpen(true);
+                        navigateTo('pr-3dsound');
+                      }}
                     >
                       <SoundWaveIcon />
                       <span className="docs-submenu-copy">
@@ -502,11 +559,18 @@ function ForgeDocs() {
                   type="button"
                   className={`showcase-menu-item docs-menu-button ${currentSection === 'pr-bridge' ? 'active' : ''}`}
                   onClick={() => {
-                    if (currentSection === 'pr-bridge') {
-                      setBridgeMenuOpen((value) => !value);
+                    if (bridgeMenuOpen) {
+                      setBridgeMenuOpen(false);
                       return;
                     }
-                    openBridgeTopic(activeBridgeTopic);
+
+                    setScriptsMenuOpen(false);
+                    setUiMenuOpen(false);
+                    setBridgeMenuOpen(true);
+
+                    if (currentSection !== 'pr-bridge') {
+                      openBridgeTopic(activeBridgeTopic);
+                    }
                   }}
                   aria-expanded={isBridgeMenuOpen}
                   title="PR Bridge"
@@ -542,8 +606,18 @@ function ForgeDocs() {
                   type="button"
                   className={`showcase-menu-item docs-menu-button ${currentSection === 'uikit' ? 'active' : ''}`}
                   onClick={() => {
-                    if (currentSection === 'uikit') return;
-                    setUiMenuOpen((value) => !value);
+                    if (uiMenuOpen) {
+                      setUiMenuOpen(false);
+                      return;
+                    }
+
+                    setScriptsMenuOpen(false);
+                    setBridgeMenuOpen(false);
+                    setUiMenuOpen(true);
+
+                    if (currentSection !== 'uikit') {
+                      openUIKit(activeUiGroup);
+                    }
                   }}
                   aria-expanded={isUiMenuOpen}
                   title="Forge UI Kit"
@@ -589,11 +663,14 @@ function ForgeDocs() {
             <About
               onOpenUIKit={() => openUIKit('atoms')}
               onOpenPrBridge={() => openBridgeTopic('bridge-overview')}
-              onOpenLegacy={() => navigateTo('legacy')}
+              onOpenLegacy={() => {
+                closeMainSubmenus();
+                navigateTo('legacy');
+              }}
             />
           )}
-          {currentSection === 'legacy' && <ForgeLegacy onOpenPrElevator={() => navigateTo('pr-elevator')} onOpenForgeCrafting={() => navigateTo('forge-crafting')} onOpenForgeGym={() => navigateTo('forge-gym')} />}
-          {currentSection === 'scripts' && <Scripts onOpenPrElevator={() => navigateTo('pr-elevator')} onOpenForgeCrafting={() => navigateTo('forge-crafting')} onOpenForgeGym={() => navigateTo('forge-gym')} onOpenForgeGarage={() => navigateTo('forge-garage')} onOpenForgeNpwd={() => navigateTo('forge-npwd')} onOpenForgeDocument={() => navigateTo('forge-dk')} onOpenPr3dSound={() => navigateTo('pr-3dsound')} />}
+          {currentSection === 'legacy' && <ForgeLegacy onOpenPrElevator={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('pr-elevator'); }} onOpenForgeCrafting={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('forge-crafting'); }} onOpenForgeGym={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('forge-gym'); }} />}
+          {currentSection === 'scripts' && <Scripts onOpenPrElevator={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('pr-elevator'); }} onOpenForgeCrafting={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('forge-crafting'); }} onOpenForgeGym={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('forge-gym'); }} onOpenForgeGarage={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('forge-garage'); }} onOpenForgeNpwd={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('forge-npwd'); }} onOpenForgeDocument={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('forge-dk'); }} onOpenPr3dSound={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('pr-3dsound'); }} />}
           {currentSection === 'forge-npwd' && <React.Suspense fallback={<p role="status" style={{ padding: 30 }}>Forge NPWD…</p>}><ForgeNpwdDocs/></React.Suspense>}
           {currentSection === 'xt-prison' && <XtPrisonDocs />}
           {currentSection === 'pr-elevator' && <PrElevatorDocs />}
