@@ -6,6 +6,8 @@ export const npwdCopy = {
   search: L('Search this guide and API', 'Buscar no guia e na API', 'Buscar en la guía y la API', 'Rechercher dans le guide et l’API'),
   guide: L('Documentation', 'Documentação', 'Documentación', 'Documentation'),
   example: L('Example app', 'Aplicativo de exemplo', 'Aplicación de ejemplo', 'Application d’exemple'),
+  forgeNpwd: L('Forge NPWD', 'Forge NPWD', 'Forge NPWD', 'Forge NPWD'),
+  developmentExample: L('Development example app', 'App exemplo para desenvolvimento', 'App de ejemplo para desarrollo', 'App exemple pour le développement'),
   original: L('Original NPWD', 'NPWD original', 'NPWD original', 'NPWD original'),
   source: L('Implementation', 'Implementação', 'Implementación', 'Implémentation'),
   copy: L('Copy', 'Copiar', 'Copiar', 'Copier'),

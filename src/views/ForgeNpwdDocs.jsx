@@ -55,7 +55,11 @@ export default function ForgeNpwdDocs() {
       <div className="docs-eyebrow"><span className="docs-eyebrow-dot"/>FORGE PROJECT · OPEN SOURCE</div>
       <h1>Forge <span>NPWD</span></h1><p>{copy('lead')}</p>
       <div className="npwd-links">
-        <a className="docs-primary-button" href="https://github.com/Framework-Forge/forge-npwd-appexemple" target="_blank" rel="noreferrer">{copy('example')} ↗</a>
+        {topicId === 'applications' ? (
+          <a className="docs-primary-button" href="https://github.com/Framework-Forge/forge-npwd-appexemple" target="_blank" rel="noreferrer">{copy('developmentExample')} ↗</a>
+        ) : (
+          <a className="docs-primary-button" href="https://github.com/Framework-Forge/forge-npwd" target="_blank" rel="noreferrer">{copy('forgeNpwd')} ↗</a>
+        )}
         <a className="docs-secondary-button" href="https://projecterror.dev/docs/" target="_blank" rel="noreferrer">{copy('original')} ↗</a>
       </div>
     </header>
