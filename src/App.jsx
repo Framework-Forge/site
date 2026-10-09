@@ -220,6 +220,9 @@ function ForgeDocs() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(() => localStorage.getItem('forge-sidebar-collapsed') === 'true');
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [activeUiGroup, setActiveUiGroup] = useState(() => localStorage.getItem('forge-ui-group') || 'atoms');
+  const [collapsedFlyout, setCollapsedFlyout] = useState(null);
+  const collapsedFlyoutOpenTimer = React.useRef(null);
+  const collapsedFlyoutCloseTimer = React.useRef(null);
 
   React.useEffect(() => {
     const openDeepLink = () => { if (window.location.hash.startsWith('#forge-npwd/')) setCurrentSection('forge-npwd'); };
@@ -250,6 +253,78 @@ function ForgeDocs() {
     setMobileSidebarOpen(false);
     window.scrollTo({ top: 0, behavior: 'auto' });
   }, [currentSection]);
+
+  React.useEffect(() => {
+    if (!sidebarCollapsed) setCollapsedFlyout(null);
+
+    return () => {
+      if (collapsedFlyoutOpenTimer.current) clearTimeout(collapsedFlyoutOpenTimer.current);
+      if (collapsedFlyoutCloseTimer.current) clearTimeout(collapsedFlyoutCloseTimer.current);
+    };
+  }, [sidebarCollapsed]);
+
+  const scheduleCollapsedFlyout = (name, event) => {
+    if (!sidebarCollapsed) return;
+
+    const host = event?.currentTarget;
+    if (host) {
+      const rect = host.getBoundingClientRect();
+      document.documentElement.style.setProperty('--forge-flyout-top', `${Math.max(8, rect.top - 8)}px`);
+    }
+
+    if (collapsedFlyoutCloseTimer.current) {
+      clearTimeout(collapsedFlyoutCloseTimer.current);
+      collapsedFlyoutCloseTimer.current = null;
+    }
+
+    if (collapsedFlyoutOpenTimer.current) {
+      clearTimeout(collapsedFlyoutOpenTimer.current);
+      collapsedFlyoutOpenTimer.current = null;
+    }
+
+    if (collapsedFlyout && collapsedFlyout !== name) {
+      setCollapsedFlyout(null);
+    }
+
+    if (collapsedFlyout === name) return;
+
+    collapsedFlyoutOpenTimer.current = setTimeout(() => {
+      setCollapsedFlyout(name);
+      collapsedFlyoutOpenTimer.current = null;
+    }, 500);
+  };
+
+  const keepCollapsedFlyout = (name) => {
+    if (!sidebarCollapsed) return;
+
+    if (collapsedFlyoutOpenTimer.current) {
+      clearTimeout(collapsedFlyoutOpenTimer.current);
+      collapsedFlyoutOpenTimer.current = null;
+    }
+
+    if (collapsedFlyoutCloseTimer.current) {
+      clearTimeout(collapsedFlyoutCloseTimer.current);
+      collapsedFlyoutCloseTimer.current = null;
+    }
+
+    if (collapsedFlyout !== name) setCollapsedFlyout(name);
+  };
+
+  const closeCollapsedFlyout = () => {
+    if (!sidebarCollapsed) return;
+
+    if (collapsedFlyoutOpenTimer.current) {
+      clearTimeout(collapsedFlyoutOpenTimer.current);
+      collapsedFlyoutOpenTimer.current = null;
+    }
+
+    if (collapsedFlyoutCloseTimer.current) clearTimeout(collapsedFlyoutCloseTimer.current);
+
+    collapsedFlyoutCloseTimer.current = setTimeout(() => {
+      setCollapsedFlyout(null);
+      collapsedFlyoutCloseTimer.current = null;
+    }, 120);
+  };
 
   const isUiMenuOpen = uiMenuOpen;
   const isScriptsMenuOpen = scriptsMenuOpen;
@@ -358,7 +433,10 @@ function ForgeDocs() {
             <button
               type="button"
               className="docs-sidebar-collapse"
-              onClick={() => setSidebarCollapsed((value) => !value)}
+              onClick={() => {
+                setCollapsedFlyout(null);
+                setSidebarCollapsed((value) => !value);
+              }}
               aria-label={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
               title={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
             >
@@ -413,7 +491,15 @@ function ForgeDocs() {
                 </button>
               </li>
 
-              <li>
+              <li
+                className="docs-flyout-host"
+                onMouseEnter={(event) => scheduleCollapsedFlyout('scripts', event)}
+                onMouseLeave={closeCollapsedFlyout}
+                onFocus={(event) => scheduleCollapsedFlyout('scripts', event)}
+                onBlur={(event) => {
+                  if (!event.currentTarget.contains(event.relatedTarget)) closeCollapsedFlyout();
+                }}
+              >
                 <button
                   type="button"
                   className={`showcase-menu-item docs-menu-button ${isScriptSection(currentSection) ? 'active' : ''}`}
@@ -439,8 +525,11 @@ function ForgeDocs() {
                   <ChevronIcon open={isScriptsMenuOpen} />
                 </button>
 
-                {(isScriptsMenuOpen || sidebarCollapsed) && (
-                  <div className="docs-submenu docs-submenu--icons">
+                {(sidebarCollapsed ? collapsedFlyout === 'scripts' : isScriptsMenuOpen) && (
+                  <div
+                    className="docs-submenu docs-submenu--icons"
+                    onMouseEnter={() => keepCollapsedFlyout('scripts')}
+                  >
                     <button
                       type="button"
                       className={`docs-submenu-item docs-submenu-item--icon ${currentSection === 'pr-elevator' ? 'active' : ''}`}
@@ -554,7 +643,15 @@ function ForgeDocs() {
           <div className="showcase-menu-group">
             <h3 className="showcase-menu-title">{t('tools')}</h3>
             <ul className="showcase-menu-list">
-              <li>
+              <li
+                className="docs-flyout-host"
+                onMouseEnter={(event) => scheduleCollapsedFlyout('bridge', event)}
+                onMouseLeave={closeCollapsedFlyout}
+                onFocus={(event) => scheduleCollapsedFlyout('bridge', event)}
+                onBlur={(event) => {
+                  if (!event.currentTarget.contains(event.relatedTarget)) closeCollapsedFlyout();
+                }}
+              >
                 <button
                   type="button"
                   className={`showcase-menu-item docs-menu-button ${currentSection === 'pr-bridge' ? 'active' : ''}`}
@@ -580,8 +677,11 @@ function ForgeDocs() {
                   <ChevronIcon open={isBridgeMenuOpen} />
                 </button>
 
-                {(isBridgeMenuOpen || sidebarCollapsed) && (
-                  <div className="docs-submenu docs-submenu-topics">
+                {(sidebarCollapsed ? collapsedFlyout === 'bridge' : isBridgeMenuOpen) && (
+                  <div
+                    className="docs-submenu docs-submenu-topics"
+                    onMouseEnter={() => keepCollapsedFlyout('bridge')}
+                  >
                     {bridgeTopics.map(([id, label]) => (
                       <button
                         type="button"
@@ -601,7 +701,15 @@ function ForgeDocs() {
           <div className="showcase-menu-group">
             <h3 className="showcase-menu-title">{t('reference')}</h3>
             <ul className="showcase-menu-list">
-              <li>
+              <li
+                className="docs-flyout-host"
+                onMouseEnter={(event) => scheduleCollapsedFlyout('uikit', event)}
+                onMouseLeave={closeCollapsedFlyout}
+                onFocus={(event) => scheduleCollapsedFlyout('uikit', event)}
+                onBlur={(event) => {
+                  if (!event.currentTarget.contains(event.relatedTarget)) closeCollapsedFlyout();
+                }}
+              >
                 <button
                   type="button"
                   className={`showcase-menu-item docs-menu-button ${currentSection === 'uikit' ? 'active' : ''}`}
@@ -627,8 +735,11 @@ function ForgeDocs() {
                   <ChevronIcon open={isUiMenuOpen} />
                 </button>
 
-                {(isUiMenuOpen || sidebarCollapsed) && (
-                  <div className="docs-submenu docs-submenu--no-line">
+                {(sidebarCollapsed ? collapsedFlyout === 'uikit' : isUiMenuOpen) && (
+                  <div
+                    className="docs-submenu docs-submenu--no-line"
+                    onMouseEnter={() => keepCollapsedFlyout('uikit')}
+                  >
                     {groups.map((group) => (
                       <button
                         type="button"
