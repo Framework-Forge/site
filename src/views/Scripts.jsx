@@ -30,6 +30,15 @@ function ScriptIcon({ type }) {
       </svg>
     );
   }
+  if (type === 'document') {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
+        <path d="M6 3h8l4 4v14H6zM14 3v5h5" />
+        <circle cx="10" cy="12" r="2" />
+        <path d="M7.8 17c.8-1.8 3.6-2.4 4.7-.7M14.5 12H17M14.5 15H17" />
+      </svg>
+    );
+  }
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" aria-hidden="true">
       <path d="M7 9v6M17 9v6M4 8v8M20 8v8M7 12h10M2 10v4M22 10v4" />
@@ -37,7 +46,7 @@ function ScriptIcon({ type }) {
   );
 }
 
-export default function Scripts({ onOpenPrElevator, onOpenForgeCrafting, onOpenForgeGym, onOpenForgeGarage, onOpenForgeNpwd }) {
+export default function Scripts({ onOpenPrElevator, onOpenForgeCrafting, onOpenForgeGym, onOpenForgeGarage, onOpenForgeNpwd, onOpenForgeDocument }) {
   const { t, locale } = useI18n();
 
   const entries = [
@@ -72,6 +81,13 @@ export default function Scripts({ onOpenPrElevator, onOpenForgeCrafting, onOpenF
       description: t('legacyForgeGarageDesc'),
       tags: ['Garage', 'PR Bridge', 'IPL', 'Parking', 'Keys', 'Persistence'],
       onOpen: onOpenForgeGarage,
+    },
+    {
+      name: 'forge-dk',
+      type: 'document',
+      description: t('legacyForgeDocumentDesc'),
+      tags: ['Identity', 'Documents', 'PR Bridge', 'NUI', 'Forgery', 'Verification'],
+      onOpen: onOpenForgeDocument,
     },
   ];
 

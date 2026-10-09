@@ -11,6 +11,7 @@ import PsDispatchDocs from './views/PsDispatchDocs';
 import ForgeCraftingDocs from './views/ForgeCraftingDocs';
 import ForgeGymDocs from './views/ForgeGymDocs';
 import ForgeGarageDocs from './views/ForgeGarageDocs';
+import ForgeDocumentDocs from './views/ForgeDocumentDocs';
 import PrBridgeDocs from './views/PrBridgeDocs';
 import { npwdNavigation } from './data/forgeNpwdNavigation';
 import forgeLogo from './assets/forge_legacy_logo.png';
@@ -18,7 +19,7 @@ import { AutoTranslate, LanguageProvider, LANGUAGES, useI18n } from './i18n';
 import './docs.css';
 
 const ForgeNpwdDocs = React.lazy(() => import('./views/ForgeNpwdDocs'));
-const isScriptSection = section => ['scripts', 'pr-elevator', 'forge-crafting', 'forge-gym', 'forge-garage', 'forge-npwd'].includes(section);
+const isScriptSection = section => ['scripts', 'pr-elevator', 'forge-crafting', 'forge-gym', 'forge-garage', 'forge-npwd', 'forge-dk'].includes(section);
 
 function PhoneIcon() {
   return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="docs-submenu-icon" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 5h4M11 18h2"/></svg>;
@@ -119,6 +120,17 @@ function GarageIcon() {
       <path d="M8.5 13.5h7l1.2 2.5H7.3l1.2-2.5Z" />
       <circle cx="9" cy="17.5" r=".8" />
       <circle cx="15" cy="17.5" r=".8" />
+    </svg>
+  );
+}
+
+function DocumentIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" className="docs-submenu-icon" aria-hidden="true">
+      <path d="M6 3h8l4 4v14H6z" />
+      <path d="M14 3v5h5" />
+      <circle cx="10" cy="12" r="2" />
+      <path d="M7.8 17c.8-1.8 3.6-2.4 4.7-.7M14.5 12H17M14.5 15H17" />
     </svg>
   );
 }
@@ -445,6 +457,17 @@ function ForgeDocs() {
                         <small>{t('garageNavDescription')}</small>
                       </span>
                     </button>
+                    <button
+                      type="button"
+                      className={`docs-submenu-item docs-submenu-item--icon ${currentSection === 'forge-dk' ? 'active' : ''}`}
+                      onClick={() => navigateTo('forge-dk')}
+                    >
+                      <DocumentIcon />
+                      <span className="docs-submenu-copy">
+                        <span>forge-dk</span>
+                        <small>{t('documentNavDescription')}</small>
+                      </span>
+                    </button>
                   </div>
                 )}
               </li>
@@ -550,7 +573,7 @@ function ForgeDocs() {
             />
           )}
           {currentSection === 'legacy' && <ForgeLegacy onOpenPrElevator={() => navigateTo('pr-elevator')} onOpenForgeCrafting={() => navigateTo('forge-crafting')} onOpenForgeGym={() => navigateTo('forge-gym')} />}
-          {currentSection === 'scripts' && <Scripts onOpenPrElevator={() => navigateTo('pr-elevator')} onOpenForgeCrafting={() => navigateTo('forge-crafting')} onOpenForgeGym={() => navigateTo('forge-gym')} onOpenForgeGarage={() => navigateTo('forge-garage')} onOpenForgeNpwd={() => navigateTo('forge-npwd')} />}
+          {currentSection === 'scripts' && <Scripts onOpenPrElevator={() => navigateTo('pr-elevator')} onOpenForgeCrafting={() => navigateTo('forge-crafting')} onOpenForgeGym={() => navigateTo('forge-gym')} onOpenForgeGarage={() => navigateTo('forge-garage')} onOpenForgeNpwd={() => navigateTo('forge-npwd')} onOpenForgeDocument={() => navigateTo('forge-dk')} />}
           {currentSection === 'forge-npwd' && <React.Suspense fallback={<p role="status" style={{ padding: 30 }}>Forge NPWD…</p>}><ForgeNpwdDocs/></React.Suspense>}
           {currentSection === 'xt-prison' && <XtPrisonDocs />}
           {currentSection === 'pr-elevator' && <PrElevatorDocs />}
@@ -559,6 +582,7 @@ function ForgeDocs() {
           {currentSection === 'forge-crafting' && <ForgeCraftingDocs />}
           {currentSection === 'forge-gym' && <ForgeGymDocs />}
           {currentSection === 'forge-garage' && <ForgeGarageDocs />}
+          {currentSection === 'forge-dk' && <ForgeDocumentDocs />}
           {currentSection === 'pr-bridge' && <PrBridgeDocs topic={activeBridgeTopic} onNavigateTopic={openBridgeTopic} />}
           {currentSection === 'uikit' && (
             <>
