@@ -12,6 +12,7 @@ import ForgeCraftingDocs from './views/ForgeCraftingDocs';
 import ForgeGymDocs from './views/ForgeGymDocs';
 import ForgeGarageDocs from './views/ForgeGarageDocs';
 import ForgeDocumentDocs from './views/ForgeDocumentDocs';
+import Pr3dSoundDocs from './views/Pr3dSoundDocs';
 import PrBridgeDocs from './views/PrBridgeDocs';
 import { npwdNavigation } from './data/forgeNpwdNavigation';
 import forgeLogo from './assets/forge_legacy_logo.png';
@@ -19,7 +20,7 @@ import { AutoTranslate, LanguageProvider, LANGUAGES, useI18n } from './i18n';
 import './docs.css';
 
 const ForgeNpwdDocs = React.lazy(() => import('./views/ForgeNpwdDocs'));
-const isScriptSection = section => ['scripts', 'pr-elevator', 'forge-crafting', 'forge-gym', 'forge-garage', 'forge-npwd', 'forge-dk'].includes(section);
+const isScriptSection = section => ['scripts', 'pr-elevator', 'forge-crafting', 'forge-gym', 'forge-garage', 'forge-npwd', 'forge-dk', 'pr-3dsound'].includes(section);
 
 function PhoneIcon() {
   return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="docs-submenu-icon" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 5h4M11 18h2"/></svg>;
@@ -131,6 +132,14 @@ function DocumentIcon() {
       <path d="M14 3v5h5" />
       <circle cx="10" cy="12" r="2" />
       <path d="M7.8 17c.8-1.8 3.6-2.4 4.7-.7M14.5 12H17M14.5 15H17" />
+    </svg>
+  );
+}
+
+function SoundWaveIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" className="docs-submenu-icon" aria-hidden="true">
+      <path d="M4 10v4M8 7v10M12 4v16M16 7v10M20 10v4" />
     </svg>
   );
 }
@@ -468,6 +477,17 @@ function ForgeDocs() {
                         <small>{t('documentNavDescription')}</small>
                       </span>
                     </button>
+                    <button
+                      type="button"
+                      className={`docs-submenu-item docs-submenu-item--icon ${currentSection === 'pr-3dsound' ? 'active' : ''}`}
+                      onClick={() => navigateTo('pr-3dsound')}
+                    >
+                      <SoundWaveIcon />
+                      <span className="docs-submenu-copy">
+                        <span>pr_3dsound</span>
+                        <small>{t('soundNavDescription')}</small>
+                      </span>
+                    </button>
                   </div>
                 )}
               </li>
@@ -573,7 +593,7 @@ function ForgeDocs() {
             />
           )}
           {currentSection === 'legacy' && <ForgeLegacy onOpenPrElevator={() => navigateTo('pr-elevator')} onOpenForgeCrafting={() => navigateTo('forge-crafting')} onOpenForgeGym={() => navigateTo('forge-gym')} />}
-          {currentSection === 'scripts' && <Scripts onOpenPrElevator={() => navigateTo('pr-elevator')} onOpenForgeCrafting={() => navigateTo('forge-crafting')} onOpenForgeGym={() => navigateTo('forge-gym')} onOpenForgeGarage={() => navigateTo('forge-garage')} onOpenForgeNpwd={() => navigateTo('forge-npwd')} onOpenForgeDocument={() => navigateTo('forge-dk')} />}
+          {currentSection === 'scripts' && <Scripts onOpenPrElevator={() => navigateTo('pr-elevator')} onOpenForgeCrafting={() => navigateTo('forge-crafting')} onOpenForgeGym={() => navigateTo('forge-gym')} onOpenForgeGarage={() => navigateTo('forge-garage')} onOpenForgeNpwd={() => navigateTo('forge-npwd')} onOpenForgeDocument={() => navigateTo('forge-dk')} onOpenPr3dSound={() => navigateTo('pr-3dsound')} />}
           {currentSection === 'forge-npwd' && <React.Suspense fallback={<p role="status" style={{ padding: 30 }}>Forge NPWD…</p>}><ForgeNpwdDocs/></React.Suspense>}
           {currentSection === 'xt-prison' && <XtPrisonDocs />}
           {currentSection === 'pr-elevator' && <PrElevatorDocs />}
@@ -583,6 +603,7 @@ function ForgeDocs() {
           {currentSection === 'forge-gym' && <ForgeGymDocs />}
           {currentSection === 'forge-garage' && <ForgeGarageDocs />}
           {currentSection === 'forge-dk' && <ForgeDocumentDocs />}
+          {currentSection === 'pr-3dsound' && <Pr3dSoundDocs />}
           {currentSection === 'pr-bridge' && <PrBridgeDocs topic={activeBridgeTopic} onNavigateTopic={openBridgeTopic} />}
           {currentSection === 'uikit' && (
             <>
