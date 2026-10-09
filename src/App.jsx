@@ -192,20 +192,73 @@ function ChevronIcon({ open }) {
 
 function LanguageSwitcher() {
   const { locale, setLocale } = useI18n();
+  const [open, setOpen] = useState(false);
+  const rootRef = React.useRef(null);
+  const activeLanguage = LANGUAGES.find((language) => language.code === locale) || LANGUAGES[0];
+
+  React.useEffect(() => {
+    if (!open) return undefined;
+
+    const closeOnOutside = (event) => {
+      if (!rootRef.current?.contains(event.target)) setOpen(false);
+    };
+
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') setOpen(false);
+    };
+
+    document.addEventListener('pointerdown', closeOnOutside);
+    document.addEventListener('keydown', closeOnEscape);
+
+    return () => {
+      document.removeEventListener('pointerdown', closeOnOutside);
+      document.removeEventListener('keydown', closeOnEscape);
+    };
+  }, [open]);
+
   return (
-    <div className="docs-language-switcher" aria-label="Language selector">
-      {LANGUAGES.map((language) => (
-        <button
-          type="button"
-          key={language.code}
-          className={locale === language.code ? 'active' : ''}
-          onClick={() => setLocale(language.code)}
-          title={language.name}
-          aria-label={language.name}
-        >
-          {language.label}
-        </button>
-      ))}
+    <div className={`docs-language-switcher ${open ? 'open' : ''}`} ref={rootRef}>
+      <button
+        type="button"
+        className="docs-language-trigger"
+        onClick={() => setOpen((value) => !value)}
+        aria-label="Language selector"
+        aria-haspopup="menu"
+        aria-expanded={open}
+        title={activeLanguage.name}
+      >
+        <span className="docs-language-trigger-flag" aria-hidden="true">{activeLanguage.flag}</span>
+        <span className="docs-language-trigger-copy">
+          <strong>{activeLanguage.label}</strong>
+          <small>{activeLanguage.name}</small>
+        </span>
+        <ChevronIcon open={open} />
+      </button>
+
+      {open && (
+        <div className="docs-language-dropdown" role="menu" aria-label="Language selector">
+          {LANGUAGES.map((language) => (
+            <button
+              type="button"
+              key={language.code}
+              role="menuitemradio"
+              aria-checked={locale === language.code}
+              className={locale === language.code ? 'active' : ''}
+              onClick={() => {
+                setLocale(language.code);
+                setOpen(false);
+              }}
+            >
+              <span className="docs-language-option-flag" aria-hidden="true">{language.flag}</span>
+              <span className="docs-language-option-copy">
+                <strong>{language.name}</strong>
+                <small>{language.label}</small>
+              </span>
+              {locale === language.code && <span className="docs-language-option-check" aria-hidden="true">✓</span>}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

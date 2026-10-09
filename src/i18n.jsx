@@ -3,10 +3,10 @@ import { createContext, useContext, useEffect, useMemo, useRef, useState } from 
 const LanguageContext = createContext(null);
 
 export const LANGUAGES = [
-  { code: 'en', label: 'EN', name: 'English' },
-  { code: 'pt-BR', label: 'PT', name: 'Português (BR)' },
-  { code: 'es', label: 'ES', name: 'Español' },
-  { code: 'fr', label: 'FR', name: 'Français' },
+  { code: 'en', label: 'EN', name: 'English', flag: '🇺🇸' },
+  { code: 'pt-BR', label: 'PT', name: 'Português (BR)', flag: '🇧🇷' },
+  { code: 'es', label: 'ES', name: 'Español', flag: '🇪🇸' },
+  { code: 'fr', label: 'FR', name: 'Français', flag: '🇫🇷' },
 ];
 
 const copy = {
