@@ -439,7 +439,7 @@ function ForgeDocs() {
                   <ChevronIcon open={isScriptsMenuOpen} />
                 </button>
 
-                {isScriptsMenuOpen && (
+                {(isScriptsMenuOpen || sidebarCollapsed) && (
                   <div className="docs-submenu docs-submenu--icons">
                     <button
                       type="button"
@@ -580,7 +580,7 @@ function ForgeDocs() {
                   <ChevronIcon open={isBridgeMenuOpen} />
                 </button>
 
-                {isBridgeMenuOpen && (
+                {(isBridgeMenuOpen || sidebarCollapsed) && (
                   <div className="docs-submenu docs-submenu-topics">
                     {bridgeTopics.map(([id, label]) => (
                       <button
@@ -627,7 +627,7 @@ function ForgeDocs() {
                   <ChevronIcon open={isUiMenuOpen} />
                 </button>
 
-                {isUiMenuOpen && (
+                {(isUiMenuOpen || sidebarCollapsed) && (
                   <div className="docs-submenu docs-submenu--no-line">
                     {groups.map((group) => (
                       <button
