@@ -1,7 +1,7 @@
 import { useI18n } from '../i18n';
 import LuaCodeBlock from '../components/LuaCodeBlock';
 
-const REPO = 'https://github.com/Framework-Forge/pr_3dsound';
+const REPO = 'https://github.com/Pierremoraes-ofc/pr_3dsound';
 
 const SectionTitle = ({ number, label, title }) => (
   <div className="docs-section-heading">
@@ -331,7 +331,7 @@ export default function Pr3dSoundDocs() {
         <h2>{pt ? 'Documentação construída a partir da implementação atual do pr_3dsound v4.0.0.' : 'Documentation built from the current pr_3dsound v4.0.0 implementation.'}</h2>
         <p>{pt ? 'Foram revisados o estado autoritativo server-side, streaming por proximidade, HRTF, pipeline de URL direta, attach por Network ID, sincronização temporal, oclusão, segurança, NUI, client exports, server exports e a camada de sons nativos.' : 'The server-authoritative state, proximity streaming, HRTF, direct-URL pipeline, Network ID attachment, time synchronization, occlusion, security, NUI, client exports, server exports and native-sound layer were reviewed.'}</p>
         <div className="crafting-hero-actions">
-          <a className="docs-primary-button" href={REPO} target="_blank" rel="noreferrer">Framework-Forge/pr_3dsound</a>
+          <a className="docs-primary-button" href={REPO} target="_blank" rel="noreferrer">Pierremoraes-ofc/pr_3dsound</a>
         </div>
       </section>
     </div>
