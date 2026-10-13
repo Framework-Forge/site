@@ -244,7 +244,7 @@ export default function PrCarKeysDocs() {
           <article><code>expires_at</code><strong>{pt ? 'Expiração' : 'Expiration'}</strong><p>{pt ? 'Timestamp para vias temporizadas.' : 'Timestamp for timed copies.'}</p></article>
         </div>
         <div className="docs-prose">
-          <p>{pt ? 'O banco mantém a configuração persistente de cada chave, enquanto State Bags replicadas sincronizam estados do veículo, como <code>doorslockstate</code> e estados temporários usados durante efeitos de partida. Assim, persistência e sincronização de runtime permanecem separadas.' : 'The database keeps each key's persistent configuration, while replicated State Bags synchronize vehicle state such as <code>doorslockstate</code> and temporary states used during start/rev effects. Persistence and runtime synchronization therefore remain separate.'}</p>
+          <p>{pt ? 'O banco mantém a configuração persistente de cada chave, enquanto State Bags replicadas sincronizam estados do veículo, como <code>doorslockstate</code> e estados temporários usados durante efeitos de partida. Assim, persistência e sincronização de runtime permanecem separadas.' : 'The database keeps each key configuration persistent, while replicated State Bags synchronize vehicle state such as <code>doorslockstate</code> and temporary states used during start/rev effects. Persistence and runtime synchronization therefore remain separate.'}</p>
         </div>
       </section>
 
