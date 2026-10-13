@@ -13,6 +13,7 @@ import ForgeGymDocs from './views/ForgeGymDocs';
 import ForgeGarageDocs from './views/ForgeGarageDocs';
 import ForgeDocumentDocs from './views/ForgeDocumentDocs';
 import Pr3dSoundDocs from './views/Pr3dSoundDocs';
+import PrCarKeysDocs from './views/PrCarKeysDocs';
 import PrBridgeDocs from './views/PrBridgeDocs';
 import { npwdNavigation } from './data/forgeNpwdNavigation';
 import forgeLogo from './assets/forge_legacy_logo.png';
@@ -20,7 +21,7 @@ import { AutoTranslate, LanguageProvider, LANGUAGES, useI18n } from './i18n';
 import './docs.css';
 
 const ForgeNpwdDocs = React.lazy(() => import('./views/ForgeNpwdDocs'));
-const isScriptSection = section => ['scripts', 'pr-elevator', 'forge-crafting', 'forge-gym', 'forge-garage', 'forge-npwd', 'forge-dk', 'pr-3dsound'].includes(section);
+const isScriptSection = section => ['scripts', 'pr-elevator', 'forge-crafting', 'forge-gym', 'forge-garage', 'forge-npwd', 'forge-dk', 'pr-3dsound', 'pr-carkeys'].includes(section);
 
 function PhoneIcon() {
   return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="docs-submenu-icon" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 5h4M11 18h2"/></svg>;
@@ -140,6 +141,16 @@ function SoundWaveIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" className="docs-submenu-icon" aria-hidden="true">
       <path d="M4 10v4M8 7v10M12 4v16M16 7v10M20 10v4" />
+    </svg>
+  );
+}
+
+function CarKeyIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" className="docs-submenu-icon" aria-hidden="true">
+      <circle cx="8" cy="12" r="4" />
+      <path d="M12 12h9M17 12v3M20 12v2" />
+      <circle cx="8" cy="12" r="1" />
     </svg>
   );
 }
@@ -687,6 +698,22 @@ function ForgeDocs() {
                         <small>{t('soundNavDescription')}</small>
                       </span>
                     </button>
+                    <button
+                      type="button"
+                      className={`docs-submenu-item docs-submenu-item--icon ${currentSection === 'pr-carkeys' ? 'active' : ''}`}
+                      onClick={() => {
+                        setBridgeMenuOpen(false);
+                        setUiMenuOpen(false);
+                        setScriptsMenuOpen(true);
+                        navigateTo('pr-carkeys');
+                      }}
+                    >
+                      <CarKeyIcon />
+                      <span className="docs-submenu-copy">
+                        <span>pr_carkeys</span>
+                        <small>{t('carKeysNavDescription')}</small>
+                      </span>
+                    </button>
                   </div>
                 )}
               </li>
@@ -834,7 +861,7 @@ function ForgeDocs() {
             />
           )}
           {currentSection === 'legacy' && <ForgeLegacy onOpenPrElevator={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('pr-elevator'); }} onOpenForgeCrafting={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('forge-crafting'); }} onOpenForgeGym={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('forge-gym'); }} />}
-          {currentSection === 'scripts' && <Scripts onOpenPrElevator={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('pr-elevator'); }} onOpenForgeCrafting={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('forge-crafting'); }} onOpenForgeGym={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('forge-gym'); }} onOpenForgeGarage={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('forge-garage'); }} onOpenForgeNpwd={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('forge-npwd'); }} onOpenForgeDocument={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('forge-dk'); }} onOpenPr3dSound={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('pr-3dsound'); }} />}
+          {currentSection === 'scripts' && <Scripts onOpenPrElevator={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('pr-elevator'); }} onOpenForgeCrafting={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('forge-crafting'); }} onOpenForgeGym={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('forge-gym'); }} onOpenForgeGarage={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('forge-garage'); }} onOpenForgeNpwd={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('forge-npwd'); }} onOpenForgeDocument={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('forge-dk'); }} onOpenPr3dSound={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('pr-3dsound'); }} onOpenPrCarKeys={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('pr-carkeys'); }} />}
           {currentSection === 'forge-npwd' && <React.Suspense fallback={<p role="status" style={{ padding: 30 }}>Forge NPWD…</p>}><ForgeNpwdDocs/></React.Suspense>}
           {currentSection === 'xt-prison' && <XtPrisonDocs />}
           {currentSection === 'pr-elevator' && <PrElevatorDocs />}
@@ -845,6 +872,7 @@ function ForgeDocs() {
           {currentSection === 'forge-garage' && <ForgeGarageDocs />}
           {currentSection === 'forge-dk' && <ForgeDocumentDocs />}
           {currentSection === 'pr-3dsound' && <Pr3dSoundDocs />}
+          {currentSection === 'pr-carkeys' && <PrCarKeysDocs />}
           {currentSection === 'pr-bridge' && <PrBridgeDocs topic={activeBridgeTopic} onNavigateTopic={openBridgeTopic} />}
           {currentSection === 'uikit' && (
             <>

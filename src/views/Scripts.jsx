@@ -46,6 +46,15 @@ function ScriptIcon({ type }) {
       </svg>
     );
   }
+  if (type === 'keys') {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+        <circle cx="8" cy="12" r="4" />
+        <path d="M12 12h9M17 12v3M20 12v2" />
+        <circle cx="8" cy="12" r="1" />
+      </svg>
+    );
+  }
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" aria-hidden="true">
       <path d="M7 9v6M17 9v6M4 8v8M20 8v8M7 12h10M2 10v4M22 10v4" />
@@ -53,7 +62,7 @@ function ScriptIcon({ type }) {
   );
 }
 
-export default function Scripts({ onOpenPrElevator, onOpenForgeCrafting, onOpenForgeGym, onOpenForgeGarage, onOpenForgeNpwd, onOpenForgeDocument, onOpenPr3dSound }) {
+export default function Scripts({ onOpenPrElevator, onOpenForgeCrafting, onOpenForgeGym, onOpenForgeGarage, onOpenForgeNpwd, onOpenForgeDocument, onOpenPr3dSound, onOpenPrCarKeys }) {
   const { t, locale } = useI18n();
 
   const entries = [
@@ -102,6 +111,13 @@ export default function Scripts({ onOpenPrElevator, onOpenForgeCrafting, onOpenF
       description: t('legacyPr3dSoundDesc'),
       tags: ['3D Audio', 'HRTF', 'Streaming', 'Entities', 'Occlusion', 'Native Audio'],
       onOpen: onOpenPr3dSound,
+    },
+    {
+      name: 'pr_carkeys',
+      type: 'keys',
+      description: t('legacyPrCarKeysDesc'),
+      tags: ['Vehicle Keys', 'PR Bridge', 'Hotwire', 'Carjack', 'Key Bags', 'Security'],
+      onOpen: onOpenPrCarKeys,
     },
   ];
 
