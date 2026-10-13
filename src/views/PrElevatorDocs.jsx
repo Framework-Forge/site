@@ -211,7 +211,7 @@ export default function PrElevatorDocs() {
           <h1><span>pr_</span>elevator</h1>
           <p>{d.lead}</p>
           <div className="elevator-hero-actions">
-            <a className="docs-primary-button" href="https://github.com/Framework-Forge/pr_elevator" target="_blank" rel="noreferrer">{d.repository}</a>
+            <a className="docs-primary-button" href="https://github.com/Pierremoraes-ofc/pr_elevator" target="_blank" rel="noreferrer">{d.repository}</a>
             <a className="docs-secondary-button" href="#elevator-install">{d.install}</a>
           </div>
           <div className="elevator-chip-row">
