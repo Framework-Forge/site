@@ -55,6 +55,13 @@ function ScriptIcon({ type }) {
       </svg>
     );
   }
+  if (type === 'mileage') {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+        <path d="M4 17a8 8 0 1 1 16 0M7 17h10M12 13l4-4M6.5 10.5 8 12M17.5 10.5 16 12M12 7v2" />
+      </svg>
+    );
+  }
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" aria-hidden="true">
       <path d="M7 9v6M17 9v6M4 8v8M20 8v8M7 12h10M2 10v4M22 10v4" />
@@ -62,7 +69,7 @@ function ScriptIcon({ type }) {
   );
 }
 
-export default function Scripts({ onOpenPrElevator, onOpenForgeCrafting, onOpenForgeGym, onOpenForgeGarage, onOpenForgeNpwd, onOpenForgeDocument, onOpenPr3dSound, onOpenPrCarKeys }) {
+export default function Scripts({ onOpenPrElevator, onOpenForgeCrafting, onOpenForgeGym, onOpenForgeGarage, onOpenForgeNpwd, onOpenForgeDocument, onOpenPr3dSound, onOpenPrCarKeys, onOpenPrMileage }) {
   const { t, locale } = useI18n();
 
   const entries = [
@@ -118,6 +125,13 @@ export default function Scripts({ onOpenPrElevator, onOpenForgeCrafting, onOpenF
       description: t('legacyPrCarKeysDesc'),
       tags: ['Vehicle Keys', 'PR Bridge', 'Hotwire', 'Carjack', 'Key Bags', 'Security'],
       onOpen: onOpenPrCarKeys,
+    },
+    {
+      name: 'pr_mileage',
+      type: 'mileage',
+      description: t('legacyPrMileageDesc'),
+      tags: ['Odometer', 'Wear', 'Vehicle Parts', 'State Bags', 'OBD', 'Simulation'],
+      onOpen: onOpenPrMileage,
     },
   ];
 
