@@ -53,7 +53,7 @@ export default function PrCarKeysDocs() {
           <Info label={pt ? 'Tipos de chave' : 'Key types'}>4</Info>
           <Info label={pt ? 'Identidade' : 'Identity'}>{pt ? 'Barcode único' : 'Unique barcode'}</Info>
           <Info label={pt ? 'Som' : 'Sound'}>PR 3D Sound</Info>
-          <Info label={pt ? 'Persistência' : 'Persistence'}>{pt ? 'Banco + cache' : 'Database + cache'}</Info>
+          <Info label={pt ? 'Persistência' : 'Persistence'}>{pt ? 'Banco + State Bags' : 'Database + State Bags'}</Info>
         </div>
       </header>
 
@@ -82,7 +82,7 @@ export default function PrCarKeysDocs() {
           <div><span>01</span><strong>{pt ? 'Criar a chave' : 'Create key'}</strong><p>{pt ? 'Cada via recebe barcode, placa, tipo, nível e configuração individual.' : 'Each copy receives barcode, plate, type, level and per-key configuration.'}</p></div>
           <div><span>02</span><strong>{pt ? 'Portar' : 'Carry'}</strong><p>{pt ? 'A chave pode ficar no inventário, dentro de uma bolsa ou temporariamente na ignição.' : 'The key can be in inventory, inside a key bag or temporarily in the ignition.'}</p></div>
           <div><span>03</span><strong>{pt ? 'Validar' : 'Validate'}</strong><p>{pt ? 'Trava, motor e ações críticas consultam o servidor antes de conceder acesso.' : 'Lock, engine and critical actions consult the server before granting access.'}</p></div>
-          <div><span>04</span><strong>{pt ? 'Sincronizar' : 'Synchronize'}</strong><p>{pt ? 'Estado local, cache, banco, item físico e veículo permanecem coerentes durante o gameplay.' : 'Local state, cache, database, physical item and vehicle stay coherent during gameplay.'}</p></div>
+          <div><span>04</span><strong>{pt ? 'Sincronizar' : 'Synchronize'}</strong><p>{pt ? 'Banco de dados, State Bags, item físico e estado do veículo permanecem coerentes durante o gameplay.' : 'Database, State Bags, physical item and vehicle state stay coherent during gameplay.'}</p></div>
         </div>
 
         <div className="crafting-feature-grid">
@@ -125,7 +125,7 @@ export default function PrCarKeysDocs() {
         <SectionTitle number="04" label="Metadata" title={pt ? 'O item físico leva os dados necessários para identificar a chave sem perder o vínculo com o registro server-side.' : 'The physical item carries enough data to identify the key while preserving its server-side registry link.'} />
         <div className="crafting-field-grid">
           {[
-            ['barcode', pt ? 'Serial único usado para localizar a via no cache/banco.' : 'Unique serial used to locate the physical copy in cache/database.'],
+            ['barcode', pt ? 'Serial único usado para localizar a via persistida no banco e relacioná-la ao estado sincronizado do veículo.' : 'Unique serial used to locate the persisted copy in the database and relate it to synchronized vehicle state.'],
             ['plate', pt ? 'Placa sanitizada do veículo associado.' : 'Sanitized plate of the associated vehicle.'],
             ['modelo', pt ? 'Label/modelo usado para leitura humana.' : 'Vehicle label/model used for display.'],
             ['code', pt ? 'Replica o barcode para providers que exibem código/serial.' : 'Mirrors barcode for providers that display a code/serial.'],
@@ -172,7 +172,7 @@ export default function PrCarKeysDocs() {
           <div><span>01</span><strong>{pt ? 'Primeiro uso' : 'First use'}</strong><p>{pt ? 'Se a bolsa ainda não possui barcode, o servidor cria e grava a identidade na metadata.' : 'If the bag has no barcode yet, server generates and stores one in metadata.'}</p></div>
           <div><span>02</span><strong>stashId</strong><p><code>pr_carkeys_bag_&lt;barcode&gt;</code></p></div>
           <div><span>03</span><strong>{pt ? 'Armazenar' : 'Store'}</strong><p>{pt ? 'Chaves mantêm barcode e configuração mesmo dentro da bolsa.' : 'Keys preserve barcode and configuration while inside the bag.'}</p></div>
-          <div><span>04</span><strong>{pt ? 'Gerenciar' : 'Manage'}</strong><p>{pt ? 'O menu lê as chaves da bolsa e cruza metadata com o registro do banco/cache.' : 'Management reads bag contents and joins item metadata with cache/database records.'}</p></div>
+          <div><span>04</span><strong>{pt ? 'Gerenciar' : 'Manage'}</strong><p>{pt ? 'O menu lê as chaves da bolsa e cruza a metadata com o registro persistido no banco.' : 'Management reads bag contents and joins item metadata with persisted database records.'}</p></div>
         </div>
       </section>
 
@@ -183,7 +183,7 @@ export default function PrCarKeysDocs() {
           <Card eyebrow="ENGINE" title={pt ? 'Motor ao destrancar' : 'Engine on unlock'}>{pt ? 'Alterna o campo motor para permitir ou impedir partida automática no unlock.' : 'Toggles the motor field to allow or prevent automatic start on unlock.'}</Card>
           <Card eyebrow="RANGE" title={pt ? 'Distância do sinal' : 'Signal distance'}>{pt ? 'Pode ser ajustada entre 1 e 30 metros no editor atual.' : 'Can be adjusted between 1 and 30 meters in the current editor.'}</Card>
           <Card eyebrow="INFO" title={pt ? 'Informações da via' : 'Copy information'}>{pt ? 'O submenu mostra placa, modelo, tipo, nível e registro/barcode.' : 'Submenu displays plate, model, type, level and registry/barcode.'}</Card>
-          <Card eyebrow="LIVE CACHE" title={pt ? 'Atualização imediata' : 'Immediate update'}>{pt ? 'Após salvar, o cache server-side e o estado client-side da chave são atualizados sem restart.' : 'After saving, server cache and client key state update without restart.'}</Card>
+          <Card eyebrow="STATE BAGS" title={pt ? 'Atualização imediata' : 'Immediate update'}>{pt ? 'Alterações de estado do veículo são sincronizadas por State Bags, enquanto a configuração persistente da chave permanece no banco.' : 'Vehicle-state changes are synchronized through State Bags while persistent key configuration remains in the database.'}</Card>
           <Card eyebrow="BAG CONTEXT" title={pt ? 'Dentro ou fora da bolsa' : 'Inside or outside a bag'}>{pt ? 'A mesma tela pode ser aberta a partir de uma chave individual ou navegando pela bolsa.' : 'The same management screen can open from an individual key or through the bag.'}</Card>
         </div>
       </section>
@@ -226,12 +226,12 @@ export default function PrCarKeysDocs() {
           <article><span>5s</span><div><strong>{pt ? 'Scanner server-side' : 'Server-side scanner'}</strong><p>{pt ? 'A rotina consulta periodicamente registros com expires_at vencido.' : 'A periodic task queries records whose expires_at has passed.'}</p></div></article>
           <article><span>01</span><div><strong>{pt ? 'Ignition first' : 'Ignition first'}</strong><p>{pt ? 'Se a via está no veículo, ela é removida do registro de ignição e o motor é forçado a desligar.' : 'If the copy is in a vehicle, it is removed from ignition registry and the engine is forced off.'}</p></div></article>
           <article><span>02</span><div><strong>{pt ? 'Inventário e bolsas' : 'Inventory & bags'}</strong><p>{pt ? 'O barcode é procurado e removido de players online e dos containers associados.' : 'Barcode is searched and removed from online players and associated containers.'}</p></div></article>
-          <article><span>03</span><div><strong>{pt ? 'Banco e cache' : 'Database & cache'}</strong><p>{pt ? 'Por fim o registro é deletado e o cache invalidado; existe uma verificação defensiva da remoção.' : 'Finally the row is deleted and cache invalidated; deletion is defensively verified.'}</p></div></article>
+          <article><span>03</span><div><strong>{pt ? 'Banco e State Bags' : 'Database & State Bags'}</strong><p>{pt ? 'Por fim o registro persistido é removido do banco e os estados sincronizados associados ao veículo são limpos/atualizados conforme o fluxo.' : 'Finally the persisted record is removed from the database and synchronized vehicle states are cleared/updated as required by the flow.'}</p></div></article>
         </div>
       </section>
 
       <section className="docs-section" id="carkeys-storage">
-        <SectionTitle number="13" label={pt ? 'Persistência e cache' : 'Persistence & cache'} title={pt ? 'Uma tabela central guarda a configuração individual de cada barcode.' : 'One central table stores per-barcode configuration.'} />
+        <SectionTitle number="13" label={pt ? 'Persistência e State Bags' : 'Persistence & State Bags'} title={pt ? 'O banco persiste cada barcode e as State Bags sincronizam estados relevantes do veículo em runtime.' : 'The database persists each barcode while State Bags synchronize relevant vehicle state at runtime.'} />
         <div className="crafting-db-grid">
           <article><code>barcode</code><strong>{pt ? 'Identidade da via' : 'Copy identity'}</strong><p>{pt ? 'Único e indexado.' : 'Unique and indexed.'}</p></article>
           <article><code>citizenid</code><strong>{pt ? 'Titular registrado' : 'Registered owner'}</strong><p>{pt ? 'Identificador do dono da chave.' : 'Identifier for the key owner.'}</p></article>
@@ -244,7 +244,7 @@ export default function PrCarKeysDocs() {
           <article><code>expires_at</code><strong>{pt ? 'Expiração' : 'Expiration'}</strong><p>{pt ? 'Timestamp para vias temporizadas.' : 'Timestamp for timed copies.'}</p></article>
         </div>
         <div className="docs-prose">
-          <p>{pt ? 'O cache server-side evita consultar a tabela a cada clique da chave. Criação, edição, expiração e remoção atualizam ou invalidam o cache no mesmo fluxo da persistência.' : 'Server cache avoids querying the table on every key press. Creation, editing, expiration and deletion update or invalidate cache in the same persistence flow.'}</p>
+          <p>{pt ? 'O banco mantém a configuração persistente de cada chave, enquanto State Bags replicadas sincronizam estados do veículo, como <code>doorslockstate</code> e estados temporários usados durante efeitos de partida. Assim, persistência e sincronização de runtime permanecem separadas.' : 'The database keeps each key's persistent configuration, while replicated State Bags synchronize vehicle state such as <code>doorslockstate</code> and temporary states used during start/rev effects. Persistence and runtime synchronization therefore remain separate.'}</p>
         </div>
       </section>
 
@@ -312,7 +312,7 @@ export default function PrCarKeysDocs() {
       <section className="crafting-source-note">
         <span>{pt ? 'Revisão do código' : 'Source review'}</span>
         <h2>{pt ? 'Documentação construída a partir da implementação atual do pr_carkeys v1.3.1.' : 'Documentation built from the current pr_carkeys v1.3.1 implementation.'}</h2>
-        <p>{pt ? 'Foram revisados o modelo de chaves, metadata, bolsas, gerenciamento individual, cache, persistência, lock/unlock, ignição, hotwire, carjack, polícia, expiração, integração PR Bridge, PR 3D Sound e exports públicos.' : 'The key model, metadata, bags, per-key management, cache, persistence, lock/unlock, ignition, hotwire, carjack, police, expiration, PR Bridge integration, PR 3D Sound and public exports were reviewed.'}</p>
+        <p>{pt ? 'Foram revisados o modelo de chaves, metadata, bolsas, gerenciamento individual, persistência em banco, State Bags, lock/unlock, ignição, hotwire, carjack, polícia, expiração, integração PR Bridge, PR 3D Sound e exports públicos.' : 'The key model, metadata, bags, per-key management, database persistence, State Bags, lock/unlock, ignition, hotwire, carjack, police, expiration, PR Bridge integration, PR 3D Sound and public exports were reviewed.'}</p>
         <div className="crafting-hero-actions">
           <a className="docs-primary-button" href={REPO} target="_blank" rel="noreferrer">Pierremoraes-ofc/pr_carkeys</a>
         </div>
