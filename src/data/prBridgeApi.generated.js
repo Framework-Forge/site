@@ -1,5 +1,6 @@
-// AUTO-GENERATED from Pierremoraes-ofc/pr_bridge current main + docs/functions_datails.md
-// Public documentation links intentionally remain on Framework-Forge/pr_bridge.
+// AUTO-GENERATED function catalog snapshot from Pierremoraes-ofc/pr_bridge + docs/functions_datails.md
+// Runtime/release documentation is maintained separately in PrBridgeDocs.jsx and may audit newer commits.
+// Public repository: Pierremoraes-ofc/pr_bridge.
 export const PR_BRIDGE_API = [
   {
     "module": "core",

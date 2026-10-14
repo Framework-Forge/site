@@ -435,6 +435,8 @@ function ForgeDocs() {
   const bridgeTopics = [
     ['bridge-overview', t('prBridgeTopicOverview')],
     ['bridge-install', t('prBridgeTopicInstall')],
+    ['bridge-release', t('prBridgeTopicRelease')],
+    ['bridge-ox-compat', t('prBridgeTopicOxCompat')],
     ['bridge-architecture', t('prBridgeTopicArchitecture')],
     ['bridge-adapters', t('prBridgeTopicAdapters')],
     ['bridge-framework', t('prBridgeTopicFramework')],

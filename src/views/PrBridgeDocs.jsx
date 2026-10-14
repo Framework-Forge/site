@@ -45,7 +45,7 @@ const T = {
     extendTitle:'Extending PR Bridge: add providers without changing downstream scripts.', extendP:'New adapters follow bridge/<category>/<provider>/<context>.lua. Add provider detection to ConfigBridge and implement the normalized contract. Custom framework stubs and normalizers let an adapter start small and grow incrementally.',
     apiTitle:'API catalog synchronized from the current development source.', apiP:'The catalog is rebuilt from the current PR Bridge development source and its audited detailed-function document, then supplemented with public APIs present in the current runtime that are not yet listed in that document. The catalog below groups the callable surface by namespace.',
     noteRadial:'PR Bridge exposes a dedicated pr_lib.interact namespace with its own world-interaction runtime and NUI. Radial-menu helpers are exposed through the interface module and convenience aliases.', production:'Production guidance',
-    source:'This documentation is audited against the current PR Bridge development source (v1.3.1). The public repository is maintained at Pierremoraes-ofc/pr_bridge.'
+    source:'Runtime and release documentation is audited against PR Bridge v1.4.2 (main: 26d18bf). The generated function-by-function catalog remains a source snapshot and is identified separately in the API catalog. The public repository is maintained at Pierremoraes-ofc/pr_bridge.'
   },
   'pt-BR': {
     kicker:'Plataforma standalone de compatibilidade e desenvolvimento',
@@ -68,17 +68,17 @@ const T = {
     extendTitle:'Expandindo o PR Bridge: adicione providers sem alterar scripts consumidores.', extendP:'Novos adapters seguem bridge/<categoria>/<provider>/<context>.lua. Adicione a detecção em ConfigBridge e implemente o contrato normalizado. Stubs de framework custom e normalizers permitem começar pequeno e evoluir.',
     apiTitle:'Catálogo da API sincronizado com a fonte atual de desenvolvimento.', apiP:'O catálogo foi reconstruído a partir da fonte atual de desenvolvimento do PR Bridge e do documento auditado de funções detalhadas, complementado pelas APIs públicas presentes no runtime atual que ainda não constam nesse documento. O catálogo abaixo agrupa a superfície chamável por namespace.',
     noteRadial:'O PR Bridge expõe um namespace pr_lib.interact dedicado, com runtime próprio de interação no mundo e NUI. O menu radial é exposto pela interface e por aliases de conveniência.', production:'Boas práticas de produção',
-    source:'Esta documentação foi auditada contra a fonte atual de desenvolvimento do PR Bridge (v1.3.1). O repositório público é mantido em Pierremoraes-ofc/pr_bridge.'
+    source:'A documentação de runtime e release foi auditada contra o PR Bridge v1.4.2 (main: 26d18bf). O catálogo gerado função por função continua sendo um snapshot identificado separadamente no Catálogo da API. O repositório público é mantido em Pierremoraes-ofc/pr_bridge.'
   },
   es: {
     kicker:'Plataforma standalone de compatibilidad y desarrollo', lead:'PR Bridge es una plataforma independiente para FiveM. No depende de Forge Framework: cualquier recurso puede usarla para normalizar frameworks, inventarios, bases de datos, targets, menús, notificaciones, teléfonos, banking, vehículos y utilidades nativas mediante pr_lib.', repo:'Repositorio',api:'API_FUNCTIONS.md',version:'Versión',calls:'Llamadas documentadas',contexts:'Contextos',architecture:'Arquitectura',
     overviewTitle:'Una API estable entre tu recurso y toda la stack FiveM.', overviewP1:'El core carga sin framework u ox_lib; adapters opcionales se eligen en runtime.', overviewP2:'La lógica usa namespaces pr_lib sin ramas específicas del provider.', overviewP3:'También incluye callbacks, comandos, keybinds, ACE, loaders, cache, traducción, DUI, streaming, raycast, vehículos y devtools.',
     installTitle:'Instala una vez y úsalo desde cualquier recurso.', installP1:'Inicia pr_bridge antes e importa @pr_bridge/init.lua; Lua 5.4 es obligatorio.', installP2:'El import crea pr_lib por recurso y detecta providers activos.', architectureTitle:'Loader, detección, normalización y utilidades son capas separadas.', adaptersTitle:'Providers autodetectados y extensión custom.', adaptersP:'La prioridad vive en bridge/config.lua; framework/DB pueden forzarse o quedar en auto.',
-    frameworkTitle:'API Framework: jugador, jobs, dinero y metadata.', frameworkP:'Normaliza QB/QBX, ESX, OX, ND, TMC y custom.', inventoryTitle:'API Inventario: items, slots, metadata, stashes y shops.', inventoryP:'Normaliza count/amount, metadata/info y slots, con ciclo completo de inventario.', databaseTitle:'API Database sobre oxmysql, ghmattimysql y mysql-async.', databaseP:'Normaliza queries y añade backups SQL.', uiTitle:'UI y menús independientes del provider.', uiP:'Context menus, input, alerts, notifications, TextUI y progress.', targetTitle:'Target e interacción mediante una API.', targetP:'Zones, modelos, entidades, players, peds y vehículos con ox_target/core_focus/qb-target.', cacheTitle:'Cache con memoización e invalidación.', cacheP:'set/get, clearPrefix, remember, onChange, player metadata y vehicleCache.', callbacksTitle:'Callbacks request-response.', callbacksP:'await/trigger/cancel/pending en client/server.', securityTitle:'Commands, keybinds y permisos.', securityP:'Tipos, ACE, whitelist, jobs/groups y combos de teclas.', devTitle:'Herramientas dev.', devP:'Placement, zones, gizmo, laser y debugging.', fivemTitle:'Utilidades FiveM.', fivemP:'Streaming, vehículos, queries del mundo, blips, raycasts y UI.', duiTitle:'DUI y texturas interactivas.', duiP:'Browser surfaces, sprites, poly, render targets, replacement textures y mouse/focus.', extendTitle:'Extender PR Bridge sin cambiar consumidores.', extendP:'Añade adapters bajo bridge/<category>/<provider>/<context>.lua.', apiTitle:'Catálogo API sincronizado con la fuente actual de desarrollo.', apiP:'El catálogo se reconstruye desde la fuente actual de desarrollo y el documento auditado de funciones, complementado con APIs públicas presentes en el runtime actual.', noteRadial:'PR Bridge expone pr_lib.interact con runtime/NUI propios y helpers de menú radial mediante la interfaz.', production:'Producción', source:'Auditado contra la fuente actual de desarrollo de PR Bridge (v1.3.1), con el repositorio público mantenido en Pierremoraes-ofc/pr_bridge.'
+    frameworkTitle:'API Framework: jugador, jobs, dinero y metadata.', frameworkP:'Normaliza QB/QBX, ESX, OX, ND, TMC y custom.', inventoryTitle:'API Inventario: items, slots, metadata, stashes y shops.', inventoryP:'Normaliza count/amount, metadata/info y slots, con ciclo completo de inventario.', databaseTitle:'API Database sobre oxmysql, ghmattimysql y mysql-async.', databaseP:'Normaliza queries y añade backups SQL.', uiTitle:'UI y menús independientes del provider.', uiP:'Context menus, input, alerts, notifications, TextUI y progress.', targetTitle:'Target e interacción mediante una API.', targetP:'Zones, modelos, entidades, players, peds y vehículos con ox_target/core_focus/qb-target.', cacheTitle:'Cache con memoización e invalidación.', cacheP:'set/get, clearPrefix, remember, onChange, player metadata y vehicleCache.', callbacksTitle:'Callbacks request-response.', callbacksP:'await/trigger/cancel/pending en client/server.', securityTitle:'Commands, keybinds y permisos.', securityP:'Tipos, ACE, whitelist, jobs/groups y combos de teclas.', devTitle:'Herramientas dev.', devP:'Placement, zones, gizmo, laser y debugging.', fivemTitle:'Utilidades FiveM.', fivemP:'Streaming, vehículos, queries del mundo, blips, raycasts y UI.', duiTitle:'DUI y texturas interactivas.', duiP:'Browser surfaces, sprites, poly, render targets, replacement textures y mouse/focus.', extendTitle:'Extender PR Bridge sin cambiar consumidores.', extendP:'Añade adapters bajo bridge/<category>/<provider>/<context>.lua.', apiTitle:'Catálogo API sincronizado con la fuente actual de desarrollo.', apiP:'El catálogo se reconstruye desde la fuente actual de desarrollo y el documento auditado de funciones, complementado con APIs públicas presentes en el runtime actual.', noteRadial:'PR Bridge expone pr_lib.interact con runtime/NUI propios y helpers de menú radial mediante la interfaz.', production:'Producción', source:'Runtime y release auditados contra PR Bridge v1.4.2 (main: 26d18bf). El catálogo generado función por función sigue siendo un snapshot identificado por separado. Repositorio público: Pierremoraes-ofc/pr_bridge.'
   },
   fr: {
     kicker:'Plateforme standalone de compatibilité et développement', lead:'PR Bridge est une plateforme indépendante pour FiveM. Elle n’est pas liée à Forge Framework : toute ressource peut normaliser frameworks, inventaires, DB, targets, menus, notifications, téléphones, banking, véhicules et outils natifs via pr_lib.', repo:'Dépôt',api:'API_FUNCTIONS.md',version:'Version',calls:'Appels documentés',contexts:'Contextes',architecture:'Architecture',
-    overviewTitle:'Une API stable entre votre ressource et toute la stack FiveM.', overviewP1:'Le core charge sans framework ni ox_lib ; les adapters sont choisis au runtime.', overviewP2:'La logique consomme pr_lib sans branches propres au provider.', overviewP3:'Callbacks, commands, keybinds, ACE, loaders, cache, traduction, DUI, streaming, raycast, véhicules et devtools sont inclus.', installTitle:'Installez une fois, utilisez partout.', installP1:'Démarrez pr_bridge puis importez @pr_bridge/init.lua ; Lua 5.4 est requis.', installP2:'L’import crée pr_lib par ressource et détecte les providers actifs.', architectureTitle:'Loader, détection, normalisation et utilitaires sont séparés.', adaptersTitle:'Providers auto-détectés et extension custom.', adaptersP:'La priorité est dans bridge/config.lua ; framework/DB peuvent être forcés.', frameworkTitle:'API Framework : joueur, jobs, argent et metadata.', frameworkP:'Normalise QB/QBX, ESX, OX, ND, TMC et custom.', inventoryTitle:'API Inventaire : items, slots, metadata, stashes et shops.', inventoryP:'Normalise count/amount, metadata/info et slots.', databaseTitle:'API Database pour oxmysql, ghmattimysql et mysql-async.', databaseP:'Normalise les requêtes et ajoute les backups SQL.', uiTitle:'UI et menus indépendants du provider.', uiP:'Context menus, input, alerts, notifications, TextUI et progress.', targetTitle:'Target et interaction via une API.', targetP:'Zones, modèles, entités, players, peds, véhicules avec ox_target/core_focus/qb-target.', cacheTitle:'Cache avec memoization et invalidation.', cacheP:'set/get, clearPrefix, remember, onChange, player metadata et vehicleCache.', callbacksTitle:'Callbacks request-response.', callbacksP:'await/trigger/cancel/pending côté client/serveur.', securityTitle:'Commands, keybinds et permissions.', securityP:'Types, ACE, whitelist, jobs/groups et combinaisons.', devTitle:'Outils dev.', devP:'Placement, zones, gizmo, laser et debug.', fivemTitle:'Utilitaires FiveM.', fivemP:'Streaming, véhicules, world queries, blips, raycasts et UI.', duiTitle:'DUI et textures interactives.', duiP:'Browser surfaces, sprites, polys, render targets, replacement textures, souris/focus.', extendTitle:'Étendre PR Bridge sans changer les consommateurs.', extendP:'Ajoutez les adapters sous bridge/<category>/<provider>/<context>.lua.', apiTitle:'Catalogue API synchronisé avec la source de développement actuelle.', apiP:'Le catalogue est reconstruit depuis la source de développement actuelle et le document audité des fonctions, complété par les APIs publiques présentes dans le runtime actuel.', noteRadial:'PR Bridge expose pr_lib.interact avec son propre runtime/NUI et des helpers de menu radial via l’interface.', production:'Production', source:'Audité contre la source de développement actuelle de PR Bridge (v1.3.1), avec le dépôt public maintenu sur Pierremoraes-ofc/pr_bridge.'
+    overviewTitle:'Une API stable entre votre ressource et toute la stack FiveM.', overviewP1:'Le core charge sans framework ni ox_lib ; les adapters sont choisis au runtime.', overviewP2:'La logique consomme pr_lib sans branches propres au provider.', overviewP3:'Callbacks, commands, keybinds, ACE, loaders, cache, traduction, DUI, streaming, raycast, véhicules et devtools sont inclus.', installTitle:'Installez une fois, utilisez partout.', installP1:'Démarrez pr_bridge puis importez @pr_bridge/init.lua ; Lua 5.4 est requis.', installP2:'L’import crée pr_lib par ressource et détecte les providers actifs.', architectureTitle:'Loader, détection, normalisation et utilitaires sont séparés.', adaptersTitle:'Providers auto-détectés et extension custom.', adaptersP:'La priorité est dans bridge/config.lua ; framework/DB peuvent être forcés.', frameworkTitle:'API Framework : joueur, jobs, argent et metadata.', frameworkP:'Normalise QB/QBX, ESX, OX, ND, TMC et custom.', inventoryTitle:'API Inventaire : items, slots, metadata, stashes et shops.', inventoryP:'Normalise count/amount, metadata/info et slots.', databaseTitle:'API Database pour oxmysql, ghmattimysql et mysql-async.', databaseP:'Normalise les requêtes et ajoute les backups SQL.', uiTitle:'UI et menus indépendants du provider.', uiP:'Context menus, input, alerts, notifications, TextUI et progress.', targetTitle:'Target et interaction via une API.', targetP:'Zones, modèles, entités, players, peds, véhicules avec ox_target/core_focus/qb-target.', cacheTitle:'Cache avec memoization et invalidation.', cacheP:'set/get, clearPrefix, remember, onChange, player metadata et vehicleCache.', callbacksTitle:'Callbacks request-response.', callbacksP:'await/trigger/cancel/pending côté client/serveur.', securityTitle:'Commands, keybinds et permissions.', securityP:'Types, ACE, whitelist, jobs/groups et combinaisons.', devTitle:'Outils dev.', devP:'Placement, zones, gizmo, laser et debug.', fivemTitle:'Utilitaires FiveM.', fivemP:'Streaming, véhicules, world queries, blips, raycasts et UI.', duiTitle:'DUI et textures interactives.', duiP:'Browser surfaces, sprites, polys, render targets, replacement textures, souris/focus.', extendTitle:'Étendre PR Bridge sans changer les consommateurs.', extendP:'Ajoutez les adapters sous bridge/<category>/<provider>/<context>.lua.', apiTitle:'Catalogue API synchronisé avec la source de développement actuelle.', apiP:'Le catalogue est reconstruit depuis la source de développement actuelle et le document audité des fonctions, complété par les APIs publiques présentes dans le runtime actuel.', noteRadial:'PR Bridge expose pr_lib.interact avec son propre runtime/NUI et des helpers de menu radial via l’interface.', production:'Production', source:'Runtime et release audités contre PR Bridge v1.4.2 (main : 26d18bf). Le catalogue généré fonction par fonction reste un snapshot identifié séparément. Dépôt public : Pierremoraes-ofc/pr_bridge.'
   }
 };
 
@@ -86,12 +86,14 @@ const Code=({children})=><LuaCodeBlock>{children}</LuaCodeBlock>;
 const Card=({k,title,children})=><article className="bridge-card"><span>{k}</span><h3>{title}</h3><p>{children}</p></article>;
 
 const TOPICS = [
-  'bridge-overview','bridge-install','bridge-architecture','bridge-adapters','bridge-framework','bridge-inventory',
+  'bridge-overview','bridge-install','bridge-release','bridge-ox-compat','bridge-architecture','bridge-adapters','bridge-framework','bridge-inventory',
   'bridge-database','bridge-ui','bridge-target','bridge-cache','bridge-callbacks','bridge-security',
   'bridge-dev','bridge-fivem','bridge-dui','bridge-expand','bridge-api','bridge-source-audit'
 ];
 
 const TOPIC_MODULES = {
+  'bridge-release': ['core','callback','target','interact','fivem.vehicleProperties','weather','phone','fuel','ace','addcommand','addkeybind'],
+  'bridge-ox-compat': ['core','callback','target','radial','progressbar','notification','menu','fivem.vehicleProperties','fivem.streaming','fivem.raycast'],
   'bridge-architecture': ['core','locale','utils','math','table','ids'],
   'bridge-framework': ['framework'],
   'bridge-inventory': ['inventory'],
@@ -107,7 +109,7 @@ const TOPIC_MODULES = {
 };
 
 const TOPIC_NAMES = {
-  'bridge-overview':'Overview','bridge-install':'Installation','bridge-architecture':'Architecture','bridge-adapters':'Adapters',
+  'bridge-overview':'Overview','bridge-install':'Installation','bridge-release':'PR Bridge 1.4.2','bridge-ox-compat':'ox_lib / ox_target','bridge-architecture':'Architecture','bridge-adapters':'Adapters',
   'bridge-framework':'Framework API','bridge-inventory':'Inventory API','bridge-database':'Database API','bridge-ui':'UI & menus',
   'bridge-target':'Target & interaction','bridge-cache':'Cache','bridge-callbacks':'Callbacks & events',
   'bridge-security':'Commands & permissions','bridge-dev':'Developer tools','bridge-fivem':'FiveM utilities',
@@ -179,7 +181,7 @@ export default function PrBridgeDocs({ topic = 'bridge-overview', onNavigateTopi
         <div className="bridge-actions">
           <a className="docs-primary-button" href="https://github.com/Pierremoraes-ofc/pr_bridge" target="_blank" rel="noreferrer">{d.repo}</a>
         </div>
-        <div className="bridge-pill-row"><span>standalone</span><span>framework agnostic</span><span>expandable</span><span>developer toolkit</span></div>
+        <div className="bridge-pill-row"><span>v1.4.2</span><span>standalone</span><span>framework agnostic</span><span>ox_lib / ox_target compat</span><span>developer toolkit</span></div>
       </div>
       <aside className="bridge-summary">
         <div className="bridge-summary-logo"><b>PR</b><strong>BRIDGE</strong></div>
@@ -197,7 +199,9 @@ export default function PrBridgeDocs({ topic = 'bridge-overview', onNavigateTopi
       <div className="bridge-stat-grid bridge-overview-stat-grid"><article><strong>{PR_BRIDGE_API_COUNT}</strong><p>Callable API entries</p></article><article><strong>{PR_BRIDGE_MODULES.length}</strong><p>API families</p></article><article><strong>3</strong><p>Runtime contexts</p></article><article><strong>0</strong><p>Required RP frameworks</p></article></div>
       <div className="bridge-card-grid two bridge-overview-feature-grid">
         <Card k="COMPAT" title="Compatibility layer">Resources depend on one contract while PR Bridge handles the active framework/provider underneath.</Card>
+        <Card k="OX" title="Integrated ox compatibility">v1.4.2 can provide ox_lib and ox_target identities and route supported legacy APIs into native PR implementations without a separate compatibility resource.</Card>
         <Card k="DX" title="Developer platform">The same import also provides cache, callbacks, commands, translation, streaming, DUI and editor-oriented utilities.</Card>
+        <Card k="PERSIST" title="Hardened persistence">JSON persistence now includes backup/recovery, local locks, batch writes, rollback attempts and incident records.</Card>
         <Card k="PORTABLE" title="Portable resources">Move a script between supported stacks without rewriting its business rules around provider names.</Card>
         <Card k="CUSTOM" title="Custom providers">Implement a new adapter or custom framework and keep downstream resources unchanged.</Card>
       </div>
@@ -210,11 +214,223 @@ export default function PrBridgeDocs({ topic = 'bridge-overview', onNavigateTopi
     <div className="bridge-prose"><p>{d.installP2}</p></div>
     <Code>{"-- server.cfg\nensure pr_bridge\nensure my_resource\n\n-- my_resource/fxmanifest.lua\nfx_version 'cerulean'\ngame 'gta5'\nlua54 'yes'\n\nshared_scripts {\n    '@pr_bridge/init.lua',\n}\n\n-- after import\nprint(pr_lib.name)\nprint(pr_lib.context)\nprint(json.encode(pr_lib.activeBridges))"}</Code>
     <div className="bridge-note"><strong>Load order</strong><p>pr_bridge must be started before every resource that imports @pr_bridge/init.lua. Importing twice or consuming it without Lua 5.4 is rejected by the loader.</p></div>
+    <div className="bridge-note"><strong>ox_lib / ox_target replacement mode</strong><p>PR Bridge 1.4.2 declares <code>provide('ox_lib')</code> and <code>provide('ox_target')</code>. To validate it as a replacement, keep the original resources stopped, start pr_bridge before legacy consumers and restart consumers after changing providers. If the originals are running, they remain responsible for their own legacy exports.</p></div>
+    {commonFooter}
+  </div>;
+
+  if (topic === 'bridge-release') return <div className="bridge-docs bridge-docs-page">
+    <TopicHeader
+      number="03"
+      eyebrow="PR Bridge 1.4.2"
+      title={locale === 'pt-BR'
+        ? 'A atualização 1.4.2 amplia persistência, runtime, integrações, compatibilidade ox e corrige pontos críticos de Target/NUI.'
+        : 'Release 1.4.2 expands persistence, runtime integrations and ox compatibility while fixing critical Target/NUI behavior.'}
+      text={locale === 'pt-BR'
+        ? 'Esta página resume as mudanças incorporadas desde a linha 1.3.x e documenta o comportamento atual do código.'
+        : 'This page summarizes changes added since the 1.3.x line and documents current runtime behavior.'}
+    />
+
+    <div className="bridge-stat-grid bridge-overview-stat-grid">
+      <article><strong>1.4.2</strong><p>{locale === 'pt-BR' ? 'versão atual do manifest' : 'current manifest version'}</p></article>
+      <article><strong>311</strong><p>{locale === 'pt-BR' ? 'entradas do catálogo ox consolidado' : 'consolidated ox catalog entries'}</p></article>
+      <article><strong>33</strong><p>{locale === 'pt-BR' ? 'locales ox incorporados' : 'bundled ox locales'}</p></article>
+      <article><strong>0</strong><p>{locale === 'pt-BR' ? 'frameworks RP obrigatórios' : 'required RP frameworks'}</p></article>
+    </div>
+
+    <h3 className="bridge-subtitle">{locale === 'pt-BR' ? 'Novas capacidades' : 'New capabilities'}</h3>
+    <div className="bridge-card-grid two">
+      <Card k="JSON" title={locale === 'pt-BR' ? 'Persistência JSON resiliente' : 'Resilient JSON persistence'}>
+        {locale === 'pt-BR'
+          ? 'Backup e recuperação, locks locais, escrita em lote com tentativa de restauração e registro de incidentes reduzem risco de corrupção e concorrência.'
+          : 'Backup/recovery, local locks, batch writes with restoration attempts and incident recording reduce corruption and concurrency risks.'}
+      </Card>
+      <Card k="RESOURCE" title={locale === 'pt-BR' ? 'Cache de resources' : 'Resource-state cache'}>
+        {locale === 'pt-BR'
+          ? 'GetResourceState e OnResourceState centralizam estado de resources; configuração de idioma/interface mantém revisão em memória e sincronização por eventos.'
+          : 'GetResourceState and OnResourceState centralize resource state; language/UI settings keep in-memory revisions synchronized by events.'}
+      </Card>
+      <Card k="PICKUPS" title={locale === 'pt-BR' ? 'Target para pickups' : 'Pickup targeting'}>
+        {locale === 'pt-BR'
+          ? 'Registro global, por tipo e por pickup específico foi adicionado ao Target nativo e à borda de compatibilidade ox.'
+          : 'Global, type-based and specific pickup registration was added to native Target and the ox compatibility edge.'}
+      </Card>
+      <Card k="PEDS" title={locale === 'pt-BR' ? 'NPCs animados no placement' : 'Animated placement peds'}>
+        {locale === 'pt-BR'
+          ? 'placeAnimatedPed aceita cenário/animação e preserva pose/referência vertical durante o preview, com guias de posicionamento controláveis.'
+          : 'placeAnimatedPed accepts scenarios/animations and preserves pose/vertical reference during preview with controllable placement guides.'}
+      </Card>
+      <Card k="INTEGRATIONS" title={locale === 'pt-BR' ? 'Novas integrações de gameplay' : 'New gameplay integrations'}>
+        {locale === 'pt-BR'
+          ? 'Garagens de propriedades, portas, emotes, prisão, facade policial opcional e utilitário compartilhado de progressão passam a fazer parte da plataforma.'
+          : 'Property garages, doors, emotes, prison, optional police facade and shared progression utilities are now part of the platform.'}
+      </Card>
+      <Card k="PLAYER" title={locale === 'pt-BR' ? 'Jogador, catálogo e telefone' : 'Player, catalog & phone'}>
+        {locale === 'pt-BR'
+          ? 'Foram adicionadas APIs de catálogo de veículos, jogador offline, prontidão de sessão QBX, perfil de telefone normalizado e consulta ao aparelho ativo no Forge NPWD.'
+          : 'Vehicle catalog, offline player lookup, QBX session readiness, normalized phone profiles and Forge NPWD active-device lookup were added.'}
+      </Card>
+      <Card k="WEATHER" title={locale === 'pt-BR' ? 'Renewed Weather ampliado' : 'Expanded Renewed Weather'}>
+        {locale === 'pt-BR'
+          ? 'Snapshots, clima regional, previsão semanal e listeners complementam o adapter; standalone também ganhou fallback nativo de combustível.'
+          : 'Snapshots, regional weather, weekly forecasts and listeners expand the adapter; standalone also gained a native fuel fallback.'}
+      </Card>
+      <Card k="ENV" title={locale === 'pt-BR' ? 'Ambientes e callbacks' : 'Environments & callbacks'}>
+        {locale === 'pt-BR'
+          ? 'O runtime pode distinguir production/development/test e selecionar callbacks legacy ou secure, mantendo ferramentas de desenvolvimento sob acesso controlado.'
+          : 'Runtime can distinguish production/development/test and select legacy or secure callbacks while keeping developer tooling access-controlled.'}
+      </Card>
+    </div>
+
+    <h3 className="bridge-subtitle">{locale === 'pt-BR' ? 'Correções relevantes' : 'Important fixes'}</h3>
+    <div className="bridge-card-grid two">
+      <Card k="TARGET" title={locale === 'pt-BR' ? 'Visibilidade, parede e sessões' : 'Visibility, walls & sessions'}>
+        {locale === 'pt-BR'
+          ? 'Target corrigiu obstrução/visibilidade de opções e marcadores, exceções de parede e proteção contra sessões antigas após abrir/fechar rapidamente.'
+          : 'Target fixes option/marker obstruction, wall exceptions and stale-session protection after rapid open/close cycles.'}
+      </Card>
+      <Card k="FOCUS" title={locale === 'pt-BR' ? 'Foco NUI protegido' : 'Protected NUI focus'}>
+        {locale === 'pt-BR'
+          ? 'Um fechamento tardio de Target não libera mais o foco de outra interface aberta pela ação. Interact também respeita o bloqueio de parede por interação.'
+          : 'A late Target close no longer releases focus from another interface opened by an action. Interact also honors per-interaction wall blocking.'}
+      </Card>
+      <Card k="NOTIFY" title={locale === 'pt-BR' ? 'Listener de rede único' : 'Centralized network listener'}>
+        {locale === 'pt-BR'
+          ? 'Notificações de rede são centralizadas no host, evitando listeners duplicados quando vários consumers importam o bridge.'
+          : 'Network notifications are centralized in the host, preventing duplicate listeners when multiple consumers import the bridge.'}
+      </Card>
+      <Card k="UI" title={locale === 'pt-BR' ? 'Metadata responsiva' : 'Responsive metadata'}>
+        {locale === 'pt-BR'
+          ? 'Svelte/Vue agora lidam melhor com altura dinâmica, rolagem e reposicionamento dentro da tela, incluindo fallback de logo.'
+          : 'Svelte/Vue handle dynamic height, scrolling and screen repositioning more reliably, including logo fallback.'}
+      </Card>
+      <Card k="SQL" title={locale === 'pt-BR' ? 'Semântica SQL normalizada' : 'Normalized SQL semantics'}>
+        {locale === 'pt-BR'
+          ? 'update foi normalizado para linhas afetadas e transaction aceita callback como segundo argumento nos adapters implementados.'
+          : 'update now normalizes affected-row counts and transaction accepts a callback as its second argument in implemented adapters.'}
+      </Card>
+      <Card k="ACE" title={locale === 'pt-BR' ? 'Permissões consistentes' : 'Consistent permissions'}>
+        {locale === 'pt-BR'
+          ? 'Comandos/ACE normalizam permissões e whitelist administrativa; o adapter QBX também propaga corretamente o resultado de adicionar dinheiro.'
+          : 'Commands/ACE normalize permissions and admin whitelist behavior; QBX now propagates add-money results correctly.'}
+      </Card>
+      <Card k="PLACEMENT" title={locale === 'pt-BR' ? 'Câmera do posicionador' : 'Placement camera'}>
+        {locale === 'pt-BR'
+          ? 'SHIFT + scroll ajusta a câmera sem modificar a geometria posicionada; preview de ped animado mantém pose e referência vertical.'
+          : 'SHIFT + scroll adjusts the camera without changing positioned geometry; animated-ped preview keeps pose and vertical reference.'}
+      </Card>
+      <Card k="GLITCH" title={locale === 'pt-BR' ? 'Provider de minigame diagnosticável' : 'Diagnosable minigame provider'}>
+        {locale === 'pt-BR'
+          ? 'Glitch detecta provider iniciado, reporta indisponibilidade e prepara o fluxo de integração para Plasma Drilling.'
+          : 'Glitch detects a running provider, reports unavailability and prepares the integration path for Plasma Drilling.'}
+      </Card>
+    </div>
+
+    <ReferenceBlock locale={locale} modules={TOPIC_MODULES[topic]} />
+    {commonFooter}
+  </div>;
+
+  if (topic === 'bridge-ox-compat') return <div className="bridge-docs bridge-docs-page">
+    <TopicHeader
+      number="04"
+      eyebrow="ox_lib / ox_target"
+      title={locale === 'pt-BR'
+        ? 'Compatibilidade ox integrada ao próprio PR Bridge, sem resource auxiliar e sem duplicar os serviços.'
+        : 'ox compatibility is integrated directly into PR Bridge without a sidecar resource or duplicated services.'}
+      text={locale === 'pt-BR'
+        ? 'A camada de compatibilidade preserva chamadas legadas na borda e redireciona a implementação para motores nativos do PR Bridge sempre que possível.'
+        : 'The compatibility layer preserves legacy calls at the edge and routes implementation into native PR Bridge engines whenever possible.'}
+    />
+
+    <div className="bridge-stat-grid bridge-overview-stat-grid">
+      <article><strong>71</strong><p>{locale === 'pt-BR' ? 'arquivos de imports encaminhados' : 'forwarded import files'}</p></article>
+      <article><strong>59</strong><p>{locale === 'pt-BR' ? 'módulos de utilidade' : 'utility modules'}</p></article>
+      <article><strong>63</strong><p>{locale === 'pt-BR' ? 'símbolos de primeiro nível' : 'top-level symbols'}</p></article>
+      <article><strong>311</strong><p>{locale === 'pt-BR' ? 'entradas consolidadas no catálogo' : 'consolidated catalog entries'}</p></article>
+    </div>
+
+    <div className="bridge-card-grid two">
+      <Card k="PROVIDE" title="FiveM provide">
+        {locale === 'pt-BR'
+          ? 'O manifest declara provide para ox_lib e ox_target. Isso permite que consumers mantenham dependency/shared_script legados quando o PR Bridge é o provider escolhido.'
+          : 'The manifest declares provide for ox_lib and ox_target, allowing consumers to keep legacy dependency/shared_script declarations when PR Bridge is selected as provider.'}
+      </Card>
+      <Card k="IMPORTS" title={locale === 'pt-BR' ? 'Importação Lua' : 'Lua imports'}>
+        {locale === 'pt-BR'
+          ? '@ox_lib/init.lua é atendido pela camada integrada; utilitários são carregados sob demanda no ambiente do consumer.'
+          : '@ox_lib/init.lua is served by the integrated layer; utilities are loaded on demand inside the consumer environment.'}
+      </Card>
+      <Card k="UI" title={locale === 'pt-BR' ? 'Serviços visuais nativos' : 'Native visual services'}>
+        {locale === 'pt-BR'
+          ? 'Context, menu de lista, input, alert, notify, TextUI, progress, radial e skillcheck usam os renderizadores PR em vez de copiar a NUI original.'
+          : 'Context, list menu, input, alert, notify, TextUI, progress, radial and skillcheck use PR renderers instead of copying the original NUI.'}
+      </Card>
+      <Card k="TARGET" title={locale === 'pt-BR' ? 'Exports ox_target' : 'ox_target exports'}>
+        {locale === 'pt-BR'
+          ? 'Exports legados são adaptados para a API Target nativa, incluindo autoria/remoção das opções, entidades, modelos, zonas e pickups.'
+          : 'Legacy exports adapt into native Target APIs including option ownership/removal, entities, models, zones and pickups.'}
+      </Card>
+      <Card k="LOCALES" title={locale === 'pt-BR' ? '33 idiomas incorporados' : '33 bundled locales'}>
+        {locale === 'pt-BR'
+          ? 'Os locales da referência ox são preservados sem impedir que cada resource consumidor mantenha seus próprios arquivos de tradução.'
+          : 'Reference ox locales are preserved while each consuming resource can still keep its own translation files.'}
+      </Card>
+      <Card k="CANONICAL" title={locale === 'pt-BR' ? 'Uma implementação canônica' : 'One canonical implementation'}>
+        {locale === 'pt-BR'
+          ? 'Vehicle properties, streaming, raycast, state, progress, command, keybind, collections e outros serviços não foram duplicados: a borda ox adapta assinatura/protocolo para os módulos PR.'
+          : 'Vehicle properties, streaming, raycast, state, progress, commands, keybinds, collections and other services are not duplicated: the ox edge adapts signatures/protocols into PR modules.'}
+      </Card>
+    </div>
+
+    <h3 className="bridge-subtitle">{locale === 'pt-BR' ? 'Consumidor legado sem reescrita' : 'Legacy consumer without rewrite'}</h3>
+    <Code>{"-- fxmanifest.lua do resource consumidor\nshared_script '@ox_lib/init.lua'\ndependency 'ox_lib'\ndependency 'ox_target'\n\n-- código legado pode permanecer\nlib.registerContext({\n    id = 'service',\n    title = 'Service',\n    options = { { title = 'Open documents' } }\n})\nlib.showContext('service')\n\nexports.ox_target:addLocalEntity(ped, {\n    {\n        name = 'documents',\n        label = 'Open documents',\n        onSelect = function(data)\n            print(data.entity)\n        end\n    }\n})"}</Code>
+
+    <h3 className="bridge-subtitle">{locale === 'pt-BR' ? 'Diferenças de contrato que importam' : 'Contract differences that matter'}</h3>
+    <div className="bridge-card-grid two">
+      <Card k="CALLBACK" title="lib.callback.await">
+        {locale === 'pt-BR'
+          ? 'No client, o segundo argumento continua sendo o intervalo de rate-limit do ox; no server, é o player ID. Isso não é convertido para o timeout da API nativa PR.'
+          : 'On client, the second argument remains the ox rate-limit interval; on server it remains the player ID. It is not reinterpreted as the native PR timeout.'}
+      </Card>
+      <Card k="NIL" title={locale === 'pt-BR' ? 'Retornos com nil preservados' : 'nil returns preserved'}>
+        {locale === 'pt-BR'
+          ? 'O protocolo de callback preserva posições contendo nil, importante para compatibilidade de múltiplos retornos.'
+          : 'Callback protocol preserves positions containing nil, which matters for multiple-return compatibility.'}
+      </Card>
+      <Card k="COMMAND" title={locale === 'pt-BR' ? 'ACE legado permanece estrito' : 'Legacy ACE stays strict'}>
+        {locale === 'pt-BR'
+          ? 'O adapter de comandos converte parâmetros/sugestões para o parser PR, mas chamadas legadas mantêm ACE estrita sem ampliar acesso pela whitelist administrativa.'
+          : 'Command adapter converts parameters/suggestions into the PR parser, but legacy calls retain strict ACE behavior without broadening access through admin whitelist.'}
+      </Card>
+      <Card k="VISUAL" title={locale === 'pt-BR' ? 'Visual PR, não clone pixel-perfect' : 'PR visual, not a pixel-perfect clone'}>
+        {locale === 'pt-BR'
+          ? 'A mecânica e os contratos são o objetivo. Fontes, ícones, animações e layout usam Forge/PR Bridge e não prometem reprodução idêntica do frontend ox original.'
+          : 'Mechanics and contracts are the goal. Fonts, icons, animation and layout use Forge/PR Bridge and do not promise a pixel-identical copy of the original ox frontend.'}
+      </Card>
+      <Card k="HOTSWAP" title={locale === 'pt-BR' ? 'Sem hot-swap transparente' : 'No transparent hot-swap'}>
+        {locale === 'pt-BR'
+          ? 'Ao trocar entre ox original e PR Bridge, reinicie o bridge e os consumers. O FiveM mantém referências de exports em cache.'
+          : 'When switching between original ox and PR Bridge, restart bridge and consumers. FiveM caches export references.'}
+      </Card>
+      <Card k="VERSION" title={locale === 'pt-BR' ? 'Versão do manifest' : 'Manifest version'}>
+        {locale === 'pt-BR'
+          ? "lib.checkDependency('ox_lib', ...) usa o contrato 3.38.0, mas um GetResourceMetadata direto pode enxergar a versão 1.4.2 do resource substituto."
+          : "lib.checkDependency('ox_lib', ...) uses the 3.38.0 contract, while direct GetResourceMetadata may see the substitute resource version 1.4.2."}
+      </Card>
+    </div>
+
+    <div className="bridge-note">
+      <strong>{locale === 'pt-BR' ? 'Estado de homologação' : 'Validation status'}</strong>
+      <p>{locale === 'pt-BR'
+        ? 'A compatibilidade passou pelos builds e testes offline documentados no repositório. A documentação upstream ainda registra a validação completa dentro do FiveM como pendente; não trate isso como certificação de 100% para qualquer script privado.'
+        : 'Compatibility passed documented builds and offline tests. Upstream documentation still marks full in-FiveM validation as pending; do not treat it as 100% certification for every private script.'}</p>
+    </div>
+
+    <ReferenceBlock locale={locale} modules={TOPIC_MODULES[topic]} />
     {commonFooter}
   </div>;
 
   if (topic === 'bridge-architecture') return <div className="bridge-docs bridge-docs-page">
-    <TopicHeader number="03" eyebrow="Runtime" title={d.architectureTitle} />
+    <TopicHeader number="05" eyebrow="Runtime" title={d.architectureTitle} />
     <div className="bridge-card-grid">
       <Card k="LOAD" title="Resource loader">Loads Lua/JSON modules from the consumer or external resources and builds the resource-local pr_lib facade.</Card>
       <Card k="DETECT" title="Provider detection">Reads bridge/config.lua in priority order and records active providers in pr_lib.activeBridges.</Card>
@@ -236,7 +452,7 @@ export default function PrBridgeDocs({ topic = 'bridge-overview', onNavigateTopi
   </div>;
 
   if (topic === 'bridge-framework') return <div className="bridge-docs bridge-docs-page">
-    <TopicHeader number="05" eyebrow="pr_lib.framework" title={d.frameworkTitle} text={d.frameworkP} />
+    <TopicHeader number="07" eyebrow="pr_lib.framework" title={d.frameworkTitle} text={d.frameworkP} />
     <div className="bridge-card-grid two">
       <Card k="PLAYER" title="Player identity & state">Resolve framework player objects, identifiers, source/player data, metadata, job/gang and framework-specific identity fields through one contract.</Card>
       <Card k="ECONOMY" title="Accounts & money">Read, add, remove and set balances without calling QB/ESX/OX APIs directly in business logic.</Card>
@@ -249,7 +465,7 @@ export default function PrBridgeDocs({ topic = 'bridge-overview', onNavigateTopi
   </div>;
 
   if (topic === 'bridge-inventory') return <div className="bridge-docs bridge-docs-page">
-    <TopicHeader number="06" eyebrow="pr_lib.inventory" title={d.inventoryTitle} text={d.inventoryP} />
+    <TopicHeader number="08" eyebrow="pr_lib.inventory" title={d.inventoryTitle} text={d.inventoryP} />
     <div className="bridge-card-grid two">
       <Card k="ITEMS" title="Items & metadata">Normalize item names, amounts/counts, slots, metadata/info fields, labels and images.</Card>
       <Card k="MUTATION" title="Add / remove / clear">Mutate player inventories while preserving the active provider contract.</Card>
@@ -314,7 +530,7 @@ export default function PrBridgeDocs({ topic = 'bridge-overview', onNavigateTopi
 
   if (topic === 'bridge-target') return <div className="bridge-docs bridge-docs-page">
     <TopicHeader
-      number="09"
+      number="19"
       eyebrow="pr_lib.target + pr_lib.interact"
       title={d.targetTitle}
       text={locale === 'pt-BR'
@@ -375,7 +591,7 @@ export default function PrBridgeDocs({ topic = 'bridge-overview', onNavigateTopi
   </div>;
 
   if (topic === 'bridge-cache') return <div className="bridge-docs bridge-docs-page">
-    <TopicHeader number="10" eyebrow="pr_lib.cache" title={d.cacheTitle} text={d.cacheP} />
+    <TopicHeader number="12" eyebrow="pr_lib.cache" title={d.cacheTitle} text={d.cacheP} />
     <Code>{"local profile = pr_lib.cache.remember(('profile:%s'):format(source), function()\n    return pr_lib.db.single('SELECT * FROM profiles WHERE owner = ?', { identifier })\nend, 5000)\n\npr_lib.cache.onChange(('profile:%s'):format(source), function(newValue, oldValue)\n    print('profile cache changed')\nend)\n\npr_lib.cache.clearPrefix('profile:')\npr_lib.cache.InvalidatePlayer(source)"}</Code>
     <ReferenceBlock locale={locale} modules={TOPIC_MODULES[topic]} />
     {commonFooter}
@@ -429,7 +645,7 @@ export default function PrBridgeDocs({ topic = 'bridge-overview', onNavigateTopi
   }
 
   if (topic === 'bridge-security') return <div className="bridge-docs bridge-docs-page">
-    <TopicHeader number="12" eyebrow="Commands / ACE / Keybinds" title={d.securityTitle} text={d.securityP} />
+    <TopicHeader number="20" eyebrow="Commands / ACE / Keybinds" title={d.securityTitle} text={d.securityP} />
     <Code>{"pr_lib.addCommand('setgarage', {\n    help = 'Assign a garage to a player',\n    jobs = { police = 3 },\n    params = {\n        { name='player', type='playerId' },\n        { name='garage', type='string' },\n    }\n}, function(source, params)\n    local target = params.values.player\nend)\n\npr_lib.addKeybind({\n    name='garage_quick_menu',\n    keys='CTRL + G',\n    secondaryKey='F7',\n    onPressed=function() OpenGarageMenu() end,\n})"}</Code>
     <ReferenceBlock locale={locale} modules={TOPIC_MODULES[topic]} />
     {commonFooter}
