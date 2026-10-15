@@ -1,6 +1,13 @@
 import ForgeFlame3D from '../components/ForgeFlame3D';
 import { useI18n } from '../i18n';
 
+const FORGE_COLLABORATORS = [
+  { login: 'lTuks', url: 'https://github.com/lTuks' },
+  { login: 'Spacer-Dev-master', url: 'https://github.com/Spacer-Dev-master' },
+  { login: 'Pierremoraes-ofc', url: 'https://github.com/Pierremoraes-ofc' },
+  { login: 'BHAMMER01', url: 'https://github.com/BHAMMER01' },
+];
+
 export default function About({ onOpenUIKit, onOpenPrBridge, onOpenLegacy }) {
   const { t } = useI18n();
 
@@ -203,6 +210,49 @@ export default function About({ onOpenUIKit, onOpenPrBridge, onOpenLegacy }) {
           <span>{t('nextLabel')}</span>
           <h2>{t('nextTitle')}</h2>
           <p>{t('nextDesc')}</p>
+        </div>
+      </section>
+
+      <section className="docs-section docs-contributors-section">
+        <div className="docs-section-heading">
+          <span>04</span>
+          <div>
+            <p>{t('contributorsLabel')}</p>
+            <h2>{t('contributorsTitle')}</h2>
+          </div>
+        </div>
+
+        <p className="docs-contributors-lead">{t('contributorsDesc')}</p>
+
+        <div className="docs-contributors-grid">
+          {FORGE_COLLABORATORS.map((collaborator) => (
+            <a
+              key={collaborator.login}
+              className="docs-contributor-card"
+              href={collaborator.url}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`${t('contributorsProfile')}: ${collaborator.login}`}
+            >
+              <div className="docs-contributor-avatar-wrap">
+                <img
+                  className="docs-contributor-avatar"
+                  src={`https://github.com/${collaborator.login}.png?size=160`}
+                  alt={`${collaborator.login} GitHub avatar`}
+                  loading="lazy"
+                />
+                <span className="docs-contributor-status" aria-hidden="true" />
+              </div>
+
+              <div className="docs-contributor-copy">
+                <span>{t('contributorsRole')}</span>
+                <strong>{collaborator.login}</strong>
+                <small>@{collaborator.login}</small>
+              </div>
+
+              <span className="docs-contributor-link">{t('contributorsProfile')} ↗</span>
+            </a>
+          ))}
         </div>
       </section>
 
