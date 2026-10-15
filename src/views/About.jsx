@@ -6,6 +6,7 @@ const FORGE_COLLABORATORS = [
   { login: 'Spacer-Dev-master', url: 'https://github.com/Spacer-Dev-master' },
   { login: 'Pierremoraes-ofc', url: 'https://github.com/Pierremoraes-ofc' },
   { login: 'BHAMMER01', url: 'https://github.com/BHAMMER01' },
+  { login: 'ThgSousa', url: 'https://github.com/ThgSousa' },
 ];
 
 export default function About({ onOpenUIKit, onOpenPrBridge, onOpenLegacy }) {
