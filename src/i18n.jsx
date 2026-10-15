@@ -36,6 +36,7 @@ const copy = {
     community: 'Community', communityD: 'Open development, review, contribution and shared technical knowledge.',
     nextLabel: 'Forge ecosystem', nextTitle: 'Made to evolve with the community.',
     nextDesc: 'The documentation will grow with installation guides, architecture, modules, APIs, events, exports, developer tooling, migration paths and platform-specific references.',
+    contributorsLabel: 'Contributors', contributorsTitle: 'People building Forge with us.', contributorsDesc: 'Forge grows through people who contribute code, ideas, testing, documentation and technical direction across the ecosystem.', contributorsRole: 'Forge contributor', contributorsProfile: 'GitHub profile',
     legal: 'Forge is an independent community project and is not affiliated with Rockstar Games or Cfx.re.',
   },
   'pt-BR': {
@@ -64,6 +65,7 @@ const copy = {
     community: 'Comunidade', communityD: 'Desenvolvimento aberto, revisão, contribuição e conhecimento técnico compartilhado.',
     nextLabel: 'Ecossistema Forge', nextTitle: 'Feito para evoluir com a comunidade.',
     nextDesc: 'A documentação crescerá com guias de instalação, arquitetura, módulos, APIs, eventos, exports, ferramentas de desenvolvimento, migração e referências específicas por plataforma.',
+    contributorsLabel: 'Colaboradores', contributorsTitle: 'Quem constrói a Forge com a gente.', contributorsDesc: 'A Forge cresce com pessoas que contribuem com código, ideias, testes, documentação e direção técnica em diferentes partes do ecossistema.', contributorsRole: 'Colaborador Forge', contributorsProfile: 'Perfil no GitHub',
     legal: 'Forge é um projeto comunitário independente e não possui afiliação com Rockstar Games ou Cfx.re.',
   },
   es: {
@@ -92,6 +94,7 @@ const copy = {
     community: 'Comunidad', communityD: 'Desarrollo abierto, revisión, contribución y conocimiento técnico compartido.',
     nextLabel: 'Ecosistema Forge', nextTitle: 'Hecho para evolucionar con la comunidad.',
     nextDesc: 'La documentación crecerá con instalación, arquitectura, módulos, APIs, eventos, exports, herramientas de desarrollo, migración y referencias específicas por plataforma.',
+    contributorsLabel: 'Colaboradores', contributorsTitle: 'Personas que construyen Forge con nosotros.', contributorsDesc: 'Forge crece gracias a personas que contribuyen con código, ideas, pruebas, documentación y dirección técnica en todo el ecosistema.', contributorsRole: 'Colaborador Forge', contributorsProfile: 'Perfil de GitHub',
     legal: 'Forge es un proyecto comunitario independiente y no está afiliado con Rockstar Games ni Cfx.re.',
   },
   fr: {
@@ -120,6 +123,7 @@ const copy = {
     community: 'Communauté', communityD: 'Développement ouvert, revue, contribution et partage des connaissances techniques.',
     nextLabel: 'Écosystème Forge', nextTitle: 'Conçu pour évoluer avec la communauté.',
     nextDesc: 'La documentation s’enrichira avec l’installation, l’architecture, les modules, API, événements, exports, outils de développement, migrations et références propres à chaque plateforme.',
+    contributorsLabel: 'Contributeurs', contributorsTitle: 'Celles et ceux qui construisent Forge avec nous.', contributorsDesc: 'Forge grandit grâce aux personnes qui contribuent au code, aux idées, aux tests, à la documentation et à la direction technique de l’écosystème.', contributorsRole: 'Contributeur Forge', contributorsProfile: 'Profil GitHub',
     legal: 'Forge est un projet communautaire indépendant et n’est affilié ni à Rockstar Games ni à Cfx.re.',
   },
 };
