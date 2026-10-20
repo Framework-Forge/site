@@ -69,7 +69,7 @@ function ScriptIcon({ type }) {
   );
 }
 
-export default function Scripts({ onOpenPrElevator, onOpenForgeCrafting, onOpenForgeGym, onOpenForgeGarage, onOpenForgeNpwd, onOpenForgeDocument, onOpenPr3dSound, onOpenPrCarKeys, onOpenPrMileage }) {
+export default function Scripts({ onOpenPrElevator, onOpenForgeCrafting, onOpenForgeGym, onOpenForgeGarage, onOpenForgeNpwd, onOpenForgeDocument, onOpenPr3dSound, onOpenPrCarKeys, onOpenPrMileage, onOpenForgeFps }) {
   const { t, locale } = useI18n();
 
   const entries = [
@@ -125,6 +125,13 @@ export default function Scripts({ onOpenPrElevator, onOpenForgeCrafting, onOpenF
       description: t('legacyPrCarKeysDesc'),
       tags: ['Vehicle Keys', 'PR Bridge', 'Hotwire', 'Carjack', 'Key Bags', 'Security'],
       onOpen: onOpenPrCarKeys,
+    },
+    {
+      name: 'forge-fps',
+      type: 'mileage',
+      description: t('legacyForgeFpsDesc'),
+      tags: ['Performance', 'FPS', 'Benchmark', 'Admin Policy', 'Svelte'],
+      onOpen: onOpenForgeFps,
     },
     {
       name: 'pr_mileage',
