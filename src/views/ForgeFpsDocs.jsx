@@ -183,7 +183,7 @@ export default function ForgeFpsDocs() {
       <section className="docs-section" id="fps-admin">
         <SectionTitle number="06" label={pt ? 'Administração' : 'Administration'} title={pt ? 'O painel administrativo publica permissões e limites no servidor, não apenas esconde opções na NUI.' : 'The admin panel publishes permissions and limits server-side instead of merely hiding options in the UI.'} />
 
-        <LuaCodeBlock>{"FpsServerConfig = {
+        <LuaCodeBlock>{`FpsServerConfig = {
     Ace = 'forge.fps.admin',
     InheritAce = 'forge-core.admin',
     PolicyFile = 'admin-policy.json',
@@ -191,7 +191,7 @@ export default function ForgeFpsDocs() {
         -- pedDensity = { allowed = true, min = 0.5 },
         -- lodScale = { allowed = true, min = 0.7 },
     }
-}"}</LuaCodeBlock>
+}`}</LuaCodeBlock>
 
         <div className="crafting-feature-grid">
           <Card eyebrow="ACE" title="forge.fps.admin">{pt ? 'Permissão administrativa específica do Forge FPS.' : 'Dedicated Forge FPS administrative permission.'}</Card>
@@ -216,23 +216,23 @@ export default function ForgeFpsDocs() {
         <div className="docs-prose">
           <p>{pt ? 'Para alguns natives, o GTA não fornece um getter que permita capturar com segurança o estado anterior. Nesses casos o Forge FPS não presume que conhece o valor original. O servidor precisa conceder exclusive=true através de server/config.lua e fornecer uma baseline válida.' : 'For some natives GTA provides no getter to safely capture previous state. Forge FPS therefore does not pretend it knows the original value. The server must grant exclusive ownership in server/config.lua and provide a valid baseline.'}</p>
         </div>
-        <LuaCodeBlock>{"Exclusive = {
+        <LuaCodeBlock>{`Exclusive = {
     distantCars = { enabled = true, baseline = true },
     filmGrain = { enabled = true, baseline = 1.0 },
     shadowMode = { enabled = true, baseline = 'CSM_ST_SOFT16' },
     pedPopulationBudget = { enabled = true, baseline = 3 },
     shadowDistance = { enabled = true, baseline = 1.0 },
-}"}</LuaCodeBlock>
+}`}</LuaCodeBlock>
         <div className="xt-note warning"><strong>{pt ? 'Regra de segurança' : 'Safety rule'}</strong><p>{pt ? 'Se outro resource também controla um parâmetro exclusivo, não conceda ownership simultâneo sem coordenar os dois. A baseline é uma declaração do administrador, não uma captura automática.' : 'If another resource controls an exclusive parameter, do not grant simultaneous ownership without coordinating both. Baseline is an administrator declaration, not an automatic capture.'}</p></div>
       </section>
 
       <section className="docs-section" id="fps-metrics">
         <SectionTitle number="08" label={pt ? 'Métricas' : 'Metrics'} title={pt ? 'O painel separa FPS instantâneo, média da janela, frametime e 1% low.' : 'The panel separates instantaneous FPS, window average, frametime and 1% low.'} />
-        <LuaCodeBlock>{"FPS do quadro = 1000 / frametime_ms
+        <LuaCodeBlock>{`FPS do quadro = 1000 / frametime_ms
 
 FPS médio do benchmark = frames / elapsed_seconds
 
-1% low = 1000 / média dos 1% frametimes mais lentos"}</LuaCodeBlock>
+1% low = 1000 / média dos 1% frametimes mais lentos`}</LuaCodeBlock>
         <div className="crafting-feature-grid">
           <Card eyebrow="FRAME" title={pt ? 'Até 250 ms no HUD' : 'Up to 250 ms HUD updates'}>{pt ? 'O contador fechado recebe atualizações compactas, sem copiar o catálogo inteiro.' : 'Closed HUD receives compact updates without copying the full catalog.'}</Card>
           <Card eyebrow="WINDOW" title="10s">{pt ? 'Config.WindowSeconds define a janela de amostras usada nas métricas correntes.' : 'Config.WindowSeconds defines the current metric sample window.'}</Card>
@@ -281,27 +281,27 @@ FPS médio do benchmark = frames / elapsed_seconds
         </div>
 
         <h3 className="xt-subheading">{pt ? 'Callbacks NUI registrados' : 'Registered NUI callbacks'}</h3>
-        <LuaCodeBlock>{"ready
+        <LuaCodeBlock>{`ready
 close
 save
 reset
 preset
 adminPolicyRefresh
 adminPolicySave
-benchmark"}</LuaCodeBlock>
+benchmark`}</LuaCodeBlock>
 
         <h3 className="xt-subheading">{pt ? 'Eventos de rede registrados' : 'Registered network events'}</h3>
-        <LuaCodeBlock>{"forge-fps:policy:request        -- server
+        <LuaCodeBlock>{`forge-fps:policy:request        -- server
 forge-fps:policy:save           -- server
 forge-fps:policy:updated        -- client
 forge-fps:policy:reply          -- client
 forge-fps:ping:request          -- server
-forge-fps:ping:reply            -- client"}</LuaCodeBlock>
+forge-fps:ping:reply            -- client`}</LuaCodeBlock>
       </section>
 
       <section className="docs-section" id="fps-api">
         <SectionTitle number="13" label="API" title={pt ? 'Quatro exports client permitem abrir, consultar e coordenar o Forge FPS com outros resources.' : 'Four client exports let other resources open, inspect and coordinate Forge FPS.'} />
-        <LuaCodeBlock>{"exports['forge-fps']:Open()
+        <LuaCodeBlock>{`exports['forge-fps']:Open()
 
 local settings = exports['forge-fps']:GetSettings()
 local metrics = exports['forge-fps']:GetMetrics()
@@ -310,7 +310,7 @@ local metrics = exports['forge-fps']:GetMetrics()
 exports['forge-fps']:SetSuspended(true)
 
 -- Ao finalizar a cena:
-exports['forge-fps']:SetSuspended(false)"}</LuaCodeBlock>
+exports['forge-fps']:SetSuspended(false)`}</LuaCodeBlock>
         <div className="crafting-api-list">
           <article><code>Open()</code><p>{pt ? 'Abre o painel local.' : 'Opens the local panel.'}</p></article>
           <article><code>GetSettings()</code><p>{pt ? 'Retorna cópia das preferências atuais.' : 'Returns a copy of current preferences.'}</p></article>
@@ -321,7 +321,7 @@ exports['forge-fps']:SetSuspended(false)"}</LuaCodeBlock>
 
       <section className="docs-section" id="fps-config">
         <SectionTitle number="14" label={pt ? 'Configuração' : 'Configuration'} title={pt ? 'Os defaults públicos ficam em config.lua; autoridade administrativa e baselines ficam em server/config.lua.' : 'Public defaults live in config.lua; administrative authority and baselines live in server/config.lua.'} />
-        <LuaCodeBlock>{"Config = {
+        <LuaCodeBlock>{`Config = {
     Command = 'fps',
     Key = 'F10',
     StorageKey = 'forge-fps:preferences:v1',
@@ -332,7 +332,7 @@ exports['forge-fps']:SetSuspended(false)"}</LuaCodeBlock>
     BenchmarkSeconds = 10,
     AutoCooldownSeconds = 20,
     WindowSeconds = 10,
-}"}</LuaCodeBlock>
+}`}</LuaCodeBlock>
         <div className="xt-note"><strong>Config.TestEffects</strong><p>{pt ? 'Define somente o estado inicial de cinco testes de renderização em instalação nova. Depois que uma policy é publicada, o arquivo administrativo salvo prevalece.' : 'Only defines initial defaults for five rendering tests on fresh installs. Once policy is published, the saved administrative policy takes precedence.'}</p></div>
       </section>
 
@@ -349,10 +349,10 @@ exports['forge-fps']:SetSuspended(false)"}</LuaCodeBlock>
 
       <section className="docs-section" id="fps-dev">
         <SectionTitle number="16" label={pt ? 'Interface e desenvolvimento' : 'UI and development'} title={pt ? 'A NUI original fica em web/src e o FiveM consome somente web/dist.' : 'Original NUI source lives in web/src while FiveM consumes only web/dist.'} />
-        <LuaCodeBlock>{"cd web
+        <LuaCodeBlock>{`cd web
 npm ci --ignore-scripts
 npm run check
-npm run build"}</LuaCodeBlock>
+npm run build`}</LuaCodeBlock>
         <div className="crafting-feature-grid">
           <Card eyebrow="SVELTE" title="Svelte 5">{pt ? 'Painel moderno compilado para assets estáticos.' : 'Modern panel compiled to static assets.'}</Card>
           <Card eyebrow="LOCALE" title="pt-BR / en-US / es / fr">{pt ? 'O client lê o locale existente do PR Bridge através de GetCachedState(\'locale\') quando o bridge está iniciado.' : 'Client reads the existing PR Bridge locale through GetCachedState(\'locale\') when the bridge is running.'}</Card>
