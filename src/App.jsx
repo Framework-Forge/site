@@ -15,6 +15,7 @@ import ForgeDocumentDocs from './views/ForgeDocumentDocs';
 import Pr3dSoundDocs from './views/Pr3dSoundDocs';
 import PrCarKeysDocs from './views/PrCarKeysDocs';
 import PrMileageDocs from './views/PrMileageDocs';
+import ForgeFpsDocs from './views/ForgeFpsDocs';
 import PrBridgeDocs from './views/PrBridgeDocs';
 import { npwdNavigation } from './data/forgeNpwdNavigation';
 import forgeLogo from './assets/forge_legacy_logo.png';
@@ -22,7 +23,7 @@ import { AutoTranslate, LanguageProvider, LANGUAGES, useI18n } from './i18n';
 import './docs.css';
 
 const ForgeNpwdDocs = React.lazy(() => import('./views/ForgeNpwdDocs'));
-const isScriptSection = section => ['scripts', 'pr-elevator', 'forge-crafting', 'forge-gym', 'forge-garage', 'forge-npwd', 'forge-dk', 'pr-3dsound', 'pr-carkeys', 'pr-mileage'].includes(section);
+const isScriptSection = section => ['scripts', 'pr-elevator', 'forge-crafting', 'forge-gym', 'forge-garage', 'forge-npwd', 'forge-dk', 'pr-3dsound', 'pr-carkeys', 'pr-mileage', 'forge-fps'].includes(section);
 
 function PhoneIcon() {
   return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="docs-submenu-icon" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 5h4M11 18h2"/></svg>;
@@ -163,6 +164,18 @@ function OdometerIcon() {
       <path d="M7 17h10" />
       <path d="m12 13 4-4" />
       <path d="M6.5 10.5 8 12M17.5 10.5 16 12M12 7v2" />
+    </svg>
+  );
+}
+
+function FpsGaugeIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" className="docs-submenu-icon" aria-hidden="true">
+      <path d="M4 17a8 8 0 1 1 16 0" />
+      <path d="M7 17h10" />
+      <path d="m12 13 3.5-4.5" />
+      <path d="M7 8.5 8.5 10M17 8.5 15.5 10M12 6v2" />
+      <path d="M9 20h6" />
     </svg>
   );
 }
@@ -744,6 +757,22 @@ function ForgeDocs() {
                         <small>{t('mileageNavDescription')}</small>
                       </span>
                     </button>
+                    <button
+                      type="button"
+                      className={`docs-submenu-item docs-submenu-item--icon ${currentSection === 'forge-fps' ? 'active' : ''}`}
+                      onClick={() => {
+                        setBridgeMenuOpen(false);
+                        setUiMenuOpen(false);
+                        setScriptsMenuOpen(true);
+                        navigateTo('forge-fps');
+                      }}
+                    >
+                      <FpsGaugeIcon />
+                      <span className="docs-submenu-copy">
+                        <span>forge-fps</span>
+                        <small>{t('fpsNavDescription')}</small>
+                      </span>
+                    </button>
                   </div>
                 )}
               </li>
@@ -891,7 +920,7 @@ function ForgeDocs() {
             />
           )}
           {currentSection === 'legacy' && <ForgeLegacy onOpenPrElevator={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('pr-elevator'); }} onOpenForgeCrafting={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('forge-crafting'); }} onOpenForgeGym={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('forge-gym'); }} />}
-          {currentSection === 'scripts' && <Scripts onOpenPrElevator={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('pr-elevator'); }} onOpenForgeCrafting={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('forge-crafting'); }} onOpenForgeGym={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('forge-gym'); }} onOpenForgeGarage={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('forge-garage'); }} onOpenForgeNpwd={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('forge-npwd'); }} onOpenForgeDocument={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('forge-dk'); }} onOpenPr3dSound={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('pr-3dsound'); }} onOpenPrCarKeys={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('pr-carkeys'); }} onOpenPrMileage={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('pr-mileage'); }} />}
+          {currentSection === 'scripts' && <Scripts onOpenPrElevator={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('pr-elevator'); }} onOpenForgeCrafting={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('forge-crafting'); }} onOpenForgeGym={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('forge-gym'); }} onOpenForgeGarage={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('forge-garage'); }} onOpenForgeNpwd={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('forge-npwd'); }} onOpenForgeDocument={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('forge-dk'); }} onOpenPr3dSound={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('pr-3dsound'); }} onOpenPrCarKeys={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('pr-carkeys'); }} onOpenPrMileage={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('pr-mileage'); }} onOpenForgeFps={() => { setBridgeMenuOpen(false); setUiMenuOpen(false); setScriptsMenuOpen(true); navigateTo('forge-fps'); }} />}
           {currentSection === 'forge-npwd' && <React.Suspense fallback={<p role="status" style={{ padding: 30 }}>Forge NPWD…</p>}><ForgeNpwdDocs/></React.Suspense>}
           {currentSection === 'xt-prison' && <XtPrisonDocs />}
           {currentSection === 'pr-elevator' && <PrElevatorDocs />}
@@ -904,6 +933,7 @@ function ForgeDocs() {
           {currentSection === 'pr-3dsound' && <Pr3dSoundDocs />}
           {currentSection === 'pr-carkeys' && <PrCarKeysDocs />}
           {currentSection === 'pr-mileage' && <PrMileageDocs />}
+          {currentSection === 'forge-fps' && <ForgeFpsDocs />}
           {currentSection === 'pr-bridge' && <PrBridgeDocs topic={activeBridgeTopic} onNavigateTopic={openBridgeTopic} />}
           {currentSection === 'uikit' && (
             <>
